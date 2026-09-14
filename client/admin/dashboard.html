@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>School ID Scanner | Attendance System</title>
+    <meta name="description" content="A premium web-based school attendance monitoring system using barcode technology.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/regular/style.css">
+    <link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/bold/style.css">
+    <link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/fill/style.css">
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <div class="app-container">
+
+        <!-- ── Sidebar Navigation ── -->
+        <nav class="sidebar">
+            <div class="logo-container">
+                <div class="logo-icon"><i class="ph-bold ph-scan"></i></div>
+                <h1 class="logo-text">School<span>Sync</span></h1>
+            </div>
+
+            <ul class="nav-links">
+                <li>
+                    <a href="#" class="nav-item active" data-target="dashboard-view" data-title="Dashboard">
+                        <i class="ph ph-squares-four"></i>
+                        <span>Dashboard</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="nav-item" data-target="scanner-view" data-title="Scan Barcode">
+                        <i class="ph ph-camera"></i>
+                        <span>Scan Barcode</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="nav-item" data-target="register-view" data-title="Register Student">
+                        <i class="ph ph-user-plus"></i>
+                        <span>Register Student</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="nav-item" data-target="students-view" data-title="Students">
+                        <i class="ph ph-student"></i>
+                        <span>Students</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="nav-item" data-target="teachers-view" data-title="Teachers">
+                        <i class="ph ph-chalkboard-teacher"></i>
+                        <span>Teachers</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="nav-item" data-target="logs-view" data-title="Attendance Logs">
+                        <i class="ph ph-list-dashes"></i>
+                        <span>Attendance Logs</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+
+        <!-- ── Main Content Area ── -->
+        <main class="main-content">
+
+            <!-- Header -->
+            <header class="top-header">
+                <h2 id="page-title">Dashboard</h2>
+                <div class="header-actions">
+                    <button class="header-profile" id="admin-profile-trigger" type="button" aria-label="Open profile settings">
+                        <div class="header-profile-avatar" id="admin-profile-initials">A</div>
+                        <div class="header-profile-copy">
+                            <strong id="admin-profile-name">Administrator</strong>
+                            <span id="admin-profile-role">Admin</span>
+                        </div>
+                    </button>
+                    <div class="time-display" id="current-time">00:00:00 AM</div>
+                    <button id="logout-btn" class="btn outline-btn" type="button" title="Sign out">
+                        <i class="ph ph-sign-out"></i> Sign out
+                    </button>
+                </div>
+            </header>
+
+            <!-- Views Container -->
+            <div class="views-container">
+
+                <!-- ── Dashboard View ── -->
+                <section id="dashboard-view" class="view active">
+                    <div class="stats-grid">
+                        <div class="stat-card glass-panel">
+                            <div class="stat-icon present"><i class="ph ph-check-circle"></i></div>
+                            <div class="stat-info">
+                                <h3>Present Today</h3>
+                                <p class="stat-value" id="stat-present">0</p>
+                            </div>
+                        </div>
+                        <div class="stat-card glass-panel">
+                            <div class="stat-icon total"><i class="ph ph-users"></i></div>
+                            <div class="stat-info">
+                                <h3>Total Students</h3>
+                                <p class="stat-value" id="stat-total">0</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="recent-activity glass-panel mt-4">
+                        <h3>Recent Scans</h3>
+                        <div class="table-responsive">
+                            <table class="data-table">
+                                <thead>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>ID</th>
+                                        <th>Time Scanned</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="recent-scans-body">
+                                    <tr class="empty-row">
+                                        <td colspan="4">No recent activity</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- ── Scanner View ── -->
+                <section id="scanner-view" class="view">
+                    <div class="scanner-container glass-panel">
+                        <div class="scanner-header">
+                            <h3>Barcode Scanner</h3>
+                            <p>Position the barcode within the frame</p>
+                        </div>
+
+                        <div class="camera-wrapper">
+                            <div id="reader"></div>
+                        </div>
+
+                        <div class="scanner-controls">
+                            <button id="start-scan-btn" class="btn primary-btn">
+                                <i class="ph ph-camera"></i> Start Camera
+                            </button>
+                            <button id="stop-scan-btn" class="btn secondary-btn hidden">
+                                <i class="ph ph-stop-circle"></i> Stop Camera
+                            </button>
+                        </div>
+
+                        <div id="scan-result" class="scan-result hidden">
+                            <!-- Feedback populated by JS -->
+                        </div>
+                    </div>
+                </section>
+
+                <!-- ── Register Student View ── -->
+                <section id="register-view" class="view">
+                    <div class="register-grid">
+                        <div class="register-form-container glass-panel">
+                            <h3>Register New Student</h3>
+                            <form id="register-form">
+                                <div class="form-group">
+                                    <label for="user-name">Student Full Name</label>
+                                    <input type="text" id="user-name" required placeholder="e.g. John Smith">
+                                </div>
+                                <div class="form-group">
+                                    <label for="user-id">Student ID Number</label>
+                                    <input type="text" id="user-id" required placeholder="e.g. 2024-00123">
+                                </div>
+                                <div class="form-group">
+                                    <label for="user-grade">College / Department</label>
+                                    <select id="user-grade">
+                                        <option value="" disabled selected>Select your department</option>
+                                        <option value="IT">IT</option>
+                                        <option value="Marine Engineering">Marine Engineering</option>
+                                        <option value="Electrical Engineering">Electrical Engineering</option>
+                                        <option value="CE Engineering">CE Engineering</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="user-adviser">Student Adviser</label>
+                                    <input type="text" id="user-adviser" required placeholder="e.g. Prof. Maria Santos">
+                                </div>
+                                <button type="submit" class="btn primary-btn w-full">
+                                    <i class="ph ph-qr-code"></i> Generate ID QR Code
+                                </button>
+                            </form>
+                        </div>
+
+                        <div class="barcode-preview-container glass-panel">
+                            <h3>Generated QR Code</h3>
+                            <div class="barcode-wrapper" id="barcode-output-container">
+                                <div class="empty-state" id="barcode-empty-state">
+                                    <i class="ph ph-qr-code"></i>
+                                    <p>Submit the form to generate a QR Code</p>
+                                </div>
+                                <div id="qrcode" style="display:none; text-align:center;"></div>
+                            </div>
+                            <div class="barcode-actions hidden" id="barcode-actions">
+                                <button id="print-barcode-btn" class="btn outline-btn">
+                                    <i class="ph ph-printer"></i> Print
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- ── Students View ── -->
+                <section id="students-view" class="view">
+                    <div class="students-container glass-panel">
+                        <div class="students-header">
+                            <h3>Registered Students</h3>
+                            <p class="students-count" id="students-count">0 students registered</p>
+                        </div>
+                        <div id="students-grid" class="students-grid">
+                            <!-- Dynamic student cards injected by JS -->
+                            <div class="empty-students" id="students-empty-state">
+                                <i class="ph ph-users"></i>
+                                <p>No students registered yet</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- ── Teachers View ── -->
+                <section id="teachers-view" class="view">
+                    <div class="teacher-management-grid">
+                        <div class="register-form-container glass-panel">
+                            <h3>Register New Teacher</h3>
+                            <form id="teacher-form">
+                                <div class="form-group">
+                                    <label for="teacher-name">Teacher Full Name</label>
+                                    <input type="text" id="teacher-name" required placeholder="e.g. Maria Santos">
+                                </div>
+                                <div class="form-group">
+                                    <label for="teacher-id">Teacher ID Number</label>
+                                    <input type="text" id="teacher-id" required placeholder="e.g. T-2024-001">
+                                </div>
+                                <div class="form-group">
+                                    <label for="teacher-department">Department</label>
+                                    <select id="teacher-department" required>
+                                        <option value="" disabled selected>Select a department</option>
+                                        <option value="IT">IT</option>
+                                        <option value="Marine Engineering">Marine Engineering</option>
+                                        <option value="Electrical Engineering">Electrical Engineering</option>
+                                        <option value="CE Engineering">CE Engineering</option>
+                                    </select>
+                                </div>
+                                <button type="submit" class="btn primary-btn w-full"><i class="ph ph-user-plus"></i> Add Teacher</button>
+                            </form>
+                        </div>
+                        <div class="glass-panel teacher-list-panel">
+                            <div class="students-header">
+                                <h3>Registered Teachers</h3>
+                                <p class="students-count" id="teachers-count">0 teachers registered</p>
+                            </div>
+                            <div class="table-responsive">
+                                <table class="data-table">
+                                    <thead><tr><th>Name</th><th>ID</th><th>Department</th><th>Action</th></tr></thead>
+                                    <tbody id="teachers-body"><tr class="empty-row"><td colspan="4">No teachers registered yet</td></tr></tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- ── Attendance Logs View ── -->
+                <section id="logs-view" class="view">
+                    <div class="logs-container glass-panel">
+                        <div class="logs-header">
+                            <h3>Complete Attendance Logs</h3>
+                            <div class="logs-filters">
+                                <input type="date" id="filter-date" class="date-picker">
+                                <button id="clear-logs-btn" class="btn danger-btn">
+                                    <i class="ph ph-trash"></i> Clear Data
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="table-responsive mt-4">
+                            <table class="data-table">
+                                <thead>
+                                    <tr>
+                                        <th>Date</th>
+                                        <th>Time</th>
+                                        <th>ID</th>
+                                        <th>Name</th>
+                                        <th>Department</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="full-logs-body">
+                                    <tr class="empty-row">
+                                        <td colspan="6">No records found</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </section>
+
+            </div><!-- /views-container -->
+        </main>
+    </div><!-- /app-container -->
+
+    <div id="admin-profile-modal" class="admin-profile-modal hidden" role="dialog" aria-modal="true" aria-labelledby="admin-profile-title">
+        <div class="admin-profile-backdrop" data-close-admin-profile></div>
+        <section class="admin-profile-panel">
+            <button class="admin-profile-close" type="button" data-close-admin-profile aria-label="Close"><i class="ph ph-x"></i></button>
+            <div class="admin-profile-cover"></div>
+            <div class="admin-profile-summary">
+                <div class="admin-profile-preview admin-profile-summary-avatar" id="admin-profile-preview">A</div>
+                <div>
+                    <p class="modal-kicker">SchoolSync profile</p>
+                    <h2 id="admin-profile-title">Your profile</h2>
+                    <strong id="admin-profile-summary-name">Administrator</strong>
+                    <span id="admin-profile-summary-role">Admin</span>
+                    <p id="admin-profile-summary-bio">Add a short bio to tell your school community about you.</p>
+                    <a id="admin-profile-summary-contact" href="mailto:">Contact by email</a>
+                </div>
+            </div>
+            <div class="admin-profile-actions"><button class="btn outline-btn" id="admin-welcome" type="button"><i class="ph ph-house"></i> Welcome page</button><button class="btn outline-btn admin-open-privacy" id="admin-open-privacy" type="button"><i class="ph ph-lock-simple"></i> Privacy</button><button class="btn primary-btn" id="admin-edit-profile" type="button"><i class="ph ph-pencil-simple"></i> Edit profile</button></div>
+            <form id="admin-profile-form" class="hidden">
+                <div class="admin-profile-image-row">
+                    <label class="admin-image-upload">Add image<input type="file" id="admin-profile-image" accept="image/png,image/jpeg,image/webp"></label>
+                </div>
+                <label>Name<input type="text" id="admin-profile-edit-name" required maxlength="120"></label>
+                <label>Bio<textarea id="admin-profile-edit-bio" maxlength="500" rows="4" placeholder="Tell your school community a little about you."></textarea></label>
+                <div class="admin-profile-form-actions"><button class="btn outline-btn" id="admin-cancel-profile" type="button">Cancel</button><button class="btn primary-btn" type="submit">Save profile</button></div>
+            </form>
+            <p id="admin-profile-message" class="admin-profile-message"></p>
+        </section>
+    </div>
+
+    <div id="admin-privacy-modal" class="admin-profile-modal hidden" role="dialog" aria-modal="true" aria-labelledby="admin-privacy-title">
+        <div class="admin-profile-backdrop" data-close-admin-privacy></div>
+        <section class="admin-profile-panel">
+            <button class="admin-profile-close" type="button" data-close-admin-privacy aria-label="Close"><i class="ph ph-x"></i></button>
+            <p class="modal-kicker">Account privacy</p>
+            <h2 id="admin-privacy-title">Privacy settings</h2>
+            <form id="admin-privacy-form">
+                <label>Profile visibility<select id="admin-profile-visibility"><option value="public">Public profile</option><option value="private">Private profile</option></select></label>
+                <label class="admin-checkbox-label"><input type="checkbox" id="admin-show-email"> Show my email address on my profile</label>
+                <label>Email<input type="email" id="admin-privacy-email" required maxlength="255"></label>
+                <p class="admin-profile-note">Leave password fields empty to keep the current password.</p>
+                <label>Current password<input type="password" id="admin-current-password"></label>
+                <label>New password<input type="password" id="admin-new-password" minlength="6"></label>
+                <label>Confirm new password<input type="password" id="admin-confirm-password" minlength="6"></label>
+                <button class="btn primary-btn w-full" type="submit">Save privacy</button>
+            </form>
+            <p id="admin-privacy-message" class="admin-profile-message"></p>
+        </section>
+    </div>
+
+    <!-- Libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <script src="https://unpkg.com/html5-qrcode" type="text/javascript"></script>
+    <script src="../database.js"></script>
+    <!-- App Logic -->
+    <script src="app.js"></script>
+</body>
+
+</html>
