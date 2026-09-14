@@ -1926,3 +1926,9 @@ h2 {
     background: rgba(239, 68, 68, .15);
     border-color: rgba(239, 68, 68, .6);
 }
+
+/* Teacher name label inside student schedule card */
+.sched-teacher {
+    opacity: .5;
+    font-size: .73rem;
+}

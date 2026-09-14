@@ -400,7 +400,26 @@ async function renderDashboard(account) {
     // Third card: students get their ID card w/ QR, teachers get their schedule
     if (account.role === 'student') {
         await renderStudentIdCard(account, logs);
+        // Show the student schedule card and populate with all teachers' schedules
+        const studentSchedCard = document.getElementById('student-schedule-card');
+        studentSchedCard.classList.remove('hidden');
+        const allSchedules = await SchoolSyncDB.getSchedules();
+        const studentSchedBody = document.getElementById('student-schedule-card-body');
+        if (!allSchedules.length) {
+            studentSchedBody.innerHTML = `<div class="schedule-empty-state"><i class="ph ph-calendar-blank"></i><p>No schedule posted yet.</p></div>`;
+        } else {
+            studentSchedBody.innerHTML = allSchedules.map(s => `
+                <div class="schedule-row">
+                    <span class="sched-day-badge">${s.dayOfWeek.slice(0, 3)}</span>
+                    <div class="sched-info">
+                        <div class="sched-subject">${s.subject}</div>
+                        <div class="sched-meta">${formatTime(s.startTime)} – ${formatTime(s.endTime)}${s.room ? ` · ${s.room}` : ''}<span class="sched-teacher"> · ${s.teacherName}</span></div>
+                    </div>
+                </div>`).join('');
+        }
     } else {
+        // Hide student schedule card for teachers
+        document.getElementById('student-schedule-card').classList.add('hidden');
         const card = document.getElementById('schedule-card');
         const label = card.querySelector('.card-label span');
         if (label) label.textContent = 'Schedule';
