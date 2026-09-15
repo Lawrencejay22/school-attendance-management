@@ -340,6 +340,12 @@ async function handleApi(request, response, pathname) {
         return sendJson(response, 200, { ok: true });
     }
 
+    if (request.method === 'DELETE' && pathname.startsWith('/api/attendance/')) {
+        const attendanceId = decodeURIComponent(pathname.slice('/api/attendance/'.length));
+        await pool.execute('DELETE FROM attendance WHERE id = ?', [attendanceId]);
+        return sendJson(response, 200, { ok: true });
+    }
+
     if (request.method === 'DELETE' && pathname === '/api/attendance') {
         await pool.execute('DELETE FROM attendance');
         return sendJson(response, 200, { ok: true });

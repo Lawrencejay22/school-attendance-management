@@ -379,7 +379,7 @@ async function renderDashboard(account) {
         logList.innerHTML = top8.length
             ? top8.map(log => {
                 const st = (log.status || 'Present').toLowerCase();
-                return `<div class="log-row log-row-editable">
+                return `<div class="log-row log-row-editable" data-log-id="${log.id}">
                     <span class="log-icon log-icon-${st}"><i class="ph-fill ph-${st === 'present' ? 'check' : st === 'late' ? 'clock' : 'x'}"></i></span>
                     <div class="log-row-info">
                         <strong>${log.userName}</strong>
@@ -390,6 +390,9 @@ async function renderDashboard(account) {
                         <option value="Late"    ${log.status === 'Late' ? 'selected' : ''}>Late</option>
                         <option value="Absent"  ${log.status === 'Absent' ? 'selected' : ''}>Absent</option>
                     </select>
+                    <button class="log-remove-btn" data-log-id="${log.id}" title="Remove this record" style="background:none;border:none;cursor:pointer;color:#ef4444;padding:4px 6px;border-radius:6px;font-size:1rem;line-height:1;transition:background 0.15s;" aria-label="Remove attendance record">
+                        <i class="ph ph-trash"></i>
+                    </button>
                 </div>`;
             }).join('')
             : '<div class="empty-log">No attendance scans yet.</div>';
@@ -408,6 +411,21 @@ async function renderDashboard(account) {
                     icon.className = `log-icon log-icon-${newStatus.toLowerCase()}`;
                     icon.innerHTML = `<i class="ph-fill ph-${iconName}"></i>`;
                     // Refresh My Class panel if visible
+                    if (account.role === 'teacher') await updateClassStats();
+                } catch (err) {
+                    alert(err.message);
+                }
+            });
+        });
+
+        // Remove individual log entry
+        logList.querySelectorAll('.log-remove-btn').forEach(btn => {
+            btn.addEventListener('click', async () => {
+                const lid = btn.dataset.logId;
+                if (!confirm('Remove this attendance record?')) return;
+                try {
+                    await SchoolSyncDB.removeLog(lid);
+                    btn.closest('.log-row').remove();
                     if (account.role === 'teacher') await updateClassStats();
                 } catch (err) {
                     alert(err.message);

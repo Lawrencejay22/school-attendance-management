@@ -68,6 +68,9 @@ const SchoolSyncDB = (() => {
                 body: JSON.stringify({ status })
             });
         },
+        async removeLog(id) {
+            return request(`/api/attendance/${encodeURIComponent(id)}`, { method: 'DELETE' });
+        },
         async getSchedules(teacherId) {
             const qs = teacherId ? `?teacherId=${encodeURIComponent(teacherId)}` : '';
             return (await request(`/api/schedules${qs}`)).schedules;
