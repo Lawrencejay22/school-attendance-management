@@ -18,7 +18,7 @@ CREATE TABLE IF NOT EXISTS accounts (
     password_hash    VARCHAR(255) NOT NULL,
     role             ENUM('admin', 'teacher', 'student') NOT NULL,
     student_id       VARCHAR(100) NULL,               -- only for role='student'
-    bio              TEXT         NOT NULL DEFAULT '',
+    bio              TEXT,
     profile_image    LONGTEXT     NULL,
     profile_visibility VARCHAR(20) NOT NULL DEFAULT 'public',
     show_email       TINYINT(1)  NOT NULL DEFAULT 1,

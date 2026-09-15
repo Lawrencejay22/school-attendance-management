@@ -17,7 +17,8 @@ const pool = mysql.createPool({
     database: process.env.MYSQL_DATABASE || 'ADMIN_attendance',
     waitForConnections: true,
     connectionLimit: 10,
-    dateStrings: true
+    dateStrings: true,
+    ssl: process.env.MYSQL_HOST && process.env.MYSQL_HOST.includes('aivencloud') ? { rejectUnauthorized: false } : undefined
 });
 
 const jsonHeaders = {
