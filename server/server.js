@@ -279,13 +279,13 @@ async function handleApi(request, response, pathname) {
         const teacherId = new URL(request.url, `http://${request.headers.host}`).searchParams.get('teacherId');
         if (teacherId) {
             const [rows] = await pool.execute(
-                'SELECT id, teacher_id AS teacherId, teacher_name AS teacherName, subject, day_of_week AS dayOfWeek, start_time AS startTime, end_time AS endTime, room, created_at AS createdAt FROM schedules WHERE teacher_id = ? ORDER BY FIELD(day_of_week,"Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"), start_time',
+                'SELECT id, teacher_id AS teacherId, teacher_name AS teacherName, subject, day_of_week AS dayOfWeek, start_time AS startTime, end_time AS endTime, room, created_at AS createdAt FROM schedules WHERE teacher_id = ? ORDER BY FIELD(day_of_week,\'Monday\',\'Tuesday\',\'Wednesday\',\'Thursday\',\'Friday\',\'Saturday\',\'Sunday\'), start_time',
                 [teacherId]
             );
             return sendJson(response, 200, { schedules: rows });
         }
         const [rows] = await pool.execute(
-            'SELECT id, teacher_id AS teacherId, teacher_name AS teacherName, subject, day_of_week AS dayOfWeek, start_time AS startTime, end_time AS endTime, room, created_at AS createdAt FROM schedules ORDER BY FIELD(day_of_week,"Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"), start_time'
+            'SELECT id, teacher_id AS teacherId, teacher_name AS teacherName, subject, day_of_week AS dayOfWeek, start_time AS startTime, end_time AS endTime, room, created_at AS createdAt FROM schedules ORDER BY FIELD(day_of_week,\'Monday\',\'Tuesday\',\'Wednesday\',\'Thursday\',\'Friday\',\'Saturday\',\'Sunday\'), start_time'
         );
         return sendJson(response, 200, { schedules: rows });
     }
