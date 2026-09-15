@@ -419,7 +419,6 @@ async function renderDashboard(account) {
                 </div>`).join('');
         }
     } else {
-        // Hide student schedule card for teachers
         document.getElementById('student-schedule-card').classList.add('hidden');
         const card = document.getElementById('schedule-card');
         const label = card.querySelector('.card-label span');
@@ -428,7 +427,6 @@ async function renderDashboard(account) {
         if (labelIcon) labelIcon.className = 'ph ph-calendar';
     }
 
-    // Show/hide teacher schedule management panel
     const teacherSection = document.getElementById('teacher-schedule-section');
     const classSection = document.getElementById('teacher-class-section');
     if (account.role === 'teacher') {
@@ -448,8 +446,6 @@ async function renderDashboard(account) {
 
 let scheduleFormInitialized = false;
 let classViewInitialized = false;
-
-// ── Teacher My Class view ──────────────────────────────────────────────────
 
 function getCutoffTime() {
     const raw = document.getElementById('cutoff-time').value || '08:00';
@@ -479,20 +475,15 @@ function statusIcon(status) {
     return '<i class="ph ph-minus-circle"></i>';
 }
 
-// qrInstances tracks already-rendered QR codes so we don't re-generate them
-const classQrInstances = {};
-
 async function renderClassView(account) {
     const [students, todayLogs] = await Promise.all([
         SchoolSyncDB.getUsers(),
         SchoolSyncDB.getTodayAttendance()
     ]);
 
-    // Set date label
     document.getElementById('class-today-date').textContent =
         new Date().toLocaleDateString([], { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
 
-    // Build a map: studentId → most recent log entry today
     const logMap = {};
     for (const log of todayLogs) {
         if (!logMap[log.userId] || new Date(log.timestamp) > new Date(logMap[log.userId].timestamp)) {
@@ -504,7 +495,6 @@ async function renderClassView(account) {
     const emptyState = document.getElementById('class-empty-state');
     emptyState.style.display = students.length ? 'none' : 'flex';
 
-    // Remove old cards but keep the empty-state element
     grid.querySelectorAll('.class-student-card').forEach(c => c.remove());
 
     let countPresent = 0, countLate = 0, countAbsent = 0;
@@ -556,7 +546,6 @@ async function renderClassView(account) {
 
         grid.appendChild(card);
 
-        // Render QR only once per student
         if (!classQrInstances[student.id]) {
             classQrInstances[student.id] = true;
             new QRCode(document.getElementById(qrContainerId), {
@@ -852,7 +841,6 @@ function signOut() {
     scheduleFormInitialized = false;
     classViewInitialized = false;
     studentQrRendered = false;
-    Object.keys(classQrInstances).forEach(k => delete classQrInstances[k]);
     dashboardView.classList.add('hidden');
     publicView.classList.remove('hidden');
     window.location.hash = 'home';
@@ -883,24 +871,6 @@ window.addEventListener('hashchange', () => {
         else if (window.location.hash === '#login') openAuth('signin');
     }
 });
-
-const refreshBtn = document.getElementById('refresh-dashboard-btn');
-if (refreshBtn) {
-    refreshBtn.addEventListener('click', async (e) => {
-        e.preventDefault();
-        const btn = e.currentTarget;
-        btn.style.transform = 'rotate(180deg)';
-        const session = SchoolSyncDB.getSession();
-        if (session) {
-            await renderDashboard(session).catch(console.error);
-        }
-        setTimeout(() => {
-            btn.style.transition = 'none';
-            btn.style.transform = 'rotate(0deg)';
-            setTimeout(() => { btn.style.transition = 'transform 0.2s'; }, 10);
-        }, 200);
-    });
-}
 
 
 if (!existingSession) {
