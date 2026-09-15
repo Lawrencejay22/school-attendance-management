@@ -2600,3 +2600,151 @@ body.theme-dark .auth-tab.active {
 body.theme-dark .auth-tabs {
     border-color: #405247;
 }
+
+/* ═══════════════════════════════════════════════════════════════
+   TEACHER SECTIONS — spacing, card colors, form readability
+   ═══════════════════════════════════════════════════════════════ */
+
+/* ── Section gaps ── */
+#teacher-class-section {
+    padding-top: 48px;
+    padding-bottom: 32px;
+    border-top: 1px solid var(--line);
+    margin-top: 48px;
+}
+
+#teacher-schedule-section {
+    padding-top: 48px;
+    padding-bottom: 64px;
+    border-top: 1px solid var(--line);
+}
+
+/* ── My Class: student card proper colors ── */
+.class-student-card {
+    background: var(--white) !important;
+    border: 1.5px solid var(--line) !important;
+    color: var(--ink) !important;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+}
+
+.class-student-name {
+    color: var(--ink) !important;
+}
+
+.class-student-id {
+    color: var(--muted);
+}
+
+/* ── Cutoff row: proper background ── */
+.cutoff-row {
+    background: var(--white) !important;
+    border-color: var(--line) !important;
+    color: var(--ink);
+}
+
+.cutoff-input {
+    background: transparent;
+    color: var(--ink);
+}
+
+/* ── Schedule cards: proper background and border ── */
+.schedule-form-panel,
+.schedule-list-panel {
+    background: var(--white);
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    padding: 24px;
+}
+
+/* ── Schedule form inputs: readable in both themes ── */
+#schedule-form .form-group input,
+#schedule-form .form-group select {
+    background: var(--paper) !important;
+    border-color: var(--line) !important;
+    color: var(--ink) !important;
+}
+
+#schedule-form .form-group input:focus,
+#schedule-form .form-group select:focus {
+    border-color: var(--coral) !important;
+    box-shadow: 0 0 0 3px rgba(239,118,95,0.15);
+}
+
+/* ── Schedule entry rows: visible background ── */
+.schedule-entry {
+    background: var(--paper) !important;
+    border: 1px solid var(--line) !important;
+    color: var(--ink);
+}
+
+.schedule-row {
+    background: var(--paper) !important;
+    color: var(--ink);
+}
+
+/* ── Sched day badge: coral accent ── */
+.sched-day-badge {
+    background: var(--coral) !important;
+    color: #fff !important;
+}
+
+/* ── Date picker in My Class header ── */
+#class-date-picker {
+    background: var(--white);
+    border: 1.5px solid var(--line);
+    color: var(--ink);
+    border-radius: 8px;
+    padding: 4px 8px;
+    font-size: 0.82rem;
+}
+
+/* ── dark mode overrides ── */
+body.theme-dark .schedule-form-panel,
+body.theme-dark .schedule-list-panel {
+    background: #1d2c24;
+    border-color: #405247;
+}
+
+body.theme-dark #schedule-form .form-group input,
+body.theme-dark #schedule-form .form-group select {
+    background: #253c2f !important;
+    border-color: #405247 !important;
+    color: #f4f5ef !important;
+}
+
+body.theme-dark .schedule-entry {
+    background: #253c2f !important;
+    border-color: #405247 !important;
+    color: #f4f5ef;
+}
+
+body.theme-dark .schedule-row {
+    background: #253c2f !important;
+    color: #f4f5ef;
+}
+
+body.theme-dark .class-student-card {
+    background: #1d2c24 !important;
+    border-color: #405247 !important;
+    color: #f4f5ef !important;
+}
+
+body.theme-dark .class-student-name {
+    color: #f4f5ef !important;
+}
+
+body.theme-dark .cutoff-row {
+    background: #1d2c24 !important;
+    border-color: #405247 !important;
+    color: #f4f5ef;
+}
+
+body.theme-dark .cutoff-input {
+    color: #f4f5ef;
+}
+
+body.theme-dark #class-date-picker {
+    background: #1d2c24;
+    border-color: #405247;
+    color: #f4f5ef;
+}
