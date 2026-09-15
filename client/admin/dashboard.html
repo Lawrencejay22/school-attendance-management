@@ -218,6 +218,7 @@
                                         <th>ID</th>
                                         <th class="hide-mobile">Department</th>
                                         <th class="hide-mobile">Section</th>
+                                        <th>Year</th>
                                         <th>Time Scanned</th>
                                         <th>Status</th>
                                     </tr>
@@ -246,6 +247,7 @@
                                         <tr>
                                             <th>Name</th>
                                             <th>ID</th>
+                                            <th>Year</th>
                                             <th>Department</th>
                                             <th>Section</th>
                                         </tr>
@@ -351,6 +353,17 @@
                                         <option value="Section 8">Section 8</option>
                                         <option value="Section 9">Section 9</option>
                                         <option value="Section 10">Section 10</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="user-adviser">Year</label>
+                                    <select id="user-adviser" required>
+                                        <option value="" disabled selected>Select section</option>
+                                        <option value="Year 1">1 Year</option>
+                                        <option value="Year 2">Year 2</option>
+                                        <option value="Year 3">Year 3</option>
+                                        <option value="Year 4">Year 4</option>
+                                        <option value="Year 5">Year 5</option>
                                     </select>
                                 </div>
                                 <button type="submit" class="btn primary-btn w-full">
@@ -468,6 +481,8 @@
                                         <th>Date</th>
                                         <th>Time</th>
                                         <th>ID</th>
+                                        <th>Section</th>
+                                        <th>Year</th>
                                         <th>Name</th>
                                         <th>Department</th>
                                         <th>Status</th>
@@ -557,6 +572,33 @@
                 <label>Name<input type="text" id="admin-profile-edit-name" required maxlength="120"></label>
                 <label>Bio<textarea id="admin-profile-edit-bio" maxlength="500" rows="4"
                         placeholder="Tell your school community a little about you."></textarea></label>
+                 <div class="form-group">
+                                    <label for="user-adviser">Section</label>
+                                    <select id="user-adviser" required>
+                                        <option value="" disabled selected>Select section</option>
+                                        <option value="Section 1">Section 1</option>
+                                        <option value="Section 2">Section 2</option>
+                                        <option value="Section 3">Section 3</option>
+                                        <option value="Section 4">Section 4</option>
+                                        <option value="Section 5">Section 5</option>
+                                        <option value="Section 6">Section 6</option>
+                                        <option value="Section 7">Section 7</option>
+                                        <option value="Section 8">Section 8</option>
+                                        <option value="Section 9">Section 9</option>
+                                        <option value="Section 10">Section 10</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="user-adviser">Year</label>
+                                    <select id="user-adviser" required>
+                                        <option value="" disabled selected>Select section</option>
+                                        <option value="Year 1">1 Year</option>
+                                        <option value="Year 2">Year 2</option>
+                                        <option value="Year 3">Year 3</option>
+                                        <option value="Year 4">Year 4</option>
+                                        <option value="Year 5">Year 5</option>
+                                    </select>
+                                </div>
                 <div class="admin-profile-form-actions"><button class="btn outline-btn" id="admin-cancel-profile"
                         type="button">Cancel</button><button class="btn primary-btn" type="submit">Save profile</button>
                 </div>
