@@ -707,8 +707,12 @@ document.querySelectorAll('[data-auth-tab]').forEach(button => button.addEventLi
 document.getElementById('admin-footer-link').addEventListener('click', event => {
     event.preventDefault();
     const currentSession = SchoolSyncDB.getSession();
-    if (currentSession && currentSession.role !== 'admin') {
-        alert("You are currently signed in. Students and teachers are not allowed to access the admin panel.");
+    if (currentSession) {
+        if (currentSession.role === 'admin') {
+            window.location.href = '/client/admin/dashboard.html';
+        } else {
+            alert("Admin access is restricted to admin accounts only. Students and teachers cannot access the admin panel.");
+        }
         return;
     }
     window.location.hash = 'admin-login';
@@ -734,7 +738,7 @@ signInForm.addEventListener('submit', async event => {
     if (result.error) { showMessage(result.error); return; }
     if (adminLoginMode && result.account.role !== 'admin') {
         SchoolSyncDB.signOut();
-        showMessage('This admin sign-in requires an admin account.');
+        showMessage('Access denied. Only admin accounts can use this login.');
         return;
     }
     if (!adminLoginMode && result.account.role === 'admin') {
