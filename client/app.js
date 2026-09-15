@@ -29,6 +29,7 @@ const profileImageInput = document.getElementById('profile-image');
 const profileImagePreview = document.getElementById('profile-image-preview');
 let currentAccount = null;
 let adminLoginMode = false;
+const classQrInstances = {};
 
 function accountInitials(account) {
     return account.name.split(/\s+/).filter(Boolean).slice(0, 2).map(part => part[0].toUpperCase()).join('') || 'SS';
@@ -248,14 +249,20 @@ async function renderStudentIdCard(account, allLogs) {
         </div>`;
 
     const scanUrl = `${window.location.origin}/scan.html?id=${scanId}`;
-    new QRCode(document.getElementById(qrWrapperId), {
-        text: scanUrl,
-        width: 110,
-        height: 110,
-        colorDark: '#000000',
-        colorLight: '#ffffff',
-        correctLevel: QRCode.CorrectLevel.H
-    });
+    setTimeout(() => {
+        const qrEl = document.getElementById(qrWrapperId);
+        if (qrEl) {
+            qrEl.innerHTML = '';
+            new QRCode(qrEl, {
+                text: scanUrl,
+                width: 110,
+                height: 110,
+                colorDark: '#000000',
+                colorLight: '#ffffff',
+                correctLevel: QRCode.CorrectLevel.H
+            });
+        }
+    }, 50);
 
 
     if (!account.studentId && scanId) {
@@ -411,7 +418,7 @@ async function renderDashboard(account) {
 
     // Third card: students get their ID card w/ QR, teachers get their schedule
     if (account.role === 'student') {
-        document.getElementById('schedule-card').classList.add('hidden');
+        document.getElementById('schedule-card').classList.remove('hidden');
         await renderStudentIdCard(account, logs);
         // Show the student schedule card and populate with all teachers' schedules
         const studentSchedCard = document.getElementById('student-schedule-card');
@@ -551,17 +558,21 @@ async function renderClassView(account) {
 
         grid.appendChild(card);
 
-        if (!classQrInstances[student.id]) {
-            classQrInstances[student.id] = true;
-            new QRCode(document.getElementById(qrContainerId), {
-                text: student.id,
-                width: 100,
-                height: 100,
-                colorDark: '#000000',
-                colorLight: '#ffffff',
-                correctLevel: QRCode.CorrectLevel.H
-            });
-        }
+        const scanUrl = `${window.location.origin}/scan.html?id=${student.id}`;
+        setTimeout(() => {
+            const qrEl = document.getElementById(qrContainerId);
+            if (qrEl) {
+                qrEl.innerHTML = '';
+                new QRCode(qrEl, {
+                    text: scanUrl,
+                    width: 100,
+                    height: 100,
+                    colorDark: '#000000',
+                    colorLight: '#ffffff',
+                    correctLevel: QRCode.CorrectLevel.H
+                });
+            }
+        }, 50);
     });
 
     // Update stat chips
