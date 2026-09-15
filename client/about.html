@@ -13,10 +13,295 @@
     <link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/fill/style.css">
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
     <link rel="stylesheet" href="styles.css">
+    <style>
+        /* ── About page specific ── */
+        .about-hero {
+            padding: 100px 0 80px;
+            text-align: center;
+            background: var(--paper);
+        }
+        .about-hero .eyebrow {
+            justify-content: center;
+        }
+        .about-hero h1 {
+            font-size: clamp(2.4rem, 6vw, 4rem);
+            line-height: 1.1;
+            max-width: 740px;
+            margin: 18px auto 24px;
+        }
+        .about-hero p {
+            max-width: 580px;
+            margin: 0 auto 40px;
+            color: var(--muted);
+            font-size: 1.15rem;
+            line-height: 1.75;
+        }
+        .about-hero-actions {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        /* ── Mission band ── */
+        .mission-band {
+            background: var(--ink);
+            color: var(--paper);
+            padding: 80px 0;
+        }
+        .mission-band .section-wrap {
+            display: flex;
+            gap: 64px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        .mission-band .mission-text {
+            flex: 1;
+            min-width: 280px;
+        }
+        .mission-band h2 {
+            font-size: clamp(1.8rem, 4vw, 2.6rem);
+            line-height: 1.2;
+            margin: 16px 0 20px;
+        }
+        .mission-band p {
+            opacity: 0.75;
+            line-height: 1.75;
+            font-size: 1.05rem;
+        }
+        .mission-band .mission-stats {
+            display: flex;
+            flex-direction: column;
+            gap: 28px;
+            min-width: 220px;
+        }
+        .stat-item {
+            border-left: 3px solid var(--coral);
+            padding-left: 20px;
+        }
+        .stat-item strong {
+            display: block;
+            font-size: 2.2rem;
+            font-family: var(--serif);
+            line-height: 1;
+            margin-bottom: 4px;
+        }
+        .stat-item span {
+            font-size: 0.9rem;
+            opacity: 0.65;
+        }
+
+        /* ── How it works ── */
+        .how-section {
+            padding: 96px 0;
+        }
+        .steps-list {
+            margin-top: 56px;
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+        }
+        .step-row {
+            display: flex;
+            gap: 48px;
+            align-items: flex-start;
+            padding: 48px 0;
+            border-top: 1px solid var(--line);
+        }
+        .step-row:last-child {
+            border-bottom: 1px solid var(--line);
+        }
+        .step-number {
+            font-family: var(--serif);
+            font-size: 3.5rem;
+            font-weight: 700;
+            color: var(--line);
+            line-height: 1;
+            min-width: 64px;
+        }
+        .step-content h3 {
+            font-size: 1.4rem;
+            margin: 0 0 12px;
+        }
+        .step-content p {
+            color: var(--muted);
+            line-height: 1.75;
+            font-size: 1rem;
+            max-width: 560px;
+        }
+
+        /* ── Roles ── */
+        .roles-section {
+            background: var(--paper);
+            padding: 96px 0;
+        }
+        .roles-grid {
+            margin-top: 56px;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 0;
+            border: 1px solid var(--line);
+            border-radius: 20px;
+            overflow: hidden;
+        }
+        @media (max-width: 768px) {
+            .roles-grid { grid-template-columns: 1fr; }
+        }
+        .role-col {
+            padding: 48px 40px;
+            border-right: 1px solid var(--line);
+        }
+        .role-col:last-child { border-right: none; }
+        .role-icon {
+            width: 52px;
+            height: 52px;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+        }
+        .role-icon.coral { background: rgba(239,118,95,0.12); color: var(--coral); }
+        .role-icon.green { background: rgba(79,154,114,0.12); color: #4f9a72; }
+        .role-icon.yellow { background: rgba(242,184,75,0.12); color: #c89a1a; }
+        .role-col h3 {
+            font-size: 1.2rem;
+            margin: 0 0 8px;
+        }
+        .role-col .role-badge {
+            display: inline-block;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            padding: 3px 10px;
+            border-radius: 999px;
+            margin-bottom: 16px;
+        }
+        .role-badge.coral { background: rgba(239,118,95,0.12); color: var(--coral); }
+        .role-badge.green { background: rgba(79,154,114,0.12); color: #4f9a72; }
+        .role-badge.yellow { background: rgba(242,184,75,0.12); color: #c89a1a; }
+        .role-col ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .role-col ul li {
+            display: flex;
+            gap: 10px;
+            align-items: flex-start;
+            color: var(--muted);
+            font-size: 0.93rem;
+            line-height: 1.5;
+        }
+        .role-col ul li i {
+            margin-top: 2px;
+            color: var(--coral);
+            flex-shrink: 0;
+        }
+
+        /* ── Values ── */
+        .values-section {
+            padding: 96px 0;
+        }
+        .values-grid {
+            margin-top: 56px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 40px;
+        }
+        .value-item h4 {
+            font-size: 1.1rem;
+            margin: 16px 0 8px;
+        }
+        .value-item p {
+            color: var(--muted);
+            line-height: 1.65;
+            font-size: 0.95rem;
+        }
+        .value-icon {
+            width: 44px;
+            height: 44px;
+            border-radius: 12px;
+            background: var(--mint);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+            color: #2a7a4f;
+        }
+
+        /* ── Tech stack ── */
+        .tech-section {
+            background: var(--paper);
+            padding: 96px 0;
+        }
+        .tech-row {
+            margin-top: 48px;
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+        .tech-pill {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 20px;
+            border: 1.5px solid var(--line);
+            border-radius: 999px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--ink);
+        }
+        .tech-pill i { color: var(--coral); font-size: 1rem; }
+
+        /* ── CTA ── */
+        .cta-section {
+            padding: 96px 0;
+        }
+        .cta-band {
+            background: var(--ink);
+            color: var(--paper);
+            border-radius: 24px;
+            padding: 72px 64px;
+            display: flex;
+            gap: 40px;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+        }
+        .cta-band h2 {
+            font-size: clamp(1.8rem, 4vw, 2.4rem);
+            margin: 0 0 12px;
+        }
+        .cta-band p {
+            opacity: 0.7;
+            line-height: 1.65;
+            max-width: 440px;
+            margin: 0;
+        }
+        .cta-band .cta-actions {
+            display: flex;
+            gap: 14px;
+            flex-wrap: wrap;
+            flex-shrink: 0;
+        }
+
+        /* ── Nav active ── */
+        .site-nav a.active {
+            color: var(--ink);
+            font-weight: 600;
+        }
+    </style>
 </head>
 <body>
 <div class="site-shell">
 
+    <!-- ── Header ── -->
     <header class="site-header">
         <a class="brand" href="client.html" aria-label="SchoolSync home">
             <span class="brand-mark"><i class="ph-bold ph-qr-code"></i></span>
@@ -28,7 +313,7 @@
             <a href="client.html#contact">Contact</a>
         </nav>
         <div class="header-actions">
-            <button class="icon-btn" id="theme-toggle" type="button" aria-label="Switch theme" title="Switch theme"><i class="ph ph-moon"></i></button>
+            <button class="icon-btn" id="theme-toggle" type="button" aria-label="Switch theme"><i class="ph ph-moon"></i></button>
             <a class="btn btn-quiet" href="client.html">Sign in</a>
             <a class="btn btn-dark" href="client.html">Get started <i class="ph-bold ph-arrow-up-right"></i></a>
         </div>
@@ -37,86 +322,187 @@
     <main>
 
         <!-- ── Hero ── -->
-        <section class="section-wrap" style="padding-top:80px;padding-bottom:64px;text-align:center;">
-            <p class="eyebrow" style="justify-content:center;display:flex;align-items:center;gap:6px;"><span></span>About SchoolSync</p>
-            <h1 style="max-width:680px;margin:16px auto 20px;font-size:clamp(2rem,5vw,3.2rem);line-height:1.15;">Attendance, without the guesswork.</h1>
-            <p style="max-width:560px;margin:0 auto;color:var(--muted);font-size:1.1rem;line-height:1.7;">SchoolSync is a barcode & QR-based attendance monitoring system built to make daily check-ins fast, accurate, and visible to everyone who needs it — admins, teachers, and students.</p>
+        <section class="about-hero section-wrap">
+            <p class="eyebrow"><span></span> Our mission</p>
+            <h1>Attendance, made simple for every school.</h1>
+            <p>SchoolSync removes the friction from daily attendance. Students scan, records are created, and everyone — admins, teachers, students — sees exactly what they need.</p>
+            <div class="about-hero-actions">
+                <a class="btn btn-coral" href="client.html">Get started free <i class="ph-bold ph-arrow-right"></i></a>
+                <a class="btn btn-quiet" href="#how-it-works">See how it works <i class="ph-bold ph-arrow-down"></i></a>
+            </div>
+        </section>
+
+        <!-- ── Mission ── -->
+        <section class="mission-band">
+            <div class="section-wrap">
+                <div class="mission-text">
+                    <p class="eyebrow" style="color:var(--coral);">Why we built this</p>
+                    <h2>Schools deserve tools that actually work.</h2>
+                    <p>Paper sign-in sheets get lost. Manual data entry creates errors. SchoolSync was built to replace all of that with a fast, reliable QR-based system that runs in any browser, on any device — no installation required.</p>
+                    <p style="margin-top:16px;">Every scan is timestamped. Every record is searchable. Every role gets the right view.</p>
+                </div>
+                <div class="mission-stats">
+                    <div class="stat-item">
+                        <strong>3</strong>
+                        <span>Roles supported — Admin, Teacher, Student</span>
+                    </div>
+                    <div class="stat-item">
+                        <strong>1</strong>
+                        <span>Scan per student per day — no duplicates</span>
+                    </div>
+                    <div class="stat-item">
+                        <strong>0</strong>
+                        <span>Apps to install — runs fully in the browser</span>
+                    </div>
+                    <div class="stat-item">
+                        <strong>100%</strong>
+                        <span>Web-based — works on any device</span>
+                    </div>
+                </div>
+            </div>
         </section>
 
         <!-- ── How it works ── -->
-        <section class="section-wrap" style="padding-top:0;padding-bottom:72px;">
-            <div class="section-heading" style="margin-bottom:40px;">
-                <p class="eyebrow">How it works</p>
-                <h2>Three steps. Zero confusion.</h2>
-            </div>
-            <div class="feature-grid">
-                <article class="feature">
-                    <span class="feature-icon coral" style="font-size:1.4rem;font-weight:700;">1</span>
-                    <h3>Register</h3>
-                    <p>The admin registers each student with their name, ID number, department, and section. A unique QR code is generated automatically for each student.</p>
-                </article>
-                <article class="feature">
-                    <span class="feature-icon mint" style="font-size:1.4rem;font-weight:700;">2</span>
-                    <h3>Scan</h3>
-                    <p>Students scan their QR code using any camera or the built-in scanner. The system records the time and automatically marks them Present or Late based on the cutoff time.</p>
-                </article>
-                <article class="feature">
-                    <span class="feature-icon yellow" style="font-size:1.4rem;font-weight:700;">3</span>
-                    <h3>Monitor</h3>
-                    <p>Teachers and admins see attendance in real time. Records can be filtered by date, edited, and reviewed at any time from any device.</p>
-                </article>
+        <section class="how-section section-wrap" id="how-it-works">
+            <p class="eyebrow">How it works</p>
+            <h2>From registration to record — in seconds.</h2>
+            <div class="steps-list">
+                <div class="step-row">
+                    <div class="step-number">01</div>
+                    <div class="step-content">
+                        <h3>Admin registers the student</h3>
+                        <p>The admin fills in the student's full name, ID number, department, and section. The system immediately generates a unique QR code tied to that student's ID. No extra tools needed.</p>
+                    </div>
+                </div>
+                <div class="step-row">
+                    <div class="step-number">02</div>
+                    <div class="step-content">
+                        <h3>Student scans their QR code</h3>
+                        <p>Each student has a personal QR code visible on their dashboard. They scan it using any camera or the admin's built-in scanner. The system records the exact time and automatically marks them <strong>Present</strong> or <strong>Late</strong> based on the configured cutoff time. Duplicate scans on the same day are blocked.</p>
+                    </div>
+                </div>
+                <div class="step-row">
+                    <div class="step-number">03</div>
+                    <div class="step-content">
+                        <h3>Teachers monitor their class</h3>
+                        <p>Teachers open My Class to see every student's attendance status as a live card. They can switch to any past date using the date picker and see who was present, late, or absent on that day.</p>
+                    </div>
+                </div>
+                <div class="step-row">
+                    <div class="step-number">04</div>
+                    <div class="step-content">
+                        <h3>Admins oversee everything</h3>
+                        <p>The admin dashboard shows the full attendance log, all registered students and teachers, and live scanner access. Admins can filter logs by date, remove records, and clear logs when needed.</p>
+                    </div>
+                </div>
             </div>
         </section>
 
         <!-- ── Roles ── -->
-        <section class="info-band section-wrap" style="padding-top:64px;padding-bottom:72px;">
-            <div class="section-heading" style="margin-bottom:40px;">
-                <p class="eyebrow">Who uses SchoolSync</p>
-                <h2>A role for everyone in the school.</h2>
-            </div>
-            <div class="feature-grid">
-                <article class="feature">
-                    <span class="feature-icon coral"><i class="ph ph-shield-check"></i></span>
-                    <h3>Admin</h3>
-                    <p>Registers students and teachers, runs the QR scanner, manages all attendance logs, and has full access to every record and setting in the system.</p>
-                </article>
-                <article class="feature">
-                    <span class="feature-icon mint"><i class="ph ph-chalkboard-teacher"></i></span>
-                    <h3>Teacher</h3>
-                    <p>Views My Class attendance by date, manages their weekly schedule, edits student statuses, and can access the admin panel when needed.</p>
-                </article>
-                <article class="feature">
-                    <span class="feature-icon yellow"><i class="ph ph-student"></i></span>
-                    <h3>Student</h3>
-                    <p>Scans their personal QR code to check in, views their own attendance history, sees the class schedule, and carries a digital ID card.</p>
-                </article>
+        <section class="roles-section">
+            <div class="section-wrap">
+                <p class="eyebrow">Access levels</p>
+                <h2>Every role sees exactly what they need.</h2>
+                <div class="roles-grid">
+                    <div class="role-col">
+                        <div class="role-icon coral"><i class="ph ph-shield-check"></i></div>
+                        <span class="role-badge coral">Admin</span>
+                        <h3>School Administrator</h3>
+                        <ul>
+                            <li><i class="ph-fill ph-check-circle"></i> Register students with QR code generation</li>
+                            <li><i class="ph-fill ph-check-circle"></i> Register and manage teachers</li>
+                            <li><i class="ph-fill ph-check-circle"></i> Live camera QR scanner</li>
+                            <li><i class="ph-fill ph-check-circle"></i> Full attendance log with date filter</li>
+                            <li><i class="ph-fill ph-check-circle"></i> Clear or remove individual records</li>
+                            <li><i class="ph-fill ph-check-circle"></i> Profile editor with photo</li>
+                        </ul>
+                    </div>
+                    <div class="role-col">
+                        <div class="role-icon green"><i class="ph ph-chalkboard-teacher"></i></div>
+                        <span class="role-badge green">Teacher</span>
+                        <h3>Class Teacher</h3>
+                        <ul>
+                            <li><i class="ph-fill ph-check-circle"></i> My Class — student cards with QR & status</li>
+                            <li><i class="ph-fill ph-check-circle"></i> Browse attendance by any date</li>
+                            <li><i class="ph-fill ph-check-circle"></i> Edit attendance status per student</li>
+                            <li><i class="ph-fill ph-check-circle"></i> Manage weekly class schedule</li>
+                            <li><i class="ph-fill ph-check-circle"></i> Remove attendance records</li>
+                            <li><i class="ph-fill ph-check-circle"></i> Access to admin panel</li>
+                        </ul>
+                    </div>
+                    <div class="role-col">
+                        <div class="role-icon yellow"><i class="ph ph-student"></i></div>
+                        <span class="role-badge yellow">Student</span>
+                        <h3>Student</h3>
+                        <ul>
+                            <li><i class="ph-fill ph-check-circle"></i> Personal QR ID card</li>
+                            <li><i class="ph-fill ph-check-circle"></i> Today's attendance status</li>
+                            <li><i class="ph-fill ph-check-circle"></i> Full attendance history</li>
+                            <li><i class="ph-fill ph-check-circle"></i> Class schedule from all teachers</li>
+                            <li><i class="ph-fill ph-check-circle"></i> Profile editor</li>
+                        </ul>
+                    </div>
+                </div>
             </div>
         </section>
 
-        <!-- ── System info ── -->
-        <section class="section-wrap" style="padding-bottom:80px;">
-            <div class="section-heading" style="margin-bottom:40px;">
-                <p class="eyebrow">The system</p>
-                <h2>Built on the web. Works everywhere.</h2>
-            </div>
-            <p style="max-width:580px;color:var(--muted);line-height:1.7;margin-bottom:32px;">No app install needed. SchoolSync runs entirely in the browser and works on phones, tablets, and desktops. Built with Node.js and MySQL, deployed on Railway.</p>
-            <div style="display:flex;flex-wrap:wrap;gap:10px;margin-bottom:56px;">
-                <span class="badge-pill">Node.js</span>
-                <span class="badge-pill">MySQL</span>
-                <span class="badge-pill">QR Code</span>
-                <span class="badge-pill">Railway</span>
-                <span class="badge-pill">Role-based Access</span>
-                <span class="badge-pill">Real-time Logs</span>
-                <span class="badge-pill">One scan per day</span>
-            </div>
-
-            <!-- CTA -->
-            <div style="background:var(--ink);color:var(--paper);border-radius:20px;padding:48px 40px;display:flex;flex-wrap:wrap;gap:28px;align-items:center;justify-content:space-between;">
-                <div>
-                    <h3 style="margin:0 0 10px;font-size:1.6rem;">Ready to get started?</h3>
-                    <p style="margin:0;opacity:0.7;max-width:420px;line-height:1.6;">Create a free account and start tracking attendance in minutes. No setup required.</p>
+        <!-- ── Values ── -->
+        <section class="values-section section-wrap">
+            <p class="eyebrow">What we stand for</p>
+            <h2>Principles behind SchoolSync.</h2>
+            <div class="values-grid">
+                <div class="value-item">
+                    <div class="value-icon"><i class="ph ph-lightning"></i></div>
+                    <h4>Speed first</h4>
+                    <p>Every interaction is designed to take seconds, not minutes. Scanning, loading, and recording should never slow down a school day.</p>
                 </div>
-                <a class="btn btn-coral" href="client.html" style="white-space:nowrap;">Start for free <i class="ph-bold ph-arrow-right"></i></a>
+                <div class="value-item">
+                    <div class="value-icon"><i class="ph ph-eye"></i></div>
+                    <h4>Full visibility</h4>
+                    <p>Nobody should have to wonder who showed up today. Real-time data means the right person always has the right information at the right time.</p>
+                </div>
+                <div class="value-item">
+                    <div class="value-icon"><i class="ph ph-lock-simple"></i></div>
+                    <h4>Role-based access</h4>
+                    <p>Students see their own record. Teachers see their class. Admins see everything. Privacy is built into the architecture, not bolted on.</p>
+                </div>
+                <div class="value-item">
+                    <div class="value-icon"><i class="ph ph-device-mobile"></i></div>
+                    <h4>Works everywhere</h4>
+                    <p>No app, no install. SchoolSync runs in any modern browser on any device — a phone, a tablet, or a desktop in the school office.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ── Tech stack ── -->
+        <section class="tech-section">
+            <div class="section-wrap">
+                <p class="eyebrow">Under the hood</p>
+                <h2>Simple, reliable technology.</h2>
+                <p style="color:var(--muted);max-width:520px;margin-top:12px;line-height:1.7;">Built with proven, battle-tested tools — nothing trendy for its own sake. The goal is a system that works reliably every school day.</p>
+                <div class="tech-row">
+                    <span class="tech-pill"><i class="ph ph-code"></i> Node.js 20+</span>
+                    <span class="tech-pill"><i class="ph ph-database"></i> MySQL 9</span>
+                    <span class="tech-pill"><i class="ph ph-qr-code"></i> QR Code (qrcodejs)</span>
+                    <span class="tech-pill"><i class="ph ph-camera"></i> html5-qrcode scanner</span>
+                    <span class="tech-pill"><i class="ph ph-train"></i> Railway hosting</span>
+                    <span class="tech-pill"><i class="ph ph-file-html"></i> Vanilla HTML / CSS / JS</span>
+                    <span class="tech-pill"><i class="ph ph-shield"></i> scrypt password hashing</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- ── CTA ── -->
+        <section class="cta-section section-wrap">
+            <div class="cta-band">
+                <div>
+                    <h2>Start tracking attendance today.</h2>
+                    <p>Create a free account. Register your first student in under a minute. No setup, no configuration — just scan and go.</p>
+                </div>
+                <div class="cta-actions">
+                    <a class="btn btn-coral" href="client.html">Create account <i class="ph-bold ph-arrow-right"></i></a>
+                    <a class="btn btn-quiet" href="client.html" style="color:var(--paper);border-color:rgba(255,255,255,0.2);">Sign in</a>
+                </div>
             </div>
         </section>
 
