@@ -951,6 +951,19 @@ h2 {
     outline: none;
 }
 
+body.theme-dark .auth-form input,
+body.theme-dark .auth-form select,
+body.theme-dark .auth-form textarea {
+    background: #253c2f;
+    color: #f4f5ef;
+    border-color: #405247;
+}
+
+body.theme-dark .auth-form input::placeholder,
+body.theme-dark .auth-form textarea::placeholder {
+    color: #6b8374;
+}
+
 .auth-form input:focus,
 .auth-form select:focus,
 .auth-form textarea:focus {
@@ -1145,8 +1158,15 @@ h2 {
     }
 
     /* Row 1: brand + header actions (profile, theme, logout) */
-    .brand { order: 1; }
-    .header-actions { order: 2; margin-left: auto; gap: 6px; }
+    .brand {
+        order: 1;
+    }
+
+    .header-actions {
+        order: 2;
+        margin-left: auto;
+        gap: 6px;
+    }
 
     /* Row 2: nav spans full width */
     .site-nav {
@@ -1262,9 +1282,11 @@ h2 {
     /* Make Sign out compact but always visible */
     #header-logout {
         padding: 8px 10px;
-        font-size: 0;        /* hide text */
+        font-size: 0;
+        /* hide text */
         gap: 0;
     }
+
     #header-logout i {
         font-size: 1rem;
     }
@@ -1411,7 +1433,7 @@ h2 {
     gap: .75rem;
     padding: .45rem .6rem;
     border-radius: 8px;
-    background: rgba(var(--accent-rgb, 99,102,241), .07);
+    background: rgba(var(--accent-rgb, 99, 102, 241), .07);
     font-size: .82rem;
     line-height: 1.3;
 }
@@ -1511,6 +1533,7 @@ h2 {
     .schedule-form-grid {
         grid-template-columns: 1fr;
     }
+
     .schedule-form-grid .form-group:first-child {
         grid-column: 1;
     }
@@ -1536,7 +1559,7 @@ h2 {
     gap: .75rem;
     padding: .6rem .75rem;
     border-radius: 10px;
-    background: rgba(var(--accent-rgb, 99,102,241), .07);
+    background: rgba(var(--accent-rgb, 99, 102, 241), .07);
     font-size: .85rem;
     line-height: 1.35;
 }
@@ -1587,7 +1610,7 @@ h2 {
 
 .schedule-entry .sched-remove-btn:hover {
     opacity: 1;
-    background: rgba(239,68,68,.1);
+    background: rgba(239, 68, 68, .1);
 }
 
 /* form-group reuse inside schedule form */
@@ -1604,7 +1627,7 @@ h2 {
     width: 100%;
     padding: .55rem .7rem;
     border-radius: 8px;
-    border: 1.5px solid var(--border, rgba(0,0,0,.12));
+    border: 1.5px solid var(--border, rgba(0, 0, 0, .12));
     background: var(--surface, #fff);
     font-size: .88rem;
     color: inherit;
@@ -1650,7 +1673,7 @@ h2 {
     align-items: center;
     gap: .45rem;
     background: var(--surface, #fff);
-    border: 1.5px solid var(--border, rgba(0,0,0,.12));
+    border: 1.5px solid var(--border, rgba(0, 0, 0, .12));
     border-radius: 8px;
     padding: .4rem .7rem;
     font-size: .82rem;
@@ -1691,15 +1714,34 @@ h2 {
     font-size: .82rem;
     font-weight: 500;
     background: var(--surface, #fff);
-    border: 1.5px solid var(--border, rgba(0,0,0,.1));
+    border: 1.5px solid var(--border, rgba(0, 0, 0, .1));
 }
 
-.class-stat i { font-size: .95rem; }
+.class-stat i {
+    font-size: .95rem;
+}
 
-.class-stat.present-stat { color: #10b981; border-color: rgba(16,185,129,.25); background: rgba(16,185,129,.07); }
-.class-stat.late-stat    { color: #f59e0b; border-color: rgba(245,158,11,.25); background: rgba(245,158,11,.07); }
-.class-stat.absent-stat  { color: #ef4444; border-color: rgba(239,68,68,.25);  background: rgba(239,68,68,.07);  }
-.class-stat.total-stat   { color: var(--text, #111); }
+.class-stat.present-stat {
+    color: #10b981;
+    border-color: rgba(16, 185, 129, .25);
+    background: rgba(16, 185, 129, .07);
+}
+
+.class-stat.late-stat {
+    color: #f59e0b;
+    border-color: rgba(245, 158, 11, .25);
+    background: rgba(245, 158, 11, .07);
+}
+
+.class-stat.absent-stat {
+    color: #ef4444;
+    border-color: rgba(239, 68, 68, .25);
+    background: rgba(239, 68, 68, .07);
+}
+
+.class-stat.total-stat {
+    color: var(--text, #111);
+}
 
 /* Student grid */
 .class-student-grid {
@@ -1720,12 +1762,14 @@ h2 {
     font-size: .9rem;
 }
 
-.class-empty-state i { font-size: 2rem; }
+.class-empty-state i {
+    font-size: 2rem;
+}
 
 /* Student card */
 .class-student-card {
     background: var(--surface, #fff);
-    border: 1.5px solid var(--border, rgba(0,0,0,.1));
+    border: 1.5px solid var(--border, rgba(0, 0, 0, .1));
     border-radius: 14px;
     padding: 1rem;
     display: flex;
@@ -1736,7 +1780,7 @@ h2 {
 }
 
 .class-student-card:hover {
-    box-shadow: 0 4px 16px rgba(0,0,0,.09);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, .09);
 }
 
 .class-student-avatar {
@@ -1776,7 +1820,7 @@ h2 {
     background: #fff;
     border-radius: 8px;
     padding: 4px;
-    border: 1px solid rgba(0,0,0,.08);
+    border: 1px solid rgba(0, 0, 0, .08);
 }
 
 /* Status badge + select */
@@ -1800,16 +1844,31 @@ h2 {
     text-transform: uppercase;
 }
 
-.class-status-badge.status-present { background: rgba(16,185,129,.15);  color: #059669; }
-.class-status-badge.status-late    { background: rgba(245,158,11,.15);  color: #d97706; }
-.class-status-badge.status-absent  { background: rgba(239,68,68,.15);   color: #dc2626; }
-.class-status-badge.status-none    { background: rgba(0,0,0,.07);       color: #888; }
+.class-status-badge.status-present {
+    background: rgba(16, 185, 129, .15);
+    color: #059669;
+}
+
+.class-status-badge.status-late {
+    background: rgba(245, 158, 11, .15);
+    color: #d97706;
+}
+
+.class-status-badge.status-absent {
+    background: rgba(239, 68, 68, .15);
+    color: #dc2626;
+}
+
+.class-status-badge.status-none {
+    background: rgba(0, 0, 0, .07);
+    color: #888;
+}
 
 .class-status-select {
     width: 100%;
     padding: .35rem .5rem;
     border-radius: 7px;
-    border: 1.5px solid var(--border, rgba(0,0,0,.12));
+    border: 1.5px solid var(--border, rgba(0, 0, 0, .12));
     background: var(--surface, #fff);
     font-size: .8rem;
     color: inherit;
@@ -1818,7 +1877,9 @@ h2 {
     transition: border-color .15s;
 }
 
-.class-status-select:focus { border-color: var(--accent, #6366f1); }
+.class-status-select:focus {
+    border-color: var(--accent, #6366f1);
+}
 
 .class-status-time {
     font-size: .72rem;
@@ -1849,14 +1910,30 @@ h2 {
     font-weight: 500;
 }
 
-.student-att-stat.present { color: #10b981; }
-.student-att-stat.late    { color: #f59e0b; }
-.student-att-stat.absent  { color: #ef4444; }
+.student-att-stat.present {
+    color: #10b981;
+}
+
+.student-att-stat.late {
+    color: #f59e0b;
+}
+
+.student-att-stat.absent {
+    color: #ef4444;
+}
 
 /* log-status colored variants */
-.log-status.present { color: #10b981; }
-.log-status.late    { color: #f59e0b; }
-.log-status.absent  { color: #ef4444; }
+.log-status.present {
+    color: #10b981;
+}
+
+.log-status.late {
+    color: #f59e0b;
+}
+
+.log-status.absent {
+    color: #ef4444;
+}
 
 /* ── Student ID card (dashboard third card) ─────────────────── */
 .student-id-card {
@@ -1870,7 +1947,7 @@ h2 {
     background: #fff;
     border-radius: 8px;
     padding: 4px;
-    border: 1px solid rgba(0,0,0,.1);
+    border: 1px solid rgba(0, 0, 0, .1);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -1944,16 +2021,24 @@ h2 {
 }
 
 /* Colored log icons */
-.log-icon-present { color: #10b981; }
-.log-icon-late    { color: #f59e0b; }
-.log-icon-absent  { color: #ef4444; }
+.log-icon-present {
+    color: #10b981;
+}
+
+.log-icon-late {
+    color: #f59e0b;
+}
+
+.log-icon-absent {
+    color: #ef4444;
+}
 
 /* Inline status select in log rows */
 .log-status-select {
     flex-shrink: 0;
     padding: .28rem .5rem;
     border-radius: 6px;
-    border: 1.5px solid var(--border, rgba(0,0,0,.12));
+    border: 1.5px solid var(--border, rgba(0, 0, 0, .12));
     background: var(--surface, #fff);
     font-size: .77rem;
     font-weight: 600;
@@ -1964,15 +2049,43 @@ h2 {
     min-width: 5.5rem;
 }
 
-.log-status-select:focus { border-color: var(--accent, #6366f1); }
-.log-status-select.log-status-present { color: #059669; border-color: rgba(16,185,129,.35); }
-.log-status-select.log-status-late    { color: #d97706; border-color: rgba(245,158,11,.35); }
-.log-status-select.log-status-absent  { color: #dc2626; border-color: rgba(239,68,68,.35); }
+.log-status-select:focus {
+    border-color: var(--accent, #6366f1);
+}
+
+.log-status-select.log-status-present {
+    color: #059669;
+    border-color: rgba(16, 185, 129, .35);
+}
+
+.log-status-select.log-status-late {
+    color: #d97706;
+    border-color: rgba(245, 158, 11, .35);
+}
+
+.log-status-select.log-status-absent {
+    color: #dc2626;
+    border-color: rgba(239, 68, 68, .35);
+}
 
 /* Read-only status badge in log rows (student) */
-.log-status-present { color: #10b981; font-weight: 700; font-size: .78rem; }
-.log-status-late    { color: #f59e0b; font-weight: 700; font-size: .78rem; }
-.log-status-absent  { color: #ef4444; font-weight: 700; font-size: .78rem; }
+.log-status-present {
+    color: #10b981;
+    font-weight: 700;
+    font-size: .78rem;
+}
+
+.log-status-late {
+    color: #f59e0b;
+    font-weight: 700;
+    font-size: .78rem;
+}
+
+.log-status-absent {
+    color: #ef4444;
+    font-weight: 700;
+    font-size: .78rem;
+}
 
 /* ── Class student card — remove button ─────────────────────── */
 .class-remove-btn {
@@ -2011,7 +2124,7 @@ h2 {
     gap: .3rem;
     padding: .6rem .75rem;
     border-radius: 10px;
-    background: rgba(var(--accent-rgb, 99,102,241), .06);
+    background: rgba(var(--accent-rgb, 99, 102, 241), .06);
 }
 
 #student-schedule-card .sched-day-badge {
@@ -2080,6 +2193,7 @@ h2 {
 
 /* ── 800px — existing + additions ── */
 @media (max-width: 800px) {
+
     /* wide-card should still span full width on single-col grid */
     .wide-card,
     .student-schedule-wide {
@@ -2269,6 +2383,7 @@ h2 {
 
 /* ── 380px — small phones ── */
 @media (max-width: 380px) {
+
     .section-wrap,
     .site-header {
         width: calc(100% - 24px);
@@ -2332,10 +2447,19 @@ h2 {
 }
 
 @media (max-width: 768px) {
-    /* Hide desktop nav and desktop auth buttons */
-    .site-nav { display: none; }
-    #guest-actions { display: none; }
-    #header-logout .logout-label { display: none; }
+
+    .site-nav {
+        display: none;
+    }
+
+    #guest-actions {
+        display: none;
+    }
+
+    #header-logout .logout-label {
+        display: none;
+    }
+
     #header-logout {
         padding: 8px;
         min-width: 36px;
@@ -2343,7 +2467,9 @@ h2 {
     }
 
     /* Show hamburger */
-    .hamburger-btn { display: grid; }
+    .hamburger-btn {
+        display: grid;
+    }
 
     /* Header: brand left, actions right — single row */
     .site-header {
@@ -2372,7 +2498,7 @@ h2 {
         border-left: 1px solid var(--line);
         z-index: 100;
         padding: 20px 0 32px;
-        box-shadow: -8px 0 32px rgba(0,0,0,0.12);
+        box-shadow: -8px 0 32px rgba(0, 0, 0, 0.12);
         transition: transform 0.25s ease;
         transform: translateX(100%);
     }
@@ -2424,7 +2550,7 @@ h2 {
         display: block;
         position: fixed;
         inset: 0;
-        background: rgba(0,0,0,0.4);
+        background: rgba(0, 0, 0, 0.4);
         z-index: 99;
     }
 
@@ -2435,12 +2561,40 @@ h2 {
     }
 }
 
-/* ── Reset site-header overrides from old 800px breakpoint ── */
 @media (max-width: 800px) {
     .site-header {
         height: 60px;
         padding: 0;
         flex-wrap: nowrap;
     }
-    .site-nav { display: none; }
+
+    .site-nav {
+        display: none;
+    }
+}
+
+/* ── Dark mode: auth modal inputs always readable ── */
+body.theme-dark .auth-panel {
+    background: #1d2c24;
+}
+
+body.theme-dark .auth-intro p,
+body.theme-dark .auth-form label {
+    color: #a9b5ad;
+}
+
+body.theme-dark .auth-intro h2 {
+    color: #f4f5ef;
+}
+
+body.theme-dark .auth-tab {
+    color: #a9b5ad;
+}
+
+body.theme-dark .auth-tab.active {
+    color: #f4f5ef;
+}
+
+body.theme-dark .auth-tabs {
+    border-color: #405247;
 }
