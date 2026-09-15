@@ -1,6 +1,6 @@
-/* ─────────────────────────────────────────────
+﻿/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
    CSS Custom Properties
-───────────────────────────────────────────── */
+â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 :root {
     --bg-color:      #0f172a;
     --bg-secondary:  #1e293b;
@@ -16,9 +16,9 @@
     --glass-border:  rgba(255, 255, 255, 0.08);
 }
 
-/* ─────────────────────────────────────────────
+/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
    Reset & Base
-───────────────────────────────────────────── */
+â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 *, *::before, *::after {
     margin: 0;
     padding: 0;
@@ -56,26 +56,26 @@ body::after {
     pointer-events: none;
 }
 
-/* ─────────────────────────────────────────────
+/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
    Typography & Utilities
-───────────────────────────────────────────── */
+â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 h1, h2, h3, h4 { font-weight: 600; }
 
 .mt-4   { margin-top: 1.5rem; }
 .w-full { width: 100%; }
 .hidden { display: none !important; }
 
-/* ─────────────────────────────────────────────
+/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
    Layout
-───────────────────────────────────────────── */
+â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 .app-container {
     display: flex;
     min-height: 100vh;
 }
 
-/* ─────────────────────────────────────────────
+/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
    Sidebar
-───────────────────────────────────────────── */
+â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 .sidebar {
     width: 260px;
     background: var(--glass-bg);
@@ -148,9 +148,9 @@ h1, h2, h3, h4 { font-weight: 600; }
     border-left: 3px solid var(--primary);
 }
 
-/* ─────────────────────────────────────────────
+/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
    Main Content
-───────────────────────────────────────────── */
+â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 .main-content {
     flex: 1;
     margin-left: 260px;
@@ -423,9 +423,9 @@ h1, h2, h3, h4 { font-weight: 600; }
 
 .admin-profile-form-actions .btn { flex: 1; }
 
-/* ─────────────────────────────────────────────
+/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
    Views
-───────────────────────────────────────────── */
+â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 .views-container {
     flex: 1;
     position: relative;
@@ -443,9 +443,9 @@ h1, h2, h3, h4 { font-weight: 600; }
     to   { opacity: 1; transform: translateY(0); }
 }
 
-/* ─────────────────────────────────────────────
+/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
    Glass Panel
-───────────────────────────────────────────── */
+â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 .glass-panel {
     background: var(--glass-bg);
     border: 1px solid var(--glass-border);
@@ -456,9 +456,9 @@ h1, h2, h3, h4 { font-weight: 600; }
     box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
 }
 
-/* ─────────────────────────────────────────────
+/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
    Buttons
-───────────────────────────────────────────── */
+â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 .btn {
     padding: 0.75rem 1.5rem;
     border-radius: 8px;
@@ -505,9 +505,9 @@ h1, h2, h3, h4 { font-weight: 600; }
 }
 .outline-btn:hover { background: rgba(255, 255, 255, 0.05); }
 
-/* ─────────────────────────────────────────────
+/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
    Forms
-───────────────────────────────────────────── */
+â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 .form-group { margin-bottom: 1.25rem; }
 
 .teacher-management-grid {
@@ -548,9 +548,9 @@ input:focus, select:focus {
 
 select option { background: var(--bg-secondary); }
 
-/* ─────────────────────────────────────────────
+/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
    Data Tables
-───────────────────────────────────────────── */
+â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 .table-responsive { overflow-x: auto; }
 
 .data-table {
@@ -581,9 +581,9 @@ select option { background: var(--bg-secondary); }
     padding: 2rem 1rem;
 }
 
-/* ─────────────────────────────────────────────
+/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
    Status Badge
-───────────────────────────────────────────── */
+â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 .status-badge {
     padding: 0.25rem 0.75rem;
     border-radius: 20px;
@@ -597,9 +597,9 @@ select option { background: var(--bg-secondary); }
     border: 1px solid rgba(16, 185, 129, 0.3);
 }
 
-/* ─────────────────────────────────────────────
+/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
    Dashboard
-───────────────────────────────────────────── */
+â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 .stats-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
@@ -643,9 +643,9 @@ select option { background: var(--bg-secondary); }
     margin-top: 0.25rem;
 }
 
-/* ─────────────────────────────────────────────
+/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
    Scanner
-───────────────────────────────────────────── */
+â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 .scanner-container {
     max-width: 600px;
     margin: 0 auto;
@@ -707,9 +707,9 @@ select option { background: var(--bg-secondary); }
 #reader__dashboard_section_csr select { margin-bottom: 10px; }
 #reader a { color: var(--primary) !important; }
 
-/* ─────────────────────────────────────────────
+/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
    Register Student
-───────────────────────────────────────────── */
+â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 .register-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -750,9 +750,9 @@ select option { background: var(--bg-secondary); }
     gap: 0.75rem;
 }
 
-/* ─────────────────────────────────────────────
+/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
    Attendance Logs
-───────────────────────────────────────────── */
+â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 .logs-header {
     display: flex;
     justify-content: space-between;
@@ -769,9 +769,9 @@ select option { background: var(--bg-secondary); }
 
 .date-picker { width: auto; }
 
-/* ─────────────────────────────────────────────
+/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
    Students View
-───────────────────────────────────────────── */
+â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 .students-container { width: 100%; }
 
 .students-header {
@@ -916,223 +916,55 @@ select option { background: var(--bg-secondary); }
     flex-shrink: 0;
 }
 
-/* ─────────────────────────────────────────────
-   Responsive
-───────────────────────────────────────────── */
+/* ═══════════════════════════════════════════════════════════════
+   RESPONSIVE — Single clean block, all breakpoints
+   ═══════════════════════════════════════════════════════════════ */
+
+/* ── Bottom nav — hidden on desktop ── */
+.mobile-bottom-nav { display: none; }
+
+/* ── Sidebar nav SVG icons ── */
+.nav-item svg { width: 20px; height: 20px; flex-shrink: 0; }
+
+/* ── Mobile bottom nav SVG icons ── */
+.mobile-nav-item svg { width: 24px; height: 24px; display: block; flex-shrink: 0; }
+
+/* ── Fluid media ── */
+img, video, canvas, iframe { max-width: 100%; height: auto; }
+
+/* ══ 900px ═══════════════════════════════════════════════════ */
 @media (max-width: 900px) {
-    .register-grid { grid-template-columns: 1fr; }
-    .teacher-management-grid { grid-template-columns: 1fr; }
-}
-
-@media (max-width: 768px) {
-    .sidebar {
-        width: 70px;
-        padding: 1rem 0.5rem;
-    }
-    .logo-text, .nav-item span { display: none; }
-    .logo-container {
-        justify-content: center;
-        margin-bottom: 2rem;
-    }
-    .nav-item {
-        justify-content: center;
-        padding: 0.75rem;
-    }
-    .nav-item i { font-size: 1.5rem; }
-    .main-content {
-        margin-left: 70px;
-        padding: 1.5rem;
-    }
-    .logs-header { flex-direction: column; align-items: flex-start; }
-}
-
-@media (max-width: 480px) {
-    .students-grid {
-        grid-template-columns: 1fr;
-    }
-}
-
-@media (max-width: 560px) {
-    .main-content {
-        padding: 1rem;
-    }
-
-    .top-header {
-        align-items: flex-start;
-        gap: .75rem;
-    }
-
-    .top-header h2 {
-        font-size: 1.35rem;
-    }
-
-    .header-actions {
-        align-items: flex-end;
-        flex-direction: column;
-        gap: .5rem;
-    }
-
-    .time-display {
-        font-size: .75rem;
-        padding: .4rem .65rem;
-    }
-
-    #logout-btn {
-        font-size: .75rem;
-        padding: .55rem .75rem;
-    }
-
-    .glass-panel {
-        padding: 1rem;
-        border-radius: 12px;
-    }
-
-    .scanner-controls,
-    .logs-filters {
-        align-items: stretch;
-        flex-direction: column;
-    }
-
-    .scanner-controls .btn,
-    .logs-filters .btn,
-    .logs-filters input {
-        width: 100%;
-    }
-
-    .data-table th,
-    .data-table td {
-        padding: .7rem .55rem;
-        font-size: .78rem;
-    }
-}
-
-/* ═══════════════════════════════════════════════════════════════
-   ADMIN — additional responsive breakpoints
-   ═══════════════════════════════════════════════════════════════ */
-
-/* ── 420px — very small phones: hide sidebar completely ── */
-@media (max-width: 420px) {
-    .sidebar {
-        width: 0;
-        overflow: hidden;
-        padding: 0;
-    }
-
-    .main-content {
-        margin-left: 0;
-        padding: 0.75rem;
-    }
-
-    .students-grid {
-        grid-template-columns: 1fr;
-    }
-
-    .data-table {
-        display: block;
-        overflow-x: auto;
-        -webkit-overflow-scrolling: touch;
-    }
-
-    .data-table th,
-    .data-table td {
-        font-size: 0.72rem;
-        padding: 0.5rem 0.4rem;
-        white-space: nowrap;
-    }
-
-    .stat-card {
-        padding: 1rem;
-    }
-
-    .stat-value {
-        font-size: 2rem;
-    }
-
-    .glass-panel {
-        padding: 0.75rem;
-        border-radius: 10px;
-    }
-
     .register-grid,
-    .teacher-management-grid {
-        grid-template-columns: 1fr;
-    }
-
-    .barcode-preview-container {
-        display: none;
-    }
-
-    .top-header h2 {
-        font-size: 1.2rem;
-    }
+    .teacher-management-grid { grid-template-columns: 1fr; }
+    .stats-grid { grid-template-columns: repeat(3, 1fr); }
 }
 
-/* ── Fluid images and media ── */
-img,
-video,
-canvas,
-iframe {
-    max-width: 100%;
-    height: auto;
-}
-
-/* ── Table overflow on all small screens ── */
-@media (max-width: 640px) {
-    .data-table {
-        display: block;
-        overflow-x: auto;
-        -webkit-overflow-scrolling: touch;
-    }
-
-    .data-table th,
-    .data-table td {
-        white-space: nowrap;
-    }
-
-    .stats-grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
-
-    .register-grid {
-        grid-template-columns: 1fr;
-    }
-}
-
-/* ═══════════════════════════════════════════════════════════════
-   ADMIN MOBILE — bottom nav bar + header fixes
-   ═══════════════════════════════════════════════════════════════ */
-
-/* Bottom nav bar — hidden on desktop */
-.mobile-bottom-nav {
-    display: none;
-}
-
+/* ══ 768px — Hide sidebar, show bottom nav ═══════════════════ */
 @media (max-width: 768px) {
 
-    /* ── Hide sidebar, show bottom nav ── */
-    .sidebar {
-        display: none;
-    }
+    .sidebar { display: none; }
 
     .main-content {
         margin-left: 0;
-        padding: 1rem;
-        padding-bottom: 80px; /* space for bottom nav */
+        padding: 14px;
+        padding-bottom: 80px;
         width: 100%;
         max-width: 100%;
         overflow-x: hidden;
+        box-sizing: border-box;
     }
 
-    /* ── Header: prevent overflow ── */
+    /* Header */
     .top-header {
         flex-wrap: nowrap;
         align-items: center;
         gap: 8px;
         overflow: hidden;
+        margin-bottom: 14px;
     }
 
     .top-header h2 {
-        font-size: 1.2rem;
+        font-size: 1.1rem;
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
@@ -1143,130 +975,85 @@ iframe {
     .header-actions {
         display: flex;
         align-items: center;
-        gap: 6px;
+        gap: 4px;
         flex-shrink: 0;
     }
 
     .header-profile {
-        padding: 4px 8px 4px 4px;
+        padding: 4px 6px 4px 4px;
         gap: 6px;
+        max-width: 140px;
     }
 
     .header-profile-copy strong {
-        font-size: 0.75rem;
-        max-width: 80px;
+        font-size: 0.72rem;
+        max-width: 70px;
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
         display: block;
     }
 
-    .header-profile-copy span {
-        font-size: 0.62rem;
-    }
+    .header-profile-copy span { font-size: 0.6rem; }
 
-    .time-display {
-        display: none; /* hide time on mobile to save space */
-    }
+    .time-display { display: none; }
 
     #logout-btn {
         padding: 6px 10px;
-        font-size: 0.75rem;
+        font-size: 0.72rem;
+        gap: 4px;
     }
 
-    /* ── Bottom nav ── */
-    .mobile-bottom-nav {
-        display: flex;
-        position: fixed;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        height: 64px;
-        background: var(--bg-secondary);
-        border-top: 1px solid var(--border);
-        z-index: 50;
-        justify-content: space-around;
-        align-items: center;
-        padding: 0 4px;
-        backdrop-filter: blur(12px);
-    }
-
-    .mobile-nav-item {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        gap: 3px;
-        padding: 6px 8px;
-        border: none;
-        background: none;
-        color: var(--text-muted);
-        font-size: 0.6rem;
-        font-weight: 600;
-        cursor: pointer;
-        border-radius: 10px;
-        transition: color 0.15s, background 0.15s;
-        min-width: 48px;
-        text-decoration: none;
-    }
-
-    .mobile-nav-item i {
-        font-size: 1.4rem;
-        display: block;
-    }
-
-    .mobile-nav-item.active,
-    .mobile-nav-item:hover {
-        color: var(--primary);
-        background: rgba(59, 130, 246, 0.08);
-    }
-
-    /* ── Tables: horizontal scroll ── */
-    .data-table-wrap {
-        overflow-x: auto;
-        -webkit-overflow-scrolling: touch;
-    }
-
-    .data-table {
-        min-width: 500px;
-    }
-
-    /* ── Stats grid: 2 columns ── */
+    /* Stats: 2 columns on tablet */
     .stats-grid {
-        grid-template-columns: repeat(2, 1fr) !important;
+        grid-template-columns: repeat(2, 1fr);
         gap: 10px;
     }
 
     .stat-card {
-        padding: 14px;
+        padding: 14px 12px;
+        gap: 10px;
     }
 
-    .stat-value {
-        font-size: 1.6rem;
+    .stat-value { font-size: 1.5rem; }
+    .stat-label { font-size: 0.68rem; }
+
+    .stat-icon-wrap {
+        width: 36px;
+        height: 36px;
+        border-radius: 10px;
     }
 
-    /* ── Scanner full width ── */
-    .scanner-container {
+    /* Chart */
+    #attendance-chart { max-height: 180px; }
+
+    /* Tables: scroll horizontally */
+    .table-responsive, .data-table-wrap {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
         width: 100%;
-        max-width: 100%;
     }
 
-    #qr-reader {
-        width: 100% !important;
+    .data-table {
+        min-width: 420px;
+        font-size: 0.8rem;
     }
 
-    /* ── Register grid single col ── */
-    .register-grid,
-    .teacher-management-grid {
-        grid-template-columns: 1fr;
+    .data-table th,
+    .data-table td {
+        padding: 8px 10px;
+        white-space: nowrap;
     }
 
-    /* ── Students grid 2 col ── */
-    .students-grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
+    /* Overview grid: single column */
+    .overview-grid { grid-template-columns: 1fr; gap: 12px; }
 
-    /* ── Logs filter stack ── */
+    /* Students grid */
+    .students-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+
+    .student-card { padding: 12px; }
+
+    /* Logs */
     .logs-header {
         flex-direction: column;
         align-items: flex-start;
@@ -1276,133 +1063,129 @@ iframe {
     .logs-filters {
         flex-direction: column;
         width: 100%;
+        gap: 8px;
     }
 
     .logs-filters input,
     .logs-filters select,
-    .logs-filters .btn {
-        width: 100%;
-    }
-}
+    .logs-filters .btn { width: 100%; }
 
-@media (max-width: 480px) {
-    .students-grid {
-        grid-template-columns: 1fr;
-    }
+    /* Scanner */
+    .scanner-container { padding: 14px; }
+    #qr-reader { width: 100% !important; }
 
-    .stats-grid {
-        grid-template-columns: 1fr 1fr !important;
-    }
+    /* Register form */
+    .register-grid,
+    .teacher-management-grid { grid-template-columns: 1fr; }
 
-    .mobile-nav-item span {
-        display: none; /* icon only on very small */
+    /* mt-4 reduce */
+    .mt-4 { margin-top: 12px !important; }
+
+    /* Bottom nav */
+    .mobile-bottom-nav {
+        display: flex;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 60px;
+        background: var(--bg-secondary);
+        border-top: 1px solid var(--border);
+        z-index: 50;
+        justify-content: space-around;
+        align-items: center;
+        padding: 0 4px;
     }
 
     .mobile-nav-item {
-        min-width: 40px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 2px;
+        padding: 4px 6px;
+        border: none;
+        background: none;
+        color: var(--text-muted);
+        font-size: 0.58rem;
+        font-weight: 600;
+        cursor: pointer;
+        border-radius: 10px;
+        transition: color 0.15s, background 0.15s;
+        min-width: 44px;
+        text-decoration: none;
     }
 
-    .mobile-nav-item i {
-        font-size: 1.6rem;
+    .mobile-nav-item.active,
+    .mobile-nav-item:hover {
+        color: var(--primary);
+        background: rgba(59,130,246,0.08);
     }
 }
 
-/* ── Mobile bottom nav SVG icons ── */
-.mobile-nav-item svg {
-    width: 24px;
-    height: 24px;
-    display: block;
-    flex-shrink: 0;
+/* ══ 560px ════════════════════════════════════════════════════ */
+@media (max-width: 560px) {
+
+    .main-content { padding: 10px; padding-bottom: 72px; }
+
+    .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 8px;
+    }
+
+    .stat-card { padding: 12px 10px; gap: 8px; }
+    .stat-value { font-size: 1.3rem; }
+    .stat-icon-wrap { width: 32px; height: 32px; }
+    .stat-icon-wrap svg { width: 16px; height: 16px; }
+
+    .students-grid { grid-template-columns: repeat(2, 1fr); }
+
+    .student-card { padding: 10px; }
+
+    .glass-panel { padding: 14px; border-radius: 12px; }
+
+    .top-header h2 { font-size: 1rem; }
+
+    #logout-btn span,
+    #logout-btn .logout-text { display: none; }
+
+    #logout-btn {
+        padding: 6px 8px;
+        min-width: 32px;
+    }
 }
 
-/* ── Sidebar nav SVG icons ── */
-.nav-item svg {
-    width: 20px;
-    height: 20px;
-    flex-shrink: 0;
-}
+/* ══ 420px — very small phones ════════════════════════════════ */
+@media (max-width: 420px) {
 
-/* ═══════════════════════════════════════════════════════════════
-   ADMIN DASHBOARD — Enhanced stat cards & layout
-   ═══════════════════════════════════════════════════════════════ */
+    .main-content { padding: 8px; padding-bottom: 68px; }
 
-.stats-grid {
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    gap: 14px;
-}
+    .stats-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 6px;
+    }
 
-@media (max-width: 1100px) {
-    .stats-grid { grid-template-columns: repeat(3, 1fr); }
-}
-@media (max-width: 640px) {
-    .stats-grid { grid-template-columns: repeat(2, 1fr); }
-}
+    .stat-card { padding: 10px 8px; gap: 6px; }
+    .stat-value { font-size: 1.2rem; }
 
-.stat-card {
-    display: flex;
-    align-items: center;
-    gap: 14px;
-    padding: 18px 20px;
-    border-radius: 14px;
-}
+    .students-grid { grid-template-columns: 1fr; }
 
-.stat-icon-wrap {
-    width: 44px;
-    height: 44px;
-    border-radius: 12px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-}
+    .data-table { font-size: 0.72rem; }
+    .data-table th,
+    .data-table td { padding: 6px 8px; }
 
-.stat-card.stat-present .stat-icon-wrap { background: rgba(16,185,129,0.15); color: #10b981; }
-.stat-card.stat-late    .stat-icon-wrap { background: rgba(245,158,11,0.15); color: #f59e0b; }
-.stat-card.stat-absent  .stat-icon-wrap { background: rgba(239,68,68,0.15);  color: #ef4444; }
-.stat-card.stat-students .stat-icon-wrap { background: rgba(59,130,246,0.15); color: #3b82f6; }
-.stat-card.stat-teachers .stat-icon-wrap { background: rgba(139,92,246,0.15); color: #8b5cf6; }
+    .mobile-nav-item span { display: none; }
+    .mobile-nav-item svg { width: 22px; height: 22px; }
+    .mobile-nav-item { min-width: 36px; padding: 4px; }
 
-.stat-info {
-    display: flex;
-    flex-direction: column;
-    gap: 2px;
-    min-width: 0;
-}
+    .top-header { gap: 4px; }
 
-.stat-label {
-    font-size: 0.72rem;
-    color: var(--text-muted);
-    font-weight: 500;
-    white-space: nowrap;
-}
+    .header-profile-copy { display: none; }
 
-.stat-value {
-    font-size: 1.8rem;
-    font-weight: 700;
-    line-height: 1;
-}
+    .header-profile {
+        padding: 4px;
+        gap: 0;
+    }
 
-/* Status badge variants */
-.status-badge.late   { background: rgba(245,158,11,0.15); color: #f59e0b; }
-.status-badge.absent { background: rgba(239,68,68,0.15);  color: #ef4444; }
-
-/* Overview grid */
-.overview-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 14px;
-}
-
-@media (max-width: 768px) {
-    .overview-grid { grid-template-columns: 1fr; }
-}
-
-.stat-badge {
-    font-size: 0.72rem;
-    font-weight: 600;
-    color: var(--text-muted);
-    background: rgba(255,255,255,0.06);
-    padding: 4px 10px;
-    border-radius: 999px;
+    .glass-panel { padding: 10px; border-radius: 10px; }
 }
