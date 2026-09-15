@@ -242,24 +242,31 @@ async function renderStudentIdCard(account, allLogs) {
             </div>
         </div>`;
 
-    // Render QR only once per session
-    if (!studentQrRendered) {
-        studentQrRendered = true;
-        const scanUrl = `${window.location.origin}/scan.html?id=${scanId}`;
-        new QRCode(document.getElementById(qrWrapperId), {
-            text: scanUrl,
-            width: 110,
-            height: 110,
-            colorDark: '#000000',
-            colorLight: '#ffffff',
-            correctLevel: QRCode.CorrectLevel.H
-        });
-    }
+    // Render QR every time the card is drawn
+    const scanUrl = `${window.location.origin}/scan.html?id=${scanId}`;
+    new QRCode(document.getElementById(qrWrapperId), {
+        text: scanUrl,
+        width: 110,
+        height: 110,
+        colorDark: '#000000',
+        colorLight: '#ffffff',
+        correctLevel: QRCode.CorrectLevel.H
+    });
 
     // Also update the account's studentId so log filtering works correctly
     if (!account.studentId && scanId) {
         account.studentId = scanId;
     }
+}
+// Format 24-hour time to 12-hour AM/PM
+function formatTime(timeStr) {
+    if (!timeStr) return '';
+    const [h, m] = timeStr.split(':');
+    let hours = parseInt(h, 10);
+    const ampm = hours >= 12 ? 'PM' : 'AM';
+    hours = hours % 12;
+    hours = hours ? hours : 12;
+    return `${hours}:${m} ${ampm}`;
 }
 
 // Render schedules into the small dashboard card (teachers only)
@@ -349,7 +356,7 @@ async function renderDashboard(account) {
                     <span class="log-icon log-icon-${st}"><i class="ph-fill ph-${st === 'present' ? 'check' : st === 'late' ? 'clock' : 'x'}"></i></span>
                     <div>
                         <strong>${new Date(log.timestamp).toLocaleDateString([], { weekday: 'short', month: 'short', day: 'numeric' })}</strong>
-                        <small>${new Date(log.timestamp).toLocaleTimeString([], { timeStyle: 'short' })}</small>
+                        <small>${new Date(log.timestamp).toLocaleTimeString([], { timeStyle: 'short' })}${log.grade ? ` · ${log.grade}` : ''}</small>
                     </div>
                     <span class="log-status log-status-${st}">${log.status || 'Present'}</span>
                 </div>`;
@@ -365,7 +372,7 @@ async function renderDashboard(account) {
                     <span class="log-icon log-icon-${st}"><i class="ph-fill ph-${st === 'present' ? 'check' : st === 'late' ? 'clock' : 'x'}"></i></span>
                     <div class="log-row-info">
                         <strong>${log.userName}</strong>
-                        <small>${new Date(log.timestamp).toLocaleString([], { dateStyle: 'medium', timeStyle: 'short' })}</small>
+                        <small>${new Date(log.timestamp).toLocaleString([], { dateStyle: 'medium', timeStyle: 'short' })}${log.grade ? ` · ${log.grade}` : ''}</small>
                     </div>
                     <select class="log-status-select log-status-${st}" data-log-id="${log.id}">
                         <option value="Present" ${log.status === 'Present' ? 'selected' : ''}>Present</option>
@@ -400,6 +407,7 @@ async function renderDashboard(account) {
 
     // Third card: students get their ID card w/ QR, teachers get their schedule
     if (account.role === 'student') {
+        document.getElementById('schedule-card').classList.add('hidden');
         await renderStudentIdCard(account, logs);
         // Show the student schedule card and populate with all teachers' schedules
         const studentSchedCard = document.getElementById('student-schedule-card');
@@ -421,6 +429,7 @@ async function renderDashboard(account) {
     } else {
         document.getElementById('student-schedule-card').classList.add('hidden');
         const card = document.getElementById('schedule-card');
+        card.classList.remove('hidden');
         const label = card.querySelector('.card-label span');
         if (label) label.textContent = 'Schedule';
         const labelIcon = card.querySelector('.card-label i');
@@ -840,7 +849,6 @@ function signOut() {
     setHeaderAccount(null);
     scheduleFormInitialized = false;
     classViewInitialized = false;
-    studentQrRendered = false;
     dashboardView.classList.add('hidden');
     publicView.classList.remove('hidden');
     window.location.hash = 'home';
