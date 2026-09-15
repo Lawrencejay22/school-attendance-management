@@ -1,5 +1,5 @@
 const currentSession = SchoolSyncDB.getSession();
-if (!currentSession || currentSession.role !== 'admin') {
+if (!currentSession || (currentSession.role !== 'admin' && currentSession.role !== 'teacher')) {
     window.location.href = '../client.html';
 }
 

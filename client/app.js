@@ -46,6 +46,11 @@ function setHeaderAccount(account) {
     profileTrigger.classList.toggle('hidden', !signedIn);
     headerLogout.classList.toggle('hidden', !signedIn);
     goAdminButton.classList.toggle('hidden', !signedIn || account.role !== 'admin');
+    // Hide Admin access footer link only for students
+    const adminFooterLink = document.getElementById('admin-footer-link');
+    if (adminFooterLink) {
+        adminFooterLink.classList.toggle('hidden', signedIn && account.role === 'student');
+    }
     if (!signedIn) return;
     document.getElementById('header-profile-initials').textContent = accountInitials(account);
     document.getElementById('header-profile-name').textContent = account.name.split(' ')[0];
@@ -710,8 +715,12 @@ document.getElementById('admin-footer-link').addEventListener('click', event => 
     if (currentSession) {
         if (currentSession.role === 'admin') {
             window.location.href = '/client/admin/dashboard.html';
+        } else if (currentSession.role === 'teacher') {
+            window.location.hash = 'admin-login';
+            openAuth('admin');
         } else {
-            alert("Admin access is restricted to admin accounts only. Students and teachers cannot access the admin panel.");
+            // student - should never see this button but block just in case
+            alert('Admin access is restricted to admin and teacher accounts.');
         }
         return;
     }
@@ -737,9 +746,9 @@ signInForm.addEventListener('submit', async event => {
     event.preventDefault();
     const result = await SchoolSyncDB.authenticate(document.getElementById('signin-email').value.trim(), document.getElementById('signin-password').value);
     if (result.error) { showMessage(result.error); return; }
-    if (adminLoginMode && result.account.role !== 'admin') {
+    if (adminLoginMode && result.account.role === 'student') {
         SchoolSyncDB.signOut();
-        showMessage('Access denied. Only admin accounts can use this login.');
+        showMessage('Access denied. Only admin and teacher accounts can use this login.');
         return;
     }
     if (!adminLoginMode && result.account.role === 'admin') {
