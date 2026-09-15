@@ -171,7 +171,7 @@ document.getElementById('logout-btn').addEventListener('click', () => {
     }
 });
 
-const navItems = document.querySelectorAll('.nav-item');
+const navItems = document.querySelectorAll('.nav-item, .mobile-nav-item');
 const views = document.querySelectorAll('.view');
 const pageTitle = document.getElementById('page-title');
 const currentTimeEl = document.getElementById('current-time');
@@ -187,8 +187,9 @@ navItems.forEach(item => {
         event.preventDefault();
         navItems.forEach(nav => nav.classList.remove('active'));
         views.forEach(view => view.classList.remove('active'));
-        item.classList.add('active');
+        // Set active on all items with same data-target (sidebar + bottom nav)
         const targetId = item.getAttribute('data-target');
+        document.querySelectorAll(`[data-target="${targetId}"]`).forEach(el => el.classList.add('active'));
         document.getElementById(targetId).classList.add('active');
         pageTitle.textContent = item.getAttribute('data-title');
 
