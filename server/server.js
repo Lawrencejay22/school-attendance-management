@@ -292,6 +292,7 @@ async function handleApi(request, response, pathname) {
 
     if (request.method === 'POST' && pathname === '/api/schedules') {
         const body = await readBody(request);
+        console.log('Received schedule body:', body);
         if (!body?.teacherId || !body?.teacherName || !body?.subject || !body?.dayOfWeek || !body?.startTime || !body?.endTime) {
             return sendJson(response, 400, { error: 'Subject, day, start time, and end time are required.' });
         }
