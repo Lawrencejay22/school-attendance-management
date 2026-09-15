@@ -719,7 +719,8 @@ document.getElementById('admin-footer-link').addEventListener('click', event => 
     openAuth('admin');
 });
 goAdminButton.addEventListener('click', () => {
-    if (currentAccount) SchoolSyncDB.savePreviousSession(currentAccount);
+    if (!currentAccount || currentAccount.role !== 'admin') return;
+    SchoolSyncDB.savePreviousSession(currentAccount);
     window.location.href = '/client/admin/dashboard.html';
 });
 profileTrigger.addEventListener('click', openProfile);
