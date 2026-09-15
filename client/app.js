@@ -12,6 +12,7 @@ const signupRole = document.getElementById('signup-role');
 const studentSignupFields = document.getElementById('student-signup-fields');
 const signupStudentId = document.getElementById('signup-student-id');
 const signupDepartment = document.getElementById('signup-department');
+const signupSection = document.getElementById('signup-section');
 const guestActions = document.getElementById('guest-actions');
 const profileTrigger = document.getElementById('profile-trigger');
 const headerLogout = document.getElementById('header-logout');
@@ -128,6 +129,7 @@ function updateStudentSignupFields() {
     studentSignupFields.classList.toggle('hidden', !isStudent);
     signupStudentId.required = isStudent;
     signupDepartment.required = isStudent;
+    signupSection.required = isStudent;
 }
 
 function openAuth(mode = 'signin') {
@@ -780,7 +782,8 @@ signUpForm.addEventListener('submit', async event => {
         password: document.getElementById('signup-password').value,
         role: signupRole.value,
         studentId: signupStudentId.value.trim(),
-        department: signupDepartment.value
+        department: signupDepartment.value,
+        adviser: signupSection.value
     });
     if (result.error) { showMessage(result.error); return; }
     const login = await SchoolSyncDB.authenticate(document.getElementById('signup-email').value.trim(), document.getElementById('signup-password').value);

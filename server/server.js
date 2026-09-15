@@ -187,7 +187,7 @@ async function handleApi(request, response, pathname) {
         const body = await readBody(request);
         const isStudent = body?.role === 'student';
         if (!body?.name || !body?.email || !body?.password || !['student', 'teacher'].includes(body.role) || (isStudent && (!body.studentId || !body.department))) {
-            return sendJson(response, 400, { error: isStudent ? 'Name, email, password, student ID, and department are required.' : 'Name, email, password, and role are required.' });
+            return sendJson(response, 400, { error: isStudent ? 'Name, email, password, student ID, department, and section are required.' : 'Name, email, password, and role are required.' });
         }
         const account = { id: randomUUID(), name: body.name.trim(), email: body.email.trim().toLowerCase(), passwordHash: hashPassword(body.password), role: body.role, studentId: isStudent ? body.studentId.trim() : '' };
         const connection = await pool.getConnection();
@@ -195,7 +195,7 @@ async function handleApi(request, response, pathname) {
             await connection.beginTransaction();
             await connection.execute('INSERT INTO accounts (id, name, email, password_hash, role, student_id) VALUES (?, ?, ?, ?, ?, ?)', [account.id, account.name, account.email, account.passwordHash, account.role, account.studentId || null]);
             if (isStudent) {
-                await connection.execute('INSERT INTO students (id, name, department) VALUES (?, ?, ?)', [body.studentId.trim(), account.name, body.department.trim()]);
+                await connection.execute('INSERT INTO students (id, name, department, adviser) VALUES (?, ?, ?, ?)', [body.studentId.trim(), account.name, body.department.trim(), (body.adviser || 'Not assigned').trim()]);
             }
             await connection.commit();
             return sendJson(response, 201, { account: publicAccount(account) });
