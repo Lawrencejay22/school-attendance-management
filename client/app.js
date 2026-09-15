@@ -31,6 +31,14 @@ let currentAccount = null;
 let adminLoginMode = false;
 const classQrInstances = {};
 
+function updateMobileMenu(account) {
+    const signedIn = Boolean(account);
+    const mobileLogoutBtn = document.getElementById('mobile-logout');
+    const mobileGuest = document.getElementById('mobile-guest-actions');
+    if (mobileLogoutBtn) mobileLogoutBtn.classList.toggle('hidden', !signedIn);
+    if (mobileGuest) mobileGuest.classList.toggle('hidden', signedIn);
+}
+
 function accountInitials(account) {
     return account.name.split(/\s+/).filter(Boolean).slice(0, 2).map(part => part[0].toUpperCase()).join('') || 'SS';
 }
@@ -52,6 +60,8 @@ function setHeaderAccount(account) {
     if (adminFooterLink) {
         adminFooterLink.classList.toggle('hidden', signedIn && account.role === 'student');
     }
+    // Sync mobile menu
+    updateMobileMenu(account);
     if (!signedIn) return;
     document.getElementById('header-profile-initials').textContent = accountInitials(account);
     document.getElementById('header-profile-name').textContent = account.name.split(' ')[0];
@@ -875,7 +885,46 @@ function signOut() {
 
 headerLogout.addEventListener('click', signOut);
 
-// About modal
+// ── Mobile hamburger menu ──────────────────────────────────────
+const hamburgerBtn = document.getElementById('hamburger-btn');
+const mobileDrawer = document.getElementById('mobile-nav-drawer');
+const mobileLogout = document.getElementById('mobile-logout');
+let mobileOverlay = null;
+
+function openMobileMenu() {
+    mobileDrawer.classList.remove('hidden');
+    hamburgerBtn.setAttribute('aria-expanded', 'true');
+    hamburgerBtn.innerHTML = '<i class="ph ph-x"></i>';
+    mobileOverlay = document.createElement('div');
+    mobileOverlay.className = 'mobile-nav-overlay';
+    mobileOverlay.addEventListener('click', closeMobileMenu);
+    document.body.appendChild(mobileOverlay);
+    document.body.classList.add('modal-open');
+}
+
+function closeMobileMenu() {
+    mobileDrawer.classList.add('hidden');
+    hamburgerBtn.setAttribute('aria-expanded', 'false');
+    hamburgerBtn.innerHTML = '<i class="ph ph-list"></i>';
+    if (mobileOverlay) { mobileOverlay.remove(); mobileOverlay = null; }
+    document.body.classList.remove('modal-open');
+}
+
+hamburgerBtn?.addEventListener('click', () => {
+    if (mobileDrawer.classList.contains('hidden')) openMobileMenu();
+    else closeMobileMenu();
+});
+
+mobileDrawer?.querySelectorAll('a, button').forEach(el => {
+    el.addEventListener('click', closeMobileMenu);
+});
+
+
+mobileLogout?.addEventListener('click', signOut);
+
+
+
+// ── About modal ──────────────────────────────────────────────
 const aboutModal = document.getElementById('about-modal');
 document.getElementById('about-nav-link')?.addEventListener('click', e => {
     e.preventDefault();

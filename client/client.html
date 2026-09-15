@@ -26,26 +26,44 @@
                 <span class="brand-mark"><i class="ph-bold ph-qr-code"></i></span>
                 <span>School<span>Sync</span></span>
             </a>
+
+            <!-- Desktop nav -->
             <nav class="site-nav" aria-label="Main navigation">
                 <a href="#home">Home</a>
                 <a href="about.html" id="about-nav-link">About</a>
                 <a href="#contact">Contact</a>
                 <a href="#more">More</a>
             </nav>
+
             <div class="header-actions">
-                <button class="icon-btn" id="theme-toggle" type="button" aria-label="Switch theme"
-                    title="Switch theme"><i class="ph ph-moon"></i></button>
+                <button class="icon-btn" id="theme-toggle" type="button" aria-label="Switch theme" title="Switch theme"><i class="ph ph-moon"></i></button>
                 <button class="header-profile-btn hidden" id="profile-trigger" type="button" aria-label="Open profile">
                     <span class="header-profile-avatar" id="header-profile-initials">SS</span>
                     <span class="header-profile-name" id="header-profile-name">Profile</span>
                 </button>
                 <div id="guest-actions">
                     <button class="btn btn-quiet" data-open-auth="signin">Sign in</button>
-                    <button class="btn btn-dark" data-open-auth="signup">Create account <i
-                            class="ph-bold ph-arrow-up-right"></i></button>
+                    <button class="btn btn-dark" data-open-auth="signup">Create account <i class="ph-bold ph-arrow-up-right"></i></button>
                 </div>
-                <button class="btn btn-quiet hidden" id="header-logout" type="button"><i
-                        class="ph-bold ph-sign-out"></i> Sign out</button>
+                <button class="btn btn-quiet hidden" id="header-logout" type="button"><i class="ph-bold ph-sign-out"></i> <span class="logout-label">Sign out</span></button>
+                <!-- Hamburger — mobile only -->
+                <button class="icon-btn hamburger-btn" id="hamburger-btn" type="button" aria-label="Open menu" aria-expanded="false">
+                    <i class="ph ph-list"></i>
+                </button>
+            </div>
+
+            <!-- Mobile drawer -->
+            <div class="mobile-nav-drawer hidden" id="mobile-nav-drawer">
+                <a href="#home" class="mobile-nav-link">Home</a>
+                <a href="about.html" class="mobile-nav-link">About</a>
+                <a href="#contact" class="mobile-nav-link">Contact</a>
+                <a href="#more" class="mobile-nav-link">More</a>
+                <div class="mobile-nav-divider"></div>
+                <button class="mobile-nav-link mobile-signout hidden" id="mobile-logout" type="button"><i class="ph-bold ph-sign-out"></i> Sign out</button>
+                <div id="mobile-guest-actions" class="mobile-guest-btns">
+                    <button class="btn btn-quiet full-width" data-open-auth="signin">Sign in</button>
+                    <button class="btn btn-coral full-width" data-open-auth="signup">Create account</button>
+                </div>
             </div>
         </header>
 
