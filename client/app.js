@@ -884,6 +884,24 @@ window.addEventListener('hashchange', () => {
     }
 });
 
+const refreshBtn = document.getElementById('refresh-dashboard-btn');
+if (refreshBtn) {
+    refreshBtn.addEventListener('click', async (e) => {
+        e.preventDefault();
+        const btn = e.currentTarget;
+        btn.style.transform = 'rotate(180deg)';
+        const session = SchoolSyncDB.getSession();
+        if (session) {
+            await renderDashboard(session).catch(console.error);
+        }
+        setTimeout(() => {
+            btn.style.transition = 'none';
+            btn.style.transform = 'rotate(0deg)';
+            setTimeout(() => { btn.style.transition = 'transform 0.2s'; }, 10);
+        }, 200);
+    });
+}
+
 
 if (!existingSession) {
     if (window.location.hash === '#admin-login') openAuth('admin');
