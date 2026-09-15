@@ -187,7 +187,10 @@
                         <div>
                             <p class="eyebrow">Teacher tools</p>
                             <h2>My Class</h2>
-                            <p class="class-manager-date" id="class-today-date"></p>
+                            <div style="display:flex; align-items:center; gap:8px; flex-wrap:wrap;">
+                                <p class="class-manager-date" id="class-today-date"></p>
+                                <input type="date" id="class-date-picker" style="border:1px solid var(--border,#ddd); border-radius:8px; padding:4px 8px; font-size:0.85rem; background:var(--bg,#fff); color:inherit; cursor:pointer;">
+                            </div>
                         </div>
                         <div class="class-header-actions">
                             <div class="cutoff-row">

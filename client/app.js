@@ -496,16 +496,31 @@ function statusIcon(status) {
 }
 
 async function renderClassView(account) {
-    const [students, todayLogs] = await Promise.all([
+    // Use the date picker value if set, otherwise today
+    const picker = document.getElementById('class-date-picker');
+    const today = new Date();
+    const todayStr = `${today.getFullYear()}-${String(today.getMonth()+1).padStart(2,'0')}-${String(today.getDate()).padStart(2,'0')}`;
+    if (picker && !picker.value) picker.value = todayStr;
+    const selectedDate = (picker && picker.value) ? picker.value : todayStr;
+
+    const [students, allLogs] = await Promise.all([
         SchoolSyncDB.getUsers(),
-        SchoolSyncDB.getTodayAttendance()
+        SchoolSyncDB.getLogs()
     ]);
 
+    // Filter logs for selected date
+    const dateLogs = allLogs.filter(log => {
+        const d = new Date(log.timestamp);
+        const dStr = `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
+        return dStr === selectedDate;
+    });
+
+    const displayDate = new Date(selectedDate + 'T12:00:00');
     document.getElementById('class-today-date').textContent =
-        new Date().toLocaleDateString([], { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+        displayDate.toLocaleDateString([], { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
 
     const logMap = {};
-    for (const log of todayLogs) {
+    for (const log of dateLogs) {
         if (!logMap[log.userId] || new Date(log.timestamp) > new Date(logMap[log.userId].timestamp)) {
             logMap[log.userId] = log;
         }
@@ -622,6 +637,11 @@ function initClassView(account) {
 
     // Refresh when cutoff time changes so status badges recalculate
     document.getElementById('cutoff-time').addEventListener('change', () => {
+        renderClassView(account);
+    });
+
+    // Refresh when date picker changes
+    document.getElementById('class-date-picker').addEventListener('change', () => {
         renderClassView(account);
     });
 }
