@@ -547,11 +547,6 @@ async function renderClassView(account) {
                     ${statusIcon(displayStatus)} ${displayStatus}
                 </span>
                 ${scanTime ? `<div class="class-status-time">Scanned at ${scanTime}</div>` : `<div class="class-status-time">Not yet scanned</div>`}
-                <select class="class-status-select" data-student-id="${student.id}" data-log-id="${logId || ''}">
-                    <option value="Present" ${displayStatus === 'Present' ? 'selected' : ''}>Present</option>
-                    <option value="Late"    ${displayStatus === 'Late' ? 'selected' : ''}>Late</option>
-                    <option value="Absent"  ${displayStatus === 'Absent' ? 'selected' : ''}>Absent</option>
-                </select>
             </div>`;
 
         grid.appendChild(card);
@@ -576,29 +571,6 @@ async function renderClassView(account) {
     document.getElementById('stat-class-total').textContent = students.length;
 
     // Bind status-select change handlers
-    grid.querySelectorAll('.class-status-select').forEach(sel => {
-        sel.addEventListener('change', async () => {
-            const newStatus = sel.value;
-            const lid = sel.dataset.logId;
-
-            if (!lid) {
-                sel.value = 'Absent';
-                return;
-            }
-
-            try {
-                await SchoolSyncDB.updateAttendanceStatus(lid, newStatus);
-                const wrap = sel.closest('.class-status-wrap');
-                const badge = wrap.querySelector('.class-status-badge');
-                badge.className = `class-status-badge ${statusClass(newStatus)}`;
-                badge.innerHTML = `${statusIcon(newStatus)} ${newStatus}`;
-                await updateClassStats();
-            } catch (err) {
-                alert(err.message);
-                await renderClassView(account);
-            }
-        });
-    });
 
     // Bind remove-student handlers
 
