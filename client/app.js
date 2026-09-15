@@ -247,7 +247,6 @@ async function renderStudentIdCard(account, allLogs) {
             </div>
         </div>`;
 
-    // Render QR every time the card is drawn
     const scanUrl = `${window.location.origin}/scan.html?id=${scanId}`;
     new QRCode(document.getElementById(qrWrapperId), {
         text: scanUrl,
@@ -258,7 +257,7 @@ async function renderStudentIdCard(account, allLogs) {
         correctLevel: QRCode.CorrectLevel.H
     });
 
-    // Also update the account's studentId so log filtering works correctly
+
     if (!account.studentId && scanId) {
         account.studentId = scanId;
     }
@@ -553,9 +552,6 @@ async function renderClassView(account) {
                     <option value="Late"    ${displayStatus === 'Late' ? 'selected' : ''}>Late</option>
                     <option value="Absent"  ${displayStatus === 'Absent' ? 'selected' : ''}>Absent</option>
                 </select>
-                <button class="class-remove-btn" data-remove-student="${student.id}" data-student-name="${student.name}" aria-label="Remove ${student.name}">
-                    <i class="ph ph-trash"></i> Remove
-                </button>
             </div>`;
 
         grid.appendChild(card);
@@ -605,21 +601,7 @@ async function renderClassView(account) {
     });
 
     // Bind remove-student handlers
-    grid.querySelectorAll('[data-remove-student]').forEach(btn => {
-        btn.addEventListener('click', async () => {
-            const studentId = btn.dataset.removeStudent;
-            const studentName = btn.dataset.studentName;
-            if (!confirm(`Remove "${studentName}" from the system? Their attendance logs will also be deleted.`)) return;
-            try {
-                await SchoolSyncDB.removeStudent(studentId);
-                // Clear QR cache so it re-renders if re-added
-                delete classQrInstances[studentId];
-                await renderClassView(account);
-            } catch (err) {
-                alert(err.message);
-            }
-        });
-    });
+
 }
 
 async function updateClassStats() {
