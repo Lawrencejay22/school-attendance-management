@@ -16,5 +16,5 @@ services:
       - key: MYSQL_PASSWORD
         sync: false
       - key: MYSQL_DATABASE
-        sync: false
+        value: ADMIN_attendance
     healthCheckPath: /
