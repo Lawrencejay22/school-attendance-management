@@ -319,10 +319,11 @@
                 <a class="btn btn-quiet" href="client.html">Sign in</a>
                 <a class="btn btn-dark" href="client.html">Get started <i class="ph-bold ph-arrow-up-right"></i></a>
             </div>
-            <!-- signed in -->
-            <a class="btn btn-quiet hidden" id="about-back-btn" href="client.html">
-                <i class="ph-bold ph-arrow-left"></i> Back to dashboard
-            </a>
+            <!-- signed in: profile avatar + sign out -->
+            <button class="header-profile-btn hidden" id="about-profile-btn" type="button">
+                <span class="header-profile-avatar" id="about-profile-initials">SS</span>
+                <span class="header-profile-name" id="about-profile-name">Profile</span>
+            </button>
             <button class="btn btn-quiet hidden" id="about-signout-btn" type="button">
                 <i class="ph-bold ph-sign-out"></i> Sign out
             </button>
@@ -541,12 +542,27 @@
 
     if (session) {
         document.getElementById('about-guest-actions').classList.add('hidden');
-        document.getElementById('about-back-btn').classList.remove('hidden');
+
+        const profileBtn = document.getElementById('about-profile-btn');
+        const initials = session.name.split(/\s+/).filter(Boolean).slice(0, 2).map(p => p[0].toUpperCase()).join('') || 'SS';
+        document.getElementById('about-profile-initials').textContent = initials;
+        document.getElementById('about-profile-name').textContent = session.name.split(' ')[0];
+
+        // Profile image if stored
+        if (session.profileImage) {
+            const avatarEl = document.getElementById('about-profile-initials');
+            avatarEl.textContent = '';
+            avatarEl.style.backgroundImage = `url(${session.profileImage})`;
+            avatarEl.style.backgroundSize = 'cover';
+            avatarEl.style.backgroundPosition = 'center';
+        }
+
+        profileBtn.classList.remove('hidden');
+        profileBtn.addEventListener('click', () => {
+            window.location.href = session.role === 'admin' ? 'admin/dashboard.html' : 'client.html';
+        });
+
         document.getElementById('about-signout-btn').classList.remove('hidden');
-        // Back link: admin goes to admin dashboard, others go to client.html
-        const backBtn = document.getElementById('about-back-btn');
-        backBtn.href = session.role === 'admin' ? 'admin/dashboard.html' : 'client.html';
-        backBtn.innerHTML = `<i class="ph-bold ph-arrow-left"></i> Back to dashboard`;
     }
 
     document.getElementById('about-signout-btn')?.addEventListener('click', () => {
