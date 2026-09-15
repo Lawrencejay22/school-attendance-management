@@ -238,9 +238,10 @@ async function updateDashboard() {
             <td>${log.userId}</td>
             <td class="hide-mobile">${log.grade || '-'}</td>
             <td class="hide-mobile">${log.section || '-'}</td>
+            <td class="hide-mobile">${log.year || '-'}</td>
             <td>${new Date(log.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</td>
             <td><span class="status-badge ${(log.status||'present').toLowerCase()}">${log.status || 'Present'}</span></td>
-        </tr>`).join('') : '<tr class="empty-row"><td colspan="6">No recent activity</td></tr>';
+        </tr>`).join('') : '<tr class="empty-row"><td colspan="7">No recent activity</td></tr>';
 
     // Overview: all students
     const studBody = document.getElementById('overview-students-body');
@@ -442,7 +443,7 @@ async function updateLogsTable() {
 
     tbody.innerHTML = filtered.length ? filtered.map(log => {
         const date = new Date(log.timestamp);
-        return `<tr><td>${date.toLocaleDateString()}</td><td>${date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</td><td>${log.userId}</td><td>${log.userName}</td><td>${log.grade || '-'}${log.section ? ' · ' + log.section : ''}</td><td><span class="status-badge present">${log.status}</span></td></tr>`;
+        return `<tr><td>${date.toLocaleDateString()}</td><td>${date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</td><td>${log.userId}</td><td>${log.userName}</td><td>${log.grade || '-'}${log.section ? ' · ' + log.section : ''}${log.year ? ' · ' + log.year : ''}</td><td><span class="status-badge present">${log.status}</span></td></tr>`;
     }).join('') : '<tr class="empty-row"><td colspan="6">No records found</td></tr>';
 }
 

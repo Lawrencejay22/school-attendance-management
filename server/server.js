@@ -300,7 +300,8 @@ async function handleApi(request, response, pathname) {
             const [logs] = await pool.execute(
                 `SELECT a.id, a.student_id AS userId, a.student_name AS userName,
                         a.department AS grade, a.attendance_time AS timestamp, a.status,
-                        COALESCE(s.adviser, '') AS section
+                        COALESCE(s.adviser, '') AS section,
+                        COALESCE(s.year, '') AS year
                  FROM attendance a
                  LEFT JOIN students s ON s.id = a.student_id
                  WHERE DATE(a.attendance_time) = ?
@@ -312,7 +313,8 @@ async function handleApi(request, response, pathname) {
         const [logs] = await pool.execute(
             `SELECT a.id, a.student_id AS userId, a.student_name AS userName,
                     a.department AS grade, a.attendance_time AS timestamp, a.status,
-                    COALESCE(s.adviser, '') AS section
+                    COALESCE(s.adviser, '') AS section,
+                    COALESCE(s.year, '') AS year
              FROM attendance a
              LEFT JOIN students s ON s.id = a.student_id
              ORDER BY a.attendance_time DESC`
