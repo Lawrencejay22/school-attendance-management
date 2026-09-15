@@ -1314,3 +1314,10 @@ iframe {
     display: block;
     flex-shrink: 0;
 }
+
+/* ── Sidebar nav SVG icons ── */
+.nav-item svg {
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
+}

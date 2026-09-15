@@ -348,7 +348,7 @@ async function updateLogsTable() {
 
     tbody.innerHTML = filtered.length ? filtered.map(log => {
         const date = new Date(log.timestamp);
-        return `<tr><td>${date.toLocaleDateString()}</td><td>${date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</td><td>${log.userId}</td><td>${log.userName}</td><td>${log.grade || '-'}</td><td><span class="status-badge present">${log.status}</span></td></tr>`;
+        return `<tr><td>${date.toLocaleDateString()}</td><td>${date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</td><td>${log.userId}</td><td>${log.userName}</td><td>${log.grade || '-'}${log.section ? ' · ' + log.section : ''}</td><td><span class="status-badge present">${log.status}</span></td></tr>`;
     }).join('') : '<tr class="empty-row"><td colspan="6">No records found</td></tr>';
 }
 
@@ -372,7 +372,7 @@ async function updateStudentsView() {
         const card = document.createElement('div');
         card.className = 'student-card glass-panel';
         const qrId = `qr-${user.id.replace(/[^a-zA-Z0-9]/g, '_')}`;
-        card.innerHTML = `<div class="student-card-header"><div class="student-avatar">${user.name.charAt(0).toUpperCase()}</div><div class="student-meta"><h4 class="student-name">${user.name}</h4><span class="student-id-badge">${user.id}</span></div></div><div class="student-qr-wrapper"><div id="${qrId}"></div></div><div class="student-card-footer"><span class="student-grade">${user.grade}</span><button class="btn danger-btn remove-btn" onclick="removeStudent('${user.id}')"><i class="ph ph-trash"></i> Remove</button></div>`;
+        card.innerHTML = `<div class="student-card-header"><div class="student-avatar">${user.name.charAt(0).toUpperCase()}</div><div class="student-meta"><h4 class="student-name">${user.name}</h4><span class="student-id-badge">${user.id}</span></div></div><div class="student-qr-wrapper"><div id="${qrId}"></div></div><div class="student-card-footer"><span class="student-grade">${user.grade}${user.adviser ? ' · ' + user.adviser : ''}</span><button class="btn danger-btn remove-btn" onclick="removeStudent('${user.id}')"><i class="ph ph-trash"></i> Remove</button></div>`;
         grid.appendChild(card);
         new QRCode(document.getElementById(qrId), { text: user.id, width: 120, height: 120, colorDark: '#000000', colorLight: '#ffffff', correctLevel: QRCode.CorrectLevel.H });
     });
