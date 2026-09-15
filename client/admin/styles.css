@@ -457,6 +457,23 @@ h1, h2, h3, h4 { font-weight: 600; }
     box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
 }
 
+/* ── Dashboard section spacing ── */
+#dashboard-view .glass-panel + .glass-panel,
+#dashboard-view .mt-4 {
+    margin-top: 20px;
+}
+
+.recent-activity h3,
+.glass-panel > h3 {
+    margin: 0 0 16px 0;
+    font-size: 1rem;
+    font-weight: 600;
+}
+
+.overview-grid .glass-panel {
+    padding: 20px 24px;
+}
+
 /* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
    Buttons
 â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
@@ -561,25 +578,34 @@ select option { background: var(--bg-secondary); }
 }
 
 .data-table th {
-    padding: 1rem;
+    padding: 12px 16px;
     border-bottom: 1px solid var(--border);
     color: var(--text-muted);
-    font-weight: 500;
-    font-size: 0.875rem;
+    font-weight: 600;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    white-space: nowrap;
 }
 
 .data-table td {
-    padding: 1rem;
+    padding: 14px 16px;
     border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-    font-size: 0.95rem;
+    font-size: 0.9rem;
+    line-height: 1.4;
 }
 
-.data-table tr:hover td { background: rgba(255, 255, 255, 0.02); }
+.data-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.data-table tr:hover td { background: rgba(255, 255, 255, 0.03); }
 
 .empty-row td {
     text-align: center;
     color: var(--text-muted);
-    padding: 2rem 1rem;
+    padding: 2.5rem 1rem;
+    font-size: 0.875rem;
 }
 
 /* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
