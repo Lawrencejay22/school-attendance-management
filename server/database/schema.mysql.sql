@@ -30,7 +30,6 @@ CREATE TABLE IF NOT EXISTS students (
     id               VARCHAR(100) PRIMARY KEY,
     name             VARCHAR(120) NOT NULL,
     department       VARCHAR(120) NOT NULL,
-    adviser          VARCHAR(120) NOT NULL DEFAULT 'Not assigned',
     registered_at    TIMESTAMP   NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE = InnoDB;
 

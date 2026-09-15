@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -40,7 +41,7 @@
             width: 100%;
             max-width: 400px;
             text-align: center;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
         }
 
         .icon-container {
@@ -62,7 +63,9 @@
         }
 
         @keyframes spin {
-            100% { transform: rotate(360deg); }
+            100% {
+                transform: rotate(360deg);
+            }
         }
 
         h1 {
@@ -114,6 +117,7 @@
         }
     </style>
 </head>
+
 <body>
 
     <div class="scan-card">
@@ -140,7 +144,7 @@
             const statusTitle = document.getElementById('status-title');
             const statusMessage = document.getElementById('status-message');
             const studentDetails = document.getElementById('student-details');
-            
+
             if (!studentId) {
                 showError("Invalid QR Code", "No student ID was found in the URL.");
                 return;
@@ -163,11 +167,9 @@
                 statusIcon.className = 'icon-container success';
                 statusIcon.innerHTML = '<i class="ph-fill ph-check-circle"></i>';
                 statusTitle.textContent = 'Attendance Recorded!';
-                
-                // Show some student info if we could get it (the backend doesn't return the student details on POST yet)
-                // We'll just show the status for now
+
                 statusMessage.textContent = `You have been marked as ${data.status.toUpperCase()}.`;
-                
+
                 studentDetails.style.display = 'block';
                 document.getElementById('student-name').textContent = `Student ID: ${studentId}`;
                 document.getElementById('student-info').textContent = `Status: ${data.status}`;
@@ -186,4 +188,5 @@
         });
     </script>
 </body>
+
 </html>
