@@ -515,7 +515,7 @@ async function renderClassView(account) {
         return dStr === selectedDate;
     });
 
-    const displayDate = new Date(selectedDate + 'T12:00:00');
+    const displayDate = new Date(selectedDate + 'T00:00:00');
     document.getElementById('class-today-date').textContent =
         displayDate.toLocaleDateString([], { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
 

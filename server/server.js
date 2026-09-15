@@ -308,6 +308,12 @@ async function handleApi(request, response, pathname) {
         const [students] = await pool.execute('SELECT id, name, department FROM students WHERE id = ?', [body?.userId || '']);
         const student = students[0];
         if (!student) return sendJson(response, 404, { error: 'Unknown student ID.' });
+        // Block duplicate scans on the same day
+        const [existing] = await pool.execute(
+            'SELECT id FROM attendance WHERE student_id = ? AND DATE(attendance_time) = CURDATE()',
+            [student.id]
+        );
+        if (existing.length) return sendJson(response, 409, { error: 'Already scanned today.', alreadyScanned: true });
         // Determine status based on time: before cutoff = Present, after = Late
         const now = new Date();
         const cutoffHour = Number(body?.cutoffHour ?? 8);
