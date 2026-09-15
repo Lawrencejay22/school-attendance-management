@@ -1306,3 +1306,11 @@ iframe {
         font-size: 1.6rem;
     }
 }
+
+/* ── Mobile bottom nav SVG icons ── */
+.mobile-nav-item svg {
+    width: 24px;
+    height: 24px;
+    display: block;
+    flex-shrink: 0;
+}
