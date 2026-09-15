@@ -245,8 +245,9 @@ async function renderStudentIdCard(account, allLogs) {
     // Render QR only once per session
     if (!studentQrRendered) {
         studentQrRendered = true;
+        const scanUrl = `${window.location.origin}/scan.html?id=${scanId}`;
         new QRCode(document.getElementById(qrWrapperId), {
-            text: scanId,
+            text: scanUrl,
             width: 110,
             height: 110,
             colorDark: '#000000',
@@ -425,8 +426,13 @@ async function renderDashboard(account) {
         if (label) label.textContent = 'Schedule';
         const labelIcon = card.querySelector('.card-label i');
         if (labelIcon) labelIcon.className = 'ph ph-calendar';
+        
+        // Show Teacher Schedule Manager
+        document.getElementById('teacher-schedule-section').classList.remove('hidden');
+        
         const schedules = await SchoolSyncDB.getSchedules(account.id);
         renderScheduleCard(schedules);
+        renderTeacherScheduleList(schedules);
     }
 
     // Show/hide teacher schedule management panel
@@ -879,6 +885,49 @@ window.addEventListener('hashchange', () => {
         else if (window.location.hash === '#login') openAuth('signin');
     }
 });
+
+// Teacher Schedule Form handler
+const scheduleForm = document.getElementById('schedule-form');
+if (scheduleForm) {
+    scheduleForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const btn = scheduleForm.querySelector('button[type="submit"]');
+        const msg = document.getElementById('schedule-form-message');
+        const originalText = btn.innerHTML;
+        btn.innerHTML = '<i class="ph ph-spinner ph-spin"></i> Saving...';
+        btn.disabled = true;
+        msg.textContent = '';
+        
+        try {
+            const newSchedule = {
+                subject: document.getElementById('sched-subject').value.trim(),
+                dayOfWeek: document.getElementById('sched-day').value,
+                startTime: document.getElementById('sched-start').value,
+                endTime: document.getElementById('sched-end').value,
+                room: document.getElementById('sched-room').value.trim()
+            };
+            
+            await SchoolSyncDB.saveSchedule(newSchedule);
+            scheduleForm.reset();
+            msg.textContent = 'Schedule added successfully!';
+            msg.className = 'auth-message success';
+            
+            // Refresh list
+            const schedules = await SchoolSyncDB.getSchedules(currentAccount.id);
+            renderScheduleCard(schedules);
+            renderTeacherScheduleList(schedules);
+            
+            setTimeout(() => { msg.textContent = ''; }, 3000);
+        } catch (err) {
+            msg.textContent = err.message || 'Failed to save schedule';
+            msg.className = 'auth-message error';
+        } finally {
+            btn.innerHTML = originalText;
+            btn.disabled = false;
+        }
+    });
+}
+
 if (!existingSession) {
     if (window.location.hash === '#admin-login') openAuth('admin');
     else if (window.location.hash === '#login') openAuth('signin');

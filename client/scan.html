@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SchoolSync - Scan Attendance</title>
+    <!-- Phosphor Icons -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <style>
+        :root {
+            --bg-color: #f4f0e6;
+            --text-color: #1a1a1a;
+            --brand-green: #cce3d2;
+            --brand-coral: #e45b4c;
+            --card-bg: #ffffff;
+            --radius-lg: 16px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .scan-card {
+            background: var(--card-bg);
+            border-radius: var(--radius-lg);
+            padding: 40px 30px;
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        }
+
+        .icon-container {
+            font-size: 64px;
+            margin-bottom: 20px;
+        }
+
+        .icon-container.loading {
+            color: #888;
+            animation: spin 2s linear infinite;
+        }
+
+        .icon-container.success {
+            color: #2e7d32;
+        }
+
+        .icon-container.error {
+            color: var(--brand-coral);
+        }
+
+        @keyframes spin {
+            100% { transform: rotate(360deg); }
+        }
+
+        h1 {
+            font-size: 24px;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        p {
+            color: #555;
+            font-size: 16px;
+            line-height: 1.5;
+            margin-bottom: 30px;
+        }
+
+        .btn {
+            display: inline-block;
+            background: var(--brand-coral);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: opacity 0.2s;
+        }
+
+        .btn:hover {
+            opacity: 0.9;
+        }
+
+        #student-details {
+            background: var(--bg-color);
+            padding: 15px;
+            border-radius: 8px;
+            text-align: left;
+            margin-bottom: 20px;
+            display: none;
+        }
+
+        #student-details strong {
+            display: block;
+            margin-bottom: 4px;
+        }
+
+        #student-details span {
+            display: block;
+            font-size: 14px;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="scan-card">
+        <div id="status-icon" class="icon-container loading">
+            <i class="ph ph-spinner-gap"></i>
+        </div>
+        <h1 id="status-title">Recording Attendance...</h1>
+        <p id="status-message">Please wait while we log your attendance for today.</p>
+
+        <div id="student-details">
+            <strong id="student-name"></strong>
+            <span id="student-info"></span>
+            <span id="attendance-time"></span>
+        </div>
+
+        <a href="/" class="btn">Go to Dashboard</a>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            const studentId = urlParams.get('id');
+            const statusIcon = document.getElementById('status-icon');
+            const statusTitle = document.getElementById('status-title');
+            const statusMessage = document.getElementById('status-message');
+            const studentDetails = document.getElementById('student-details');
+            
+            if (!studentId) {
+                showError("Invalid QR Code", "No student ID was found in the URL.");
+                return;
+            }
+
+            try {
+                const response = await fetch('/api/attendance', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ userId: studentId })
+                });
+
+                const data = await response.json();
+
+                if (!response.ok) {
+                    throw new Error(data.error || 'Failed to record attendance');
+                }
+
+                // Success
+                statusIcon.className = 'icon-container success';
+                statusIcon.innerHTML = '<i class="ph-fill ph-check-circle"></i>';
+                statusTitle.textContent = 'Attendance Recorded!';
+                
+                // Show some student info if we could get it (the backend doesn't return the student details on POST yet)
+                // We'll just show the status for now
+                statusMessage.textContent = `You have been marked as ${data.status.toUpperCase()}.`;
+                
+                studentDetails.style.display = 'block';
+                document.getElementById('student-name').textContent = `Student ID: ${studentId}`;
+                document.getElementById('student-info').textContent = `Status: ${data.status}`;
+                document.getElementById('attendance-time').textContent = `Time: ${new Date().toLocaleTimeString([], { timeStyle: 'short' })}`;
+
+            } catch (err) {
+                showError("Scan Failed", err.message);
+            }
+
+            function showError(title, message) {
+                statusIcon.className = 'icon-container error';
+                statusIcon.innerHTML = '<i class="ph-fill ph-x-circle"></i>';
+                statusTitle.textContent = title;
+                statusMessage.textContent = message;
+            }
+        });
+    </script>
+</body>
+</html>
