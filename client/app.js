@@ -941,20 +941,9 @@ mobileLogout?.addEventListener('click', signOut);
 
 
 
-// ── About modal ──────────────────────────────────────────────
-const aboutModal = document.getElementById('about-modal');
+// ── About nav link → dedicated page ──────────────────────────
 document.getElementById('about-nav-link')?.addEventListener('click', e => {
-    e.preventDefault();
-    aboutModal.classList.remove('hidden');
-    document.body.classList.add('modal-open');
-});
-document.getElementById('about-modal-close')?.addEventListener('click', () => {
-    aboutModal.classList.add('hidden');
-    document.body.classList.remove('modal-open');
-});
-document.getElementById('about-modal-backdrop')?.addEventListener('click', () => {
-    aboutModal.classList.add('hidden');
-    document.body.classList.remove('modal-open');
+    // Let the default href navigation happen (goes to about.html)
 });
 
 document.getElementById('refresh-dashboard-btn')?.addEventListener('click', async () => {
