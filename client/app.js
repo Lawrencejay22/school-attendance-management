@@ -426,13 +426,6 @@ async function renderDashboard(account) {
         if (label) label.textContent = 'Schedule';
         const labelIcon = card.querySelector('.card-label i');
         if (labelIcon) labelIcon.className = 'ph ph-calendar';
-
-        // Show Teacher Schedule Manager
-        document.getElementById('teacher-schedule-section').classList.remove('hidden');
-
-        const schedules = await SchoolSyncDB.getSchedules(account.id);
-        renderScheduleCard(schedules);
-        renderTeacherScheduleList(schedules);
     }
 
     // Show/hide teacher schedule management panel
@@ -442,6 +435,7 @@ async function renderDashboard(account) {
         teacherSection.classList.remove('hidden');
         classSection.classList.remove('hidden');
         const schedules = await SchoolSyncDB.getSchedules(account.id);
+        renderScheduleCard(schedules);
         renderScheduleList(schedules, account.id);
         initScheduleForm(account);
         await renderClassView(account);
