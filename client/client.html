@@ -144,7 +144,7 @@
                     <strong id="dashboard-role">Student</strong>
                     <p>Access is tailored to your role.</p>
                 </article>
-                <!-- ID card: students see their QR, teachers see their schedule -->
+
                 <article class="dashboard-card schedule-card" id="schedule-card">
                     <div class="card-label"><span>Schedule</span><i class="ph ph-calendar"></i></div>
                     <div id="schedule-card-body">
@@ -155,7 +155,6 @@
                     </div>
                 </article>
 
-                <!-- Student-only: class schedule from teachers -->
                 <article class="dashboard-card schedule-card student-schedule-wide hidden" id="student-schedule-card">
                     <div class="card-label"><span>Class Schedule</span><i class="ph ph-calendar"></i></div>
                     <div id="student-schedule-card-body">
@@ -198,10 +197,14 @@
                         </div>
                     </div>
                     <div class="class-stats-row" id="class-stats-row">
-                        <span class="class-stat present-stat"><i class="ph-fill ph-check-circle"></i> <strong id="stat-class-present">0</strong> Present</span>
-                        <span class="class-stat late-stat"><i class="ph-fill ph-clock"></i> <strong id="stat-class-late">0</strong> Late</span>
-                        <span class="class-stat absent-stat"><i class="ph-fill ph-x-circle"></i> <strong id="stat-class-absent">0</strong> Absent</span>
-                        <span class="class-stat total-stat"><i class="ph-fill ph-users"></i> <strong id="stat-class-total">0</strong> Total</span>
+                        <span class="class-stat present-stat"><i class="ph-fill ph-check-circle"></i> <strong
+                                id="stat-class-present">0</strong> Present</span>
+                        <span class="class-stat late-stat"><i class="ph-fill ph-clock"></i> <strong
+                                id="stat-class-late">0</strong> Late</span>
+                        <span class="class-stat absent-stat"><i class="ph-fill ph-x-circle"></i> <strong
+                                id="stat-class-absent">0</strong> Absent</span>
+                        <span class="class-stat total-stat"><i class="ph-fill ph-users"></i> <strong
+                                id="stat-class-total">0</strong> Total</span>
                     </div>
                     <div id="class-student-grid" class="class-student-grid">
                         <div class="class-empty-state" id="class-empty-state">
@@ -229,7 +232,8 @@
                                 <div class="schedule-form-grid">
                                     <div class="form-group">
                                         <label for="sched-subject">Subject / Class</label>
-                                        <input type="text" id="sched-subject" required placeholder="e.g. Computer Programming">
+                                        <input type="text" id="sched-subject" required
+                                            placeholder="e.g. Computer Programming">
                                     </div>
                                     <div class="form-group">
                                         <label for="sched-day">Day of Week</label>
@@ -252,7 +256,8 @@
                                         <input type="time" id="sched-end" required>
                                     </div>
                                     <div class="form-group">
-                                        <label for="sched-room">Room <span class="optional-label">(optional)</span></label>
+                                        <label for="sched-room">Room <span
+                                                class="optional-label">(optional)</span></label>
                                         <input type="text" id="sched-room" placeholder="e.g. Room 301">
                                     </div>
                                 </div>

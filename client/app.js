@@ -201,7 +201,7 @@ async function renderStudentIdCard(account, allLogs) {
 
     // Use the ID from the DB record if available (most reliable), else fall back to account.studentId
     const scanId = studentRecord?.id || account.studentId || null;
-    const dept   = studentRecord?.grade || '';
+    const dept = studentRecord?.grade || '';
 
     const today = new Date().toLocaleDateString();
     const myLogs = allLogs.filter(l => l.userId === scanId);
@@ -209,15 +209,15 @@ async function renderStudentIdCard(account, allLogs) {
         .filter(l => new Date(l.timestamp).toLocaleDateString() === today)
         .sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp))[0] || null;
 
-    const todayStatus   = todayLog ? todayLog.status : 'Not scanned';
-    const statusCls     = todayStatus === 'Present' ? 'status-present'
-                        : todayStatus === 'Late'    ? 'status-late'
-                        : todayStatus === 'Absent'  ? 'status-absent'
-                        : 'status-none';
+    const todayStatus = todayLog ? todayLog.status : 'Not scanned';
+    const statusCls = todayStatus === 'Present' ? 'status-present'
+        : todayStatus === 'Late' ? 'status-late'
+            : todayStatus === 'Absent' ? 'status-absent'
+                : 'status-none';
     const statusIconCls = todayStatus === 'Present' ? 'ph-fill ph-check-circle'
-                        : todayStatus === 'Late'    ? 'ph-fill ph-clock'
-                        : todayStatus === 'Absent'  ? 'ph-fill ph-x-circle'
-                        : 'ph ph-minus-circle';
+        : todayStatus === 'Late' ? 'ph-fill ph-clock'
+            : todayStatus === 'Absent' ? 'ph-fill ph-x-circle'
+                : 'ph ph-minus-circle';
 
     if (!scanId) {
         body.innerHTML = `<div class="schedule-empty-state"><i class="ph ph-identification-card"></i><p>No student ID linked to your account.<br>Ask your administrator to register you.</p></div>`;
@@ -347,7 +347,7 @@ async function renderDashboard(account) {
                 return `<div class="log-row">
                     <span class="log-icon log-icon-${st}"><i class="ph-fill ph-${st === 'present' ? 'check' : st === 'late' ? 'clock' : 'x'}"></i></span>
                     <div>
-                        <strong>${new Date(log.timestamp).toLocaleDateString([], {weekday:'short', month:'short', day:'numeric'})}</strong>
+                        <strong>${new Date(log.timestamp).toLocaleDateString([], { weekday: 'short', month: 'short', day: 'numeric' })}</strong>
                         <small>${new Date(log.timestamp).toLocaleTimeString([], { timeStyle: 'short' })}</small>
                     </div>
                     <span class="log-status log-status-${st}">${log.status || 'Present'}</span>
@@ -368,8 +368,8 @@ async function renderDashboard(account) {
                     </div>
                     <select class="log-status-select log-status-${st}" data-log-id="${log.id}">
                         <option value="Present" ${log.status === 'Present' ? 'selected' : ''}>Present</option>
-                        <option value="Late"    ${log.status === 'Late'    ? 'selected' : ''}>Late</option>
-                        <option value="Absent"  ${log.status === 'Absent'  ? 'selected' : ''}>Absent</option>
+                        <option value="Late"    ${log.status === 'Late' ? 'selected' : ''}>Late</option>
+                        <option value="Absent"  ${log.status === 'Absent' ? 'selected' : ''}>Absent</option>
                     </select>
                 </div>`;
             }).join('')
@@ -467,15 +467,15 @@ function statusFromTime(timestamp) {
 
 function statusClass(status) {
     if (status === 'Present') return 'status-present';
-    if (status === 'Late')    return 'status-late';
-    if (status === 'Absent')  return 'status-absent';
+    if (status === 'Late') return 'status-late';
+    if (status === 'Absent') return 'status-absent';
     return 'status-none';
 }
 
 function statusIcon(status) {
     if (status === 'Present') return '<i class="ph-fill ph-check-circle"></i>';
-    if (status === 'Late')    return '<i class="ph-fill ph-clock"></i>';
-    if (status === 'Absent')  return '<i class="ph-fill ph-x-circle"></i>';
+    if (status === 'Late') return '<i class="ph-fill ph-clock"></i>';
+    if (status === 'Absent') return '<i class="ph-fill ph-x-circle"></i>';
     return '<i class="ph ph-minus-circle"></i>';
 }
 
@@ -546,8 +546,8 @@ async function renderClassView(account) {
                 ${scanTime ? `<div class="class-status-time">Scanned at ${scanTime}</div>` : `<div class="class-status-time">Not yet scanned</div>`}
                 <select class="class-status-select" data-student-id="${student.id}" data-log-id="${logId || ''}">
                     <option value="Present" ${displayStatus === 'Present' ? 'selected' : ''}>Present</option>
-                    <option value="Late"    ${displayStatus === 'Late'    ? 'selected' : ''}>Late</option>
-                    <option value="Absent"  ${displayStatus === 'Absent'  ? 'selected' : ''}>Absent</option>
+                    <option value="Late"    ${displayStatus === 'Late' ? 'selected' : ''}>Late</option>
+                    <option value="Absent"  ${displayStatus === 'Absent' ? 'selected' : ''}>Absent</option>
                 </select>
                 <button class="class-remove-btn" data-remove-student="${student.id}" data-student-name="${student.name}" aria-label="Remove ${student.name}">
                     <i class="ph ph-trash"></i> Remove
@@ -572,9 +572,9 @@ async function renderClassView(account) {
 
     // Update stat chips
     document.getElementById('stat-class-present').textContent = countPresent;
-    document.getElementById('stat-class-late').textContent    = countLate;
-    document.getElementById('stat-class-absent').textContent  = countAbsent;
-    document.getElementById('stat-class-total').textContent   = students.length;
+    document.getElementById('stat-class-late').textContent = countLate;
+    document.getElementById('stat-class-absent').textContent = countAbsent;
+    document.getElementById('stat-class-total').textContent = students.length;
 
     // Bind status-select change handlers
     grid.querySelectorAll('.class-status-select').forEach(sel => {
@@ -604,7 +604,7 @@ async function renderClassView(account) {
     // Bind remove-student handlers
     grid.querySelectorAll('[data-remove-student]').forEach(btn => {
         btn.addEventListener('click', async () => {
-            const studentId   = btn.dataset.removeStudent;
+            const studentId = btn.dataset.removeStudent;
             const studentName = btn.dataset.studentName;
             if (!confirm(`Remove "${studentName}" from the system? Their attendance logs will also be deleted.`)) return;
             try {
@@ -621,7 +621,7 @@ async function renderClassView(account) {
 
 async function updateClassStats() {
     const todayLogs = await SchoolSyncDB.getTodayAttendance();
-    const students  = await SchoolSyncDB.getUsers();
+    const students = await SchoolSyncDB.getUsers();
 
     const logMap = {};
     for (const log of todayLogs) {
@@ -639,9 +639,9 @@ async function updateClassStats() {
     });
 
     document.getElementById('stat-class-present').textContent = present;
-    document.getElementById('stat-class-late').textContent    = late;
-    document.getElementById('stat-class-absent').textContent  = absent;
-    document.getElementById('stat-class-total').textContent   = students.length;
+    document.getElementById('stat-class-late').textContent = late;
+    document.getElementById('stat-class-absent').textContent = absent;
+    document.getElementById('stat-class-total').textContent = students.length;
 }
 
 function initClassView(account) {

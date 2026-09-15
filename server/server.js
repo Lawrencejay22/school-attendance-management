@@ -7,7 +7,7 @@ import { randomBytes, randomUUID, scryptSync, timingSafeEqual } from 'node:crypt
 import mysql from 'mysql2/promise';
 
 const root = fileURLToPath(new URL('.', import.meta.url));
-const clientRoot = join(root, 'client');
+const clientRoot = join(root, '..', 'client');
 const port = Number(process.env.PORT || 3000);
 const pool = mysql.createPool({
     host: process.env.MYSQL_HOST || '127.0.0.1',
@@ -325,7 +325,7 @@ async function handleApi(request, response, pathname) {
 
 async function serveStatic(response, pathname) {
     const requested = pathname === '/' ? '/client/client.html' : pathname === '/dashboard.html' ? '/client/admin/dashboard.html' : pathname.startsWith('/client/') ? pathname : `/client${pathname}`;
-    const filePath = normalize(join(root, requested));
+    const filePath = normalize(join(root, '..', requested));
     if (!filePath.startsWith(clientRoot) || !existsSync(filePath)) return sendJson(response, 404, { error: 'Page not found.' });
     response.writeHead(200, { 'Content-Type': mimeTypes[extname(filePath)] || 'application/octet-stream' });
     response.end(await readFile(filePath));
