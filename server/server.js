@@ -1,6 +1,6 @@
 import { createServer } from 'node:http';
 import { readFile } from 'node:fs/promises';
-import { existsSync } from 'node:fs';
+import { existsSync, statSync } from 'node:fs';
 import { extname, join, normalize } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { randomBytes, randomUUID, scryptSync, timingSafeEqual } from 'node:crypto';
@@ -390,10 +390,30 @@ async function handleApi(request, response, pathname) {
     return sendJson(response, 404, { error: 'API route not found.' });
 }
 
+function resolveRequestedPath(pathname) {
+    if (pathname === '/') return '/client/client.html';
+    if (pathname === '/admin' || pathname === '/admin/') return '/client/admin/dashboard.html';
+    if (pathname === '/dashboard' || pathname === '/dashboard.html') return '/client/admin/dashboard.html';
+
+    const base = pathname.startsWith('/client/') ? pathname : `/client${pathname}`;
+    const candidatePath = normalize(join(root, '..', base));
+
+    const isDirectory = candidatePath.endsWith('/') || (existsSync(candidatePath) && statSync(candidatePath).isDirectory());
+    if (isDirectory) {
+        const withoutTrailingSlash = base.endsWith('/') ? base.slice(0, -1) : base;
+        const indexPath = normalize(join(root, '..', `${withoutTrailingSlash}/index.html`));
+        if (existsSync(indexPath)) return `${withoutTrailingSlash}/index.html`;
+        const dashboardPath = normalize(join(root, '..', `${withoutTrailingSlash}/dashboard.html`));
+        if (existsSync(dashboardPath)) return `${withoutTrailingSlash}/dashboard.html`;
+    }
+
+    return base;
+}
+
 async function serveStatic(response, pathname) {
-    const requested = pathname === '/' ? '/client/client.html' : pathname === '/dashboard.html' ? '/client/admin/dashboard.html' : pathname.startsWith('/client/') ? pathname : `/client${pathname}`;
+    const requested = resolveRequestedPath(pathname);
     const filePath = normalize(join(root, '..', requested));
-    if (!filePath.startsWith(clientRoot) || !existsSync(filePath)) return sendJson(response, 404, { error: 'Page not found.' });
+    if (!filePath.startsWith(clientRoot) || !existsSync(filePath) || statSync(filePath).isDirectory()) return sendJson(response, 404, { error: 'Page not found.' });
     response.writeHead(200, { 'Content-Type': mimeTypes[extname(filePath)] || 'application/octet-stream' });
     response.end(await readFile(filePath));
 }
