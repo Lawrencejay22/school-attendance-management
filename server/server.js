@@ -190,6 +190,7 @@ async function handleApi(request, response, pathname) {
     if (request.method === 'POST' && pathname === '/api/auth/register') {
         const body = await readBody(request);
         const isStudent = body?.role === 'student';
+        const isTeacher = body?.role === 'teacher';
         if (!body?.name || !body?.email || !body?.password || !['student', 'teacher'].includes(body.role) || (isStudent && (!body.studentId || !body.department))) {
             return sendJson(response, 400, { error: isStudent ? 'Name, email, password, student ID, department, and section are required.' : 'Name, email, password, and role are required.' });
         }
@@ -201,11 +202,14 @@ async function handleApi(request, response, pathname) {
             if (isStudent) {
                 await connection.execute('INSERT INTO students (id, name, department, adviser, year) VALUES (?, ?, ?, ?, ?)', [body.studentId.trim(), account.name, body.department.trim(), (body.adviser || 'Not assigned').trim(), (body.year || '').trim()]);
             }
+            if (isTeacher && body.teacherId && body.teacherId.trim()) {
+                await connection.execute('INSERT INTO teachers (id, name, department) VALUES (?, ?, ?)', [body.teacherId.trim(), account.name, (body.teacherDepartment || '').trim()]);
+            }
             await connection.commit();
             return sendJson(response, 201, { account: publicAccount(account) });
         } catch (error) {
             await connection.rollback();
-            if (error.code === 'ER_DUP_ENTRY') return sendJson(response, 409, { error: isStudent ? 'That email or student ID already exists.' : 'An account with that email already exists.' });
+            if (error.code === 'ER_DUP_ENTRY') return sendJson(response, 409, { error: isStudent ? 'That email or student ID already exists.' : isTeacher ? 'That email or teacher ID already exists.' : 'An account with that email already exists.' });
             throw error;
         } finally {
             connection.release();

@@ -14,6 +14,9 @@ const signupStudentId = document.getElementById('signup-student-id');
 const signupDepartment = document.getElementById('signup-department');
 const signupSection = document.getElementById('signup-section');
 const signupYear = document.getElementById('signup-year');
+const teacherSignupFields = document.getElementById('teacher-signup-fields');
+const signupTeacherId = document.getElementById('signup-teacher-id');
+const signupTeacherDepartment = document.getElementById('signup-teacher-department');
 const guestActions = document.getElementById('guest-actions');
 const profileTrigger = document.getElementById('profile-trigger');
 const headerLogout = document.getElementById('header-logout');
@@ -127,11 +130,15 @@ function closePrivacy() {
 
 function updateStudentSignupFields() {
     const isStudent = signupRole.value === 'student';
+    const isTeacher = signupRole.value === 'teacher';
     studentSignupFields.classList.toggle('hidden', !isStudent);
+    teacherSignupFields.classList.toggle('hidden', !isTeacher);
     signupStudentId.required = isStudent;
     signupDepartment.required = isStudent;
     signupSection.required = isStudent;
     signupYear.required = isStudent;
+    signupTeacherId.required = isTeacher;
+    signupTeacherDepartment.required = isTeacher;
 }
 
 function openAuth(mode = 'signin') {
@@ -788,7 +795,9 @@ signUpForm.addEventListener('submit', async event => {
         studentId: signupStudentId.value.trim(),
         department: signupDepartment.value,
         adviser: signupSection.value,
-        year: signupYear.value
+        year: signupYear.value,
+        teacherId: signupTeacherId.value.trim(),
+        teacherDepartment: signupTeacherDepartment.value
     });
     if (result.error) { showMessage(result.error); return; }
     const login = await SchoolSyncDB.authenticate(document.getElementById('signup-email').value.trim(), document.getElementById('signup-password').value);
