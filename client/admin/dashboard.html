@@ -5,7 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>School ID Scanner | Attendance System</title>
-    <meta name="description" content="A premium web-based school attendance monitoring system using barcode technology.">
+    <meta name="description"
+        content="A premium web-based school attendance monitoring system using barcode technology.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -23,7 +24,10 @@
         <nav class="sidebar">
             <div class="logo-container">
                 <div class="logo-icon">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 256 256" fill="white"><path d="M200,32H56A24,24,0,0,0,32,56V200a24,24,0,0,0,24,24H200a24,24,0,0,0,24-24V56A24,24,0,0,0,200,32ZM100,172H72a12,12,0,0,1,0-24h28a12,12,0,0,1,0,24Zm0-48H72a12,12,0,0,1,0-24h28a12,12,0,0,1,0,24Zm84,48H156a12,12,0,0,1,0-24h28a12,12,0,0,1,0,24Zm0-48H156a12,12,0,0,1,0-24h28a12,12,0,0,1,0,24Zm0-48H72a12,12,0,0,1,0-24H184a12,12,0,0,1,0,24Z"/></svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 256 256" fill="white">
+                        <path
+                            d="M200,32H56A24,24,0,0,0,32,56V200a24,24,0,0,0,24,24H200a24,24,0,0,0,24-24V56A24,24,0,0,0,200,32ZM100,172H72a12,12,0,0,1,0-24h28a12,12,0,0,1,0,24Zm0-48H72a12,12,0,0,1,0-24h28a12,12,0,0,1,0,24Zm84,48H156a12,12,0,0,1,0-24h28a12,12,0,0,1,0,24Zm0-48H156a12,12,0,0,1,0-24h28a12,12,0,0,1,0,24Zm0-48H72a12,12,0,0,1,0-24H184a12,12,0,0,1,0,24Z" />
+                    </svg>
                 </div>
                 <h1 class="logo-text">School<span>Sync</span></h1>
             </div>
@@ -31,37 +35,61 @@
             <ul class="nav-links">
                 <li>
                     <a href="#" class="nav-item active" data-target="dashboard-view" data-title="Dashboard">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 256 256" fill="currentColor"><path d="M216,40H40A16,16,0,0,0,24,56V200a16,16,0,0,0,16,16H216a16,16,0,0,0,16-16V56A16,16,0,0,0,216,40ZM104,176H40V120h64Zm0-72H40V56h64Zm112,72H120V120h96Zm0-72H120V56h96Z"/></svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 256 256"
+                            fill="currentColor">
+                            <path
+                                d="M216,40H40A16,16,0,0,0,24,56V200a16,16,0,0,0,16,16H216a16,16,0,0,0,16-16V56A16,16,0,0,0,216,40ZM104,176H40V120h64Zm0-72H40V56h64Zm112,72H120V120h96Zm0-72H120V56h96Z" />
+                        </svg>
                         <span>Dashboard</span>
                     </a>
                 </li>
                 <li>
                     <a href="#" class="nav-item" data-target="scanner-view" data-title="Scan Barcode">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 256 256" fill="currentColor"><path d="M28,64a8,8,0,0,1,8-8H72a8,8,0,0,1,0,16H44V88a8,8,0,0,1-16,0Zm8,104a8,8,0,0,0-8,8v24a8,8,0,0,0,8,8H72a8,8,0,0,0,0-16H44V176A8,8,0,0,0,36,168ZM192,56a8,8,0,0,0,0,16h28V88a8,8,0,0,0,16,0V64a8,8,0,0,0-8-8Zm36,120a8,8,0,0,0-8,8v16H192a8,8,0,0,0,0,16h28a8,8,0,0,0,8-8V176A8,8,0,0,0,228,176ZM80,96v64a8,8,0,0,0,16,0V96a8,8,0,0,0-16,0Zm40-8a8,8,0,0,0-8,8v64a8,8,0,0,0,16,0V96A8,8,0,0,0,120,88Zm40,0a8,8,0,0,0-8,8v64a8,8,0,0,0,16,0V96A8,8,0,0,0,160,88Z"/></svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 256 256"
+                            fill="currentColor">
+                            <path
+                                d="M28,64a8,8,0,0,1,8-8H72a8,8,0,0,1,0,16H44V88a8,8,0,0,1-16,0Zm8,104a8,8,0,0,0-8,8v24a8,8,0,0,0,8,8H72a8,8,0,0,0,0-16H44V176A8,8,0,0,0,36,168ZM192,56a8,8,0,0,0,0,16h28V88a8,8,0,0,0,16,0V64a8,8,0,0,0-8-8Zm36,120a8,8,0,0,0-8,8v16H192a8,8,0,0,0,0,16h28a8,8,0,0,0,8-8V176A8,8,0,0,0,228,176ZM80,96v64a8,8,0,0,0,16,0V96a8,8,0,0,0-16,0Zm40-8a8,8,0,0,0-8,8v64a8,8,0,0,0,16,0V96A8,8,0,0,0,120,88Zm40,0a8,8,0,0,0-8,8v64a8,8,0,0,0,16,0V96A8,8,0,0,0,160,88Z" />
+                        </svg>
                         <span>Scan Barcode</span>
                     </a>
                 </li>
                 <li>
                     <a href="#" class="nav-item" data-target="register-view" data-title="Register Student">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 256 256" fill="currentColor"><path d="M256,136a8,8,0,0,1-8,8H232v16a8,8,0,0,1-16,0V144H200a8,8,0,0,1,0-16h16V112a8,8,0,0,1,16,0v16h16A8,8,0,0,1,256,136ZM117.56,128.26A48,48,0,1,0,79,128.26a64.08,64.08,0,0,0-48,62.11,8,8,0,0,0,16,.26A48,48,0,0,1,143,190.37a8,8,0,1,0,16-.26A64.09,64.09,0,0,0,117.56,128.26ZM79,112a32,32,0,1,1,32,32A32,32,0,0,1,79,112Z"/></svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 256 256"
+                            fill="currentColor">
+                            <path
+                                d="M256,136a8,8,0,0,1-8,8H232v16a8,8,0,0,1-16,0V144H200a8,8,0,0,1,0-16h16V112a8,8,0,0,1,16,0v16h16A8,8,0,0,1,256,136ZM117.56,128.26A48,48,0,1,0,79,128.26a64.08,64.08,0,0,0-48,62.11,8,8,0,0,0,16,.26A48,48,0,0,1,143,190.37a8,8,0,1,0,16-.26A64.09,64.09,0,0,0,117.56,128.26ZM79,112a32,32,0,1,1,32,32A32,32,0,0,1,79,112Z" />
+                        </svg>
                         <span>Register Student</span>
                     </a>
                 </li>
                 <li>
                     <a href="#" class="nav-item" data-target="students-view" data-title="Students">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 256 256" fill="currentColor"><path d="M244.07,93.42,136.07,29.42a16,16,0,0,0-16.14,0l-104,60a16,16,0,0,0,0,27.16L56,143.56V192a16,16,0,0,0,8.18,14l64,36.44a16,16,0,0,0,15.64,0l64-36.44A16,16,0,0,0,216,192V143.56l24-13.94a16,16,0,0,0,.07-27.2ZM200,192l-64,36.44L72,192V152.53l47.93,27.79a16.09,16.09,0,0,0,16.14,0L200,152.53Zm-72-24.11L40,107.14,128,56l88,51.14Z"/></svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 256 256"
+                            fill="currentColor">
+                            <path
+                                d="M244.07,93.42,136.07,29.42a16,16,0,0,0-16.14,0l-104,60a16,16,0,0,0,0,27.16L56,143.56V192a16,16,0,0,0,8.18,14l64,36.44a16,16,0,0,0,15.64,0l64-36.44A16,16,0,0,0,216,192V143.56l24-13.94a16,16,0,0,0,.07-27.2ZM200,192l-64,36.44L72,192V152.53l47.93,27.79a16.09,16.09,0,0,0,16.14,0L200,152.53Zm-72-24.11L40,107.14,128,56l88,51.14Z" />
+                        </svg>
                         <span>Students</span>
                     </a>
                 </li>
                 <li>
                     <a href="#" class="nav-item" data-target="teachers-view" data-title="Teachers">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 256 256" fill="currentColor"><path d="M226,112H204V88a12,12,0,0,0-12-12H160V56a12,12,0,0,0-12-12H108A12,12,0,0,0,96,56V76H64A12,12,0,0,0,52,88v24H30a6,6,0,0,0,0,12H52v24a12,12,0,0,0,12,12H96v20a12,12,0,0,0,12,12h40a12,12,0,0,0,12-12V160h32a12,12,0,0,0,12-12V124h22a6,6,0,0,0,0-12ZM108,68h40V76H108Zm40,120H108V160h40Zm40-32H64V100H192Z"/></svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 256 256"
+                            fill="currentColor">
+                            <path
+                                d="M226,112H204V88a12,12,0,0,0-12-12H160V56a12,12,0,0,0-12-12H108A12,12,0,0,0,96,56V76H64A12,12,0,0,0,52,88v24H30a6,6,0,0,0,0,12H52v24a12,12,0,0,0,12,12H96v20a12,12,0,0,0,12,12h40a12,12,0,0,0,12-12V160h32a12,12,0,0,0,12-12V124h22a6,6,0,0,0,0-12ZM108,68h40V76H108Zm40,120H108V160h40Zm40-32H64V100H192Z" />
+                        </svg>
                         <span>Teachers</span>
                     </a>
                 </li>
                 <li>
                     <a href="#" class="nav-item" data-target="logs-view" data-title="Attendance Logs">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 256 256" fill="currentColor"><path d="M224,128a8,8,0,0,1-8,8H40a8,8,0,0,1,0-16H216A8,8,0,0,1,224,128ZM40,72H216a8,8,0,0,0,0-16H40a8,8,0,0,0,0,16ZM216,184H40a8,8,0,0,0,0,16H216a8,8,0,0,0,0-16Z"/></svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 256 256"
+                            fill="currentColor">
+                            <path
+                                d="M224,128a8,8,0,0,1-8,8H40a8,8,0,0,1,0-16H216A8,8,0,0,1,224,128ZM40,72H216a8,8,0,0,0,0-16H40a8,8,0,0,0,0,16ZM216,184H40a8,8,0,0,0,0,16H216a8,8,0,0,0,0-16Z" />
+                        </svg>
                         <span>Attendance Logs</span>
                     </a>
                 </li>
@@ -75,7 +103,8 @@
             <header class="top-header">
                 <h2 id="page-title">Dashboard</h2>
                 <div class="header-actions">
-                    <button class="header-profile" id="admin-profile-trigger" type="button" aria-label="Open profile settings">
+                    <button class="header-profile" id="admin-profile-trigger" type="button"
+                        aria-label="Open profile settings">
                         <div class="header-profile-avatar" id="admin-profile-initials">A</div>
                         <div class="header-profile-copy">
                             <strong id="admin-profile-name">Administrator</strong>
@@ -84,7 +113,11 @@
                     </button>
                     <div class="time-display" id="current-time">00:00:00 AM</div>
                     <button id="logout-btn" class="btn outline-btn" type="button" title="Sign out">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 256 256" fill="currentColor" style="flex-shrink:0"><path d="M112,216a8,8,0,0,1-8,8H48a16,16,0,0,1-16-16V48A16,16,0,0,1,48,32h56a8,8,0,0,1,0,16H48V208h56A8,8,0,0,1,112,216Zm109.66-93.66-40-40a8,8,0,0,0-11.32,11.32L196.69,120H104a8,8,0,0,0,0,16h92.69l-26.35,26.34a8,8,0,0,0,11.32,11.32l40-40A8,8,0,0,0,221.66,122.34Z"/></svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 256 256"
+                            fill="currentColor" style="flex-shrink:0">
+                            <path
+                                d="M112,216a8,8,0,0,1-8,8H48a16,16,0,0,1-16-16V48A16,16,0,0,1,48,32h56a8,8,0,0,1,0,16H48V208h56A8,8,0,0,1,112,216Zm109.66-93.66-40-40a8,8,0,0,0-11.32,11.32L196.69,120H104a8,8,0,0,0,0,16h92.69l-26.35,26.34a8,8,0,0,0,11.32,11.32l40-40A8,8,0,0,0,221.66,122.34Z" />
+                        </svg>
                         Sign out
                     </button>
                 </div>
@@ -100,7 +133,11 @@
                     <div class="stats-grid">
                         <div class="stat-card glass-panel stat-present">
                             <div class="stat-icon-wrap">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 256 256" fill="currentColor"><path d="M173.66,98.34a8,8,0,0,1,0,11.32l-56,56a8,8,0,0,1-11.32,0l-24-24a8,8,0,0,1,11.32-11.32L112,148.69l50.34-50.35A8,8,0,0,1,173.66,98.34ZM232,128A104,104,0,1,1,128,24,104.11,104.11,0,0,1,232,128Zm-16,0a88,88,0,1,0-88,88A88.1,88.1,0,0,0,216,128Z"/></svg>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 256 256"
+                                    fill="currentColor">
+                                    <path
+                                        d="M173.66,98.34a8,8,0,0,1,0,11.32l-56,56a8,8,0,0,1-11.32,0l-24-24a8,8,0,0,1,11.32-11.32L112,148.69l50.34-50.35A8,8,0,0,1,173.66,98.34ZM232,128A104,104,0,1,1,128,24,104.11,104.11,0,0,1,232,128Zm-16,0a88,88,0,1,0-88,88A88.1,88.1,0,0,0,216,128Z" />
+                                </svg>
                             </div>
                             <div class="stat-info">
                                 <span class="stat-label">Present Today</span>
@@ -109,7 +146,11 @@
                         </div>
                         <div class="stat-card glass-panel stat-late">
                             <div class="stat-icon-wrap">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 256 256" fill="currentColor"><path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm0,192a88,88,0,1,1,88-88A88.1,88.1,0,0,1,128,216Zm64-88a8,8,0,0,1-8,8H128a8,8,0,0,1-8-8V72a8,8,0,0,1,16,0v48h48A8,8,0,0,1,192,128Z"/></svg>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 256 256"
+                                    fill="currentColor">
+                                    <path
+                                        d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm0,192a88,88,0,1,1,88-88A88.1,88.1,0,0,1,128,216Zm64-88a8,8,0,0,1-8,8H128a8,8,0,0,1-8-8V72a8,8,0,0,1,16,0v48h48A8,8,0,0,1,192,128Z" />
+                                </svg>
                             </div>
                             <div class="stat-info">
                                 <span class="stat-label">Late Today</span>
@@ -118,7 +159,11 @@
                         </div>
                         <div class="stat-card glass-panel stat-absent">
                             <div class="stat-icon-wrap">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 256 256" fill="currentColor"><path d="M165.66,101.66,139.31,128l26.35,26.34a8,8,0,0,1-11.32,11.32L128,139.31l-26.34,26.35a8,8,0,0,1-11.32-11.32L116.69,128,90.34,101.66A8,8,0,0,1,101.66,90.34L128,116.69l26.34-26.35a8,8,0,0,1,11.32,11.32ZM232,128A104,104,0,1,1,128,24,104.11,104.11,0,0,1,232,128Zm-16,0a88,88,0,1,0-88,88A88.1,88.1,0,0,0,216,128Z"/></svg>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 256 256"
+                                    fill="currentColor">
+                                    <path
+                                        d="M165.66,101.66,139.31,128l26.35,26.34a8,8,0,0,1-11.32,11.32L128,139.31l-26.34,26.35a8,8,0,0,1-11.32-11.32L116.69,128,90.34,101.66A8,8,0,0,1,101.66,90.34L128,116.69l26.34-26.35a8,8,0,0,1,11.32,11.32ZM232,128A104,104,0,1,1,128,24,104.11,104.11,0,0,1,232,128Zm-16,0a88,88,0,1,0-88,88A88.1,88.1,0,0,0,216,128Z" />
+                                </svg>
                             </div>
                             <div class="stat-info">
                                 <span class="stat-label">Absent Today</span>
@@ -127,7 +172,11 @@
                         </div>
                         <div class="stat-card glass-panel stat-students">
                             <div class="stat-icon-wrap">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 256 256" fill="currentColor"><path d="M244.07,93.42,136.07,29.42a16,16,0,0,0-16.14,0l-104,60a16,16,0,0,0,0,27.16L56,143.56V192a16,16,0,0,0,8.18,14l64,36.44a16,16,0,0,0,15.64,0l64-36.44A16,16,0,0,0,216,192V143.56l24-13.94a16,16,0,0,0,.07-27.2Z"/></svg>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 256 256"
+                                    fill="currentColor">
+                                    <path
+                                        d="M244.07,93.42,136.07,29.42a16,16,0,0,0-16.14,0l-104,60a16,16,0,0,0,0,27.16L56,143.56V192a16,16,0,0,0,8.18,14l64,36.44a16,16,0,0,0,15.64,0l64-36.44A16,16,0,0,0,216,192V143.56l24-13.94a16,16,0,0,0,.07-27.2Z" />
+                                </svg>
                             </div>
                             <div class="stat-info">
                                 <span class="stat-label">Total Students</span>
@@ -136,7 +185,11 @@
                         </div>
                         <div class="stat-card glass-panel stat-teachers">
                             <div class="stat-icon-wrap">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 256 256" fill="currentColor"><path d="M226,112H204V88a12,12,0,0,0-12-12H160V56a12,12,0,0,0-12-12H108A12,12,0,0,0,96,56V76H64A12,12,0,0,0,52,88v24H30a6,6,0,0,0,0,12H52v24a12,12,0,0,0,12,12H96v20a12,12,0,0,0,12,12h40a12,12,0,0,0,12-12V160h32a12,12,0,0,0,12-12V124h22a6,6,0,0,0,0-12Z"/></svg>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 256 256"
+                                    fill="currentColor">
+                                    <path
+                                        d="M226,112H204V88a12,12,0,0,0-12-12H160V56a12,12,0,0,0-12-12H108A12,12,0,0,0,96,56V76H64A12,12,0,0,0,52,88v24H30a6,6,0,0,0,0,12H52v24a12,12,0,0,0,12,12H96v20a12,12,0,0,0,12,12h40a12,12,0,0,0,12-12V160h32a12,12,0,0,0,12-12V124h22a6,6,0,0,0,0-12Z" />
+                                </svg>
                             </div>
                             <div class="stat-info">
                                 <span class="stat-label">Total Teachers</span>
@@ -163,14 +216,16 @@
                                     <tr>
                                         <th>Name</th>
                                         <th>ID</th>
-                                        <th>Department</th>
-                                        <th>Section</th>
+                                        <th class="hide-mobile">Department</th>
+                                        <th class="hide-mobile">Section</th>
                                         <th>Time Scanned</th>
                                         <th>Status</th>
                                     </tr>
                                 </thead>
                                 <tbody id="recent-scans-body">
-                                    <tr class="empty-row"><td colspan="6">No recent activity</td></tr>
+                                    <tr class="empty-row">
+                                        <td colspan="6">No recent activity</td>
+                                    </tr>
                                 </tbody>
                             </table>
                         </div>
@@ -180,30 +235,49 @@
                     <div class="overview-grid mt-4">
                         <!-- All Students -->
                         <div class="glass-panel">
-                            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;">
+                            <div
+                                style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;">
                                 <h3 style="margin:0;font-size:1rem;font-weight:600;">All Students</h3>
                                 <span class="stat-badge" id="overview-students-count">0 students</span>
                             </div>
                             <div class="table-responsive">
                                 <table class="data-table">
-                                    <thead><tr><th>Name</th><th>ID</th><th>Department</th><th>Section</th></tr></thead>
+                                    <thead>
+                                        <tr>
+                                            <th>Name</th>
+                                            <th>ID</th>
+                                            <th>Department</th>
+                                            <th>Section</th>
+                                        </tr>
+                                    </thead>
                                     <tbody id="overview-students-body">
-                                        <tr class="empty-row"><td colspan="4">No students yet</td></tr>
+                                        <tr class="empty-row">
+                                            <td colspan="4">No students yet</td>
+                                        </tr>
                                     </tbody>
                                 </table>
                             </div>
                         </div>
                         <!-- All Teachers -->
                         <div class="glass-panel">
-                            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;">
+                            <div
+                                style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;">
                                 <h3 style="margin:0;font-size:1rem;font-weight:600;">All Teachers</h3>
                                 <span class="stat-badge" id="overview-teachers-count">0 teachers</span>
                             </div>
                             <div class="table-responsive">
                                 <table class="data-table">
-                                    <thead><tr><th>Name</th><th>ID</th><th>Department</th></tr></thead>
+                                    <thead>
+                                        <tr>
+                                            <th>Name</th>
+                                            <th>ID</th>
+                                            <th>Department</th>
+                                        </tr>
+                                    </thead>
                                     <tbody id="overview-teachers-body">
-                                        <tr class="empty-row"><td colspan="3">No teachers yet</td></tr>
+                                        <tr class="empty-row">
+                                            <td colspan="3">No teachers yet</td>
+                                        </tr>
                                     </tbody>
                                 </table>
                             </div>
@@ -344,7 +418,8 @@
                                         <option value="CE Engineering">CE Engineering</option>
                                     </select>
                                 </div>
-                                <button type="submit" class="btn primary-btn w-full"><i class="ph ph-user-plus"></i> Add Teacher</button>
+                                <button type="submit" class="btn primary-btn w-full"><i class="ph ph-user-plus"></i> Add
+                                    Teacher</button>
                             </form>
                         </div>
                         <div class="glass-panel teacher-list-panel">
@@ -354,8 +429,19 @@
                             </div>
                             <div class="table-responsive">
                                 <table class="data-table">
-                                    <thead><tr><th>Name</th><th>ID</th><th>Department</th><th>Action</th></tr></thead>
-                                    <tbody id="teachers-body"><tr class="empty-row"><td colspan="4">No teachers registered yet</td></tr></tbody>
+                                    <thead>
+                                        <tr>
+                                            <th>Name</th>
+                                            <th>ID</th>
+                                            <th>Department</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="teachers-body">
+                                        <tr class="empty-row">
+                                            <td colspan="4">No teachers registered yet</td>
+                                        </tr>
+                                    </tbody>
                                 </table>
                             </div>
                         </div>
@@ -404,31 +490,48 @@
     <!-- ── Mobile Bottom Navigation ── -->
     <nav class="mobile-bottom-nav" aria-label="Mobile navigation">
         <a class="mobile-nav-item active" data-target="dashboard-view" data-title="Dashboard" href="#">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 256 256" fill="currentColor"><path d="M216,40H40A16,16,0,0,0,24,56V200a16,16,0,0,0,16,16H216a16,16,0,0,0,16-16V56A16,16,0,0,0,216,40ZM104,176H40V120h64Zm0-72H40V56h64Zm112,72H120V120h96Zm0-72H120V56h96Z"/></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 256 256" fill="currentColor">
+                <path
+                    d="M216,40H40A16,16,0,0,0,24,56V200a16,16,0,0,0,16,16H216a16,16,0,0,0,16-16V56A16,16,0,0,0,216,40ZM104,176H40V120h64Zm0-72H40V56h64Zm112,72H120V120h96Zm0-72H120V56h96Z" />
+            </svg>
             <span>Dashboard</span>
         </a>
         <a class="mobile-nav-item" data-target="scanner-view" data-title="Scan Barcode" href="#">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 256 256" fill="currentColor"><path d="M208,112a16,16,0,1,1-16-16A16,16,0,0,1,208,112ZM80,96a16,16,0,1,0,16,16A16,16,0,0,0,80,96Zm128,80a16,16,0,1,0,16,16A16,16,0,0,0,208,176Zm-112,0a16,16,0,1,0,16,16A16,16,0,0,0,96,176ZM229.2,32H26.8A26.83,26.83,0,0,0,0,58.8V197.2A26.83,26.83,0,0,0,26.8,224H229.2A26.83,26.83,0,0,0,256,197.2V58.8A26.83,26.83,0,0,0,229.2,32Zm10.8,165.2a10.82,10.82,0,0,1-10.8,10.8H26.8A10.82,10.82,0,0,1,16,197.2V58.8A10.82,10.82,0,0,1,26.8,48H229.2A10.82,10.82,0,0,1,240,58.8Z"/></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 256 256" fill="currentColor">
+                <path
+                    d="M208,112a16,16,0,1,1-16-16A16,16,0,0,1,208,112ZM80,96a16,16,0,1,0,16,16A16,16,0,0,0,80,96Zm128,80a16,16,0,1,0,16,16A16,16,0,0,0,208,176Zm-112,0a16,16,0,1,0,16,16A16,16,0,0,0,96,176ZM229.2,32H26.8A26.83,26.83,0,0,0,0,58.8V197.2A26.83,26.83,0,0,0,26.8,224H229.2A26.83,26.83,0,0,0,256,197.2V58.8A26.83,26.83,0,0,0,229.2,32Zm10.8,165.2a10.82,10.82,0,0,1-10.8,10.8H26.8A10.82,10.82,0,0,1,16,197.2V58.8A10.82,10.82,0,0,1,26.8,48H229.2A10.82,10.82,0,0,1,240,58.8Z" />
+            </svg>
             <span>Scan</span>
         </a>
         <a class="mobile-nav-item" data-target="register-view" data-title="Register Student" href="#">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 256 256" fill="currentColor"><path d="M256,136a8,8,0,0,1-8,8H232v16a8,8,0,0,1-16,0V144H200a8,8,0,0,1,0-16h16V112a8,8,0,0,1,16,0v16h16A8,8,0,0,1,256,136ZM117.56,128.26A48,48,0,1,0,79,128.26a64.08,64.08,0,0,0-48,62.11,8,8,0,0,0,16,.26A48,48,0,0,1,143,190.37a8,8,0,1,0,16-.26A64.09,64.09,0,0,0,117.56,128.26ZM79,112a32,32,0,1,1,32,32A32,32,0,0,1,79,112Z"/></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 256 256" fill="currentColor">
+                <path
+                    d="M256,136a8,8,0,0,1-8,8H232v16a8,8,0,0,1-16,0V144H200a8,8,0,0,1,0-16h16V112a8,8,0,0,1,16,0v16h16A8,8,0,0,1,256,136ZM117.56,128.26A48,48,0,1,0,79,128.26a64.08,64.08,0,0,0-48,62.11,8,8,0,0,0,16,.26A48,48,0,0,1,143,190.37a8,8,0,1,0,16-.26A64.09,64.09,0,0,0,117.56,128.26ZM79,112a32,32,0,1,1,32,32A32,32,0,0,1,79,112Z" />
+            </svg>
             <span>Register</span>
         </a>
         <a class="mobile-nav-item" data-target="students-view" data-title="Students" href="#">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 256 256" fill="currentColor"><path d="M244.07,93.42,136.07,29.42a16,16,0,0,0-16.14,0l-104,60a16,16,0,0,0,0,27.16L56,143.56V192a16,16,0,0,0,8.18,14l64,36.44a16,16,0,0,0,15.64,0l64-36.44A16,16,0,0,0,216,192V143.56l24-13.94a16,16,0,0,0,.07-27.2ZM200,192l-64,36.44L72,192V152.53l47.93,27.79a16.09,16.09,0,0,0,16.14,0L200,152.53Zm-72-24.11L40,107.14,128,56l88,51.14Z"/></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 256 256" fill="currentColor">
+                <path
+                    d="M244.07,93.42,136.07,29.42a16,16,0,0,0-16.14,0l-104,60a16,16,0,0,0,0,27.16L56,143.56V192a16,16,0,0,0,8.18,14l64,36.44a16,16,0,0,0,15.64,0l64-36.44A16,16,0,0,0,216,192V143.56l24-13.94a16,16,0,0,0,.07-27.2ZM200,192l-64,36.44L72,192V152.53l47.93,27.79a16.09,16.09,0,0,0,16.14,0L200,152.53Zm-72-24.11L40,107.14,128,56l88,51.14Z" />
+            </svg>
             <span>Students</span>
         </a>
         <a class="mobile-nav-item" data-target="logs-view" data-title="Attendance Logs" href="#">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 256 256" fill="currentColor"><path d="M224,128a8,8,0,0,1-8,8H40a8,8,0,0,1,0-16H216A8,8,0,0,1,224,128ZM40,72H216a8,8,0,0,0,0-16H40a8,8,0,0,0,0,16ZM216,184H40a8,8,0,0,0,0,16H216a8,8,0,0,0,0-16Z"/></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 256 256" fill="currentColor">
+                <path
+                    d="M224,128a8,8,0,0,1-8,8H40a8,8,0,0,1,0-16H216A8,8,0,0,1,224,128ZM40,72H216a8,8,0,0,0,0-16H40a8,8,0,0,0,0,16ZM216,184H40a8,8,0,0,0,0,16H216a8,8,0,0,0,0-16Z" />
+            </svg>
             <span>Logs</span>
         </a>
     </nav>
 
-    <div id="admin-profile-modal" class="admin-profile-modal hidden" role="dialog" aria-modal="true" aria-labelledby="admin-profile-title">
+    <div id="admin-profile-modal" class="admin-profile-modal hidden" role="dialog" aria-modal="true"
+        aria-labelledby="admin-profile-title">
         <div class="admin-profile-backdrop" data-close-admin-profile></div>
         <section class="admin-profile-panel">
-            <button class="admin-profile-close" type="button" data-close-admin-profile aria-label="Close"><i class="ph ph-x"></i></button>
+            <button class="admin-profile-close" type="button" data-close-admin-profile aria-label="Close"><i
+                    class="ph ph-x"></i></button>
             <div class="admin-profile-cover"></div>
             <div class="admin-profile-summary">
                 <div class="admin-profile-preview admin-profile-summary-avatar" id="admin-profile-preview">A</div>
@@ -441,28 +544,42 @@
                     <a id="admin-profile-summary-contact" href="mailto:">Contact by email</a>
                 </div>
             </div>
-            <div class="admin-profile-actions"><button class="btn outline-btn" id="admin-welcome" type="button"><i class="ph ph-house"></i> Welcome page</button><button class="btn outline-btn admin-open-privacy" id="admin-open-privacy" type="button"><i class="ph ph-lock-simple"></i> Privacy</button><button class="btn primary-btn" id="admin-edit-profile" type="button"><i class="ph ph-pencil-simple"></i> Edit profile</button></div>
+            <div class="admin-profile-actions"><button class="btn outline-btn" id="admin-welcome" type="button"><i
+                        class="ph ph-house"></i> Welcome page</button><button class="btn outline-btn admin-open-privacy"
+                    id="admin-open-privacy" type="button"><i class="ph ph-lock-simple"></i> Privacy</button><button
+                    class="btn primary-btn" id="admin-edit-profile" type="button"><i class="ph ph-pencil-simple"></i>
+                    Edit profile</button></div>
             <form id="admin-profile-form" class="hidden">
                 <div class="admin-profile-image-row">
-                    <label class="admin-image-upload">Add image<input type="file" id="admin-profile-image" accept="image/png,image/jpeg,image/webp"></label>
+                    <label class="admin-image-upload">Add image<input type="file" id="admin-profile-image"
+                            accept="image/png,image/jpeg,image/webp"></label>
                 </div>
                 <label>Name<input type="text" id="admin-profile-edit-name" required maxlength="120"></label>
-                <label>Bio<textarea id="admin-profile-edit-bio" maxlength="500" rows="4" placeholder="Tell your school community a little about you."></textarea></label>
-                <div class="admin-profile-form-actions"><button class="btn outline-btn" id="admin-cancel-profile" type="button">Cancel</button><button class="btn primary-btn" type="submit">Save profile</button></div>
+                <label>Bio<textarea id="admin-profile-edit-bio" maxlength="500" rows="4"
+                        placeholder="Tell your school community a little about you."></textarea></label>
+                <div class="admin-profile-form-actions"><button class="btn outline-btn" id="admin-cancel-profile"
+                        type="button">Cancel</button><button class="btn primary-btn" type="submit">Save profile</button>
+                </div>
             </form>
             <p id="admin-profile-message" class="admin-profile-message"></p>
         </section>
     </div>
 
-    <div id="admin-privacy-modal" class="admin-profile-modal hidden" role="dialog" aria-modal="true" aria-labelledby="admin-privacy-title">
+    <div id="admin-privacy-modal" class="admin-profile-modal hidden" role="dialog" aria-modal="true"
+        aria-labelledby="admin-privacy-title">
         <div class="admin-profile-backdrop" data-close-admin-privacy></div>
         <section class="admin-profile-panel">
-            <button class="admin-profile-close" type="button" data-close-admin-privacy aria-label="Close"><i class="ph ph-x"></i></button>
+            <button class="admin-profile-close" type="button" data-close-admin-privacy aria-label="Close"><i
+                    class="ph ph-x"></i></button>
             <p class="modal-kicker">Account privacy</p>
             <h2 id="admin-privacy-title">Privacy settings</h2>
             <form id="admin-privacy-form">
-                <label>Profile visibility<select id="admin-profile-visibility"><option value="public">Public profile</option><option value="private">Private profile</option></select></label>
-                <label class="admin-checkbox-label"><input type="checkbox" id="admin-show-email"> Show my email address on my profile</label>
+                <label>Profile visibility<select id="admin-profile-visibility">
+                        <option value="public">Public profile</option>
+                        <option value="private">Private profile</option>
+                    </select></label>
+                <label class="admin-checkbox-label"><input type="checkbox" id="admin-show-email"> Show my email address
+                    on my profile</label>
                 <label>Email<input type="email" id="admin-privacy-email" required maxlength="255"></label>
                 <p class="admin-profile-note">Leave password fields empty to keep the current password.</p>
                 <label>Current password<input type="password" id="admin-current-password"></label>

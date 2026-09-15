@@ -236,8 +236,8 @@ async function updateDashboard() {
         <tr>
             <td>${log.userName}</td>
             <td>${log.userId}</td>
-            <td>${log.grade || '-'}</td>
-            <td>${log.section || '-'}</td>
+            <td class="hide-mobile">${log.grade || '-'}</td>
+            <td class="hide-mobile">${log.section || '-'}</td>
             <td>${new Date(log.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</td>
             <td><span class="status-badge ${(log.status||'present').toLowerCase()}">${log.status || 'Present'}</span></td>
         </tr>`).join('') : '<tr class="empty-row"><td colspan="6">No recent activity</td></tr>';
@@ -246,7 +246,7 @@ async function updateDashboard() {
     const studBody = document.getElementById('overview-students-body');
     document.getElementById('overview-students-count').textContent = `${users.length} student${users.length !== 1 ? 's' : ''}`;
     studBody.innerHTML = users.length ? users.map(u => `
-        <tr><td>${u.name}</td><td>${u.id}</td><td>${u.grade || '-'}</td><td>${u.adviser || '-'}</td></tr>`
+        <tr><td>${u.name}</td><td>${u.id}</td><td>${u.grade || '-'}</td><td class="hide-mobile">${u.adviser || '-'}</td></tr>`
     ).join('') : '<tr class="empty-row"><td colspan="4">No students yet</td></tr>';
 
     // Overview: all teachers
