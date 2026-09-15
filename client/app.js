@@ -875,6 +875,10 @@ function signOut() {
 
 headerLogout.addEventListener('click', signOut);
 
+document.getElementById('refresh-dashboard-btn')?.addEventListener('click', async () => {
+    if (currentAccount) await renderDashboard(currentAccount);
+});
+
 document.getElementById('theme-toggle').addEventListener('click', () => {
     const isDark = document.body.classList.toggle('theme-dark');
     localStorage.setItem('schoolsync_theme', isDark ? 'dark' : 'light');
