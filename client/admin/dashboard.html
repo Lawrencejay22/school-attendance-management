@@ -22,7 +22,9 @@
         <!-- ── Sidebar Navigation ── -->
         <nav class="sidebar">
             <div class="logo-container">
-                <div class="logo-icon"><i class="ph-bold ph-qr-code"></i></div>
+                <div class="logo-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 256 256" fill="white"><path d="M200,32H56A24,24,0,0,0,32,56V200a24,24,0,0,0,24,24H200a24,24,0,0,0,24-24V56A24,24,0,0,0,200,32ZM100,172H72a12,12,0,0,1,0-24h28a12,12,0,0,1,0,24Zm0-48H72a12,12,0,0,1,0-24h28a12,12,0,0,1,0,24Zm84,48H156a12,12,0,0,1,0-24h28a12,12,0,0,1,0,24Zm0-48H156a12,12,0,0,1,0-24h28a12,12,0,0,1,0,24Zm0-48H72a12,12,0,0,1,0-24H184a12,12,0,0,1,0,24Z"/></svg>
+                </div>
                 <h1 class="logo-text">School<span>Sync</span></h1>
             </div>
 
@@ -82,7 +84,8 @@
                     </button>
                     <div class="time-display" id="current-time">00:00:00 AM</div>
                     <button id="logout-btn" class="btn outline-btn" type="button" title="Sign out">
-                        <i class="ph ph-sign-out"></i> Sign out
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 256 256" fill="currentColor" style="flex-shrink:0"><path d="M112,216a8,8,0,0,1-8,8H48a16,16,0,0,1-16-16V48A16,16,0,0,1,48,32h56a8,8,0,0,1,0,16H48V208h56A8,8,0,0,1,112,216Zm109.66-93.66-40-40a8,8,0,0,0-11.32,11.32L196.69,120H104a8,8,0,0,0,0,16h92.69l-26.35,26.34a8,8,0,0,0,11.32,11.32l40-40A8,8,0,0,0,221.66,122.34Z"/></svg>
+                        Sign out
                     </button>
                 </div>
             </header>
@@ -92,23 +95,66 @@
 
                 <!-- ── Dashboard View ── -->
                 <section id="dashboard-view" class="view active">
+
+                    <!-- ── Stat Cards ── -->
                     <div class="stats-grid">
-                        <div class="stat-card glass-panel">
-                            <div class="stat-icon present"><i class="ph ph-check-circle"></i></div>
+                        <div class="stat-card glass-panel stat-present">
+                            <div class="stat-icon-wrap">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 256 256" fill="currentColor"><path d="M173.66,98.34a8,8,0,0,1,0,11.32l-56,56a8,8,0,0,1-11.32,0l-24-24a8,8,0,0,1,11.32-11.32L112,148.69l50.34-50.35A8,8,0,0,1,173.66,98.34ZM232,128A104,104,0,1,1,128,24,104.11,104.11,0,0,1,232,128Zm-16,0a88,88,0,1,0-88,88A88.1,88.1,0,0,0,216,128Z"/></svg>
+                            </div>
                             <div class="stat-info">
-                                <h3>Present Today</h3>
-                                <p class="stat-value" id="stat-present">0</p>
+                                <span class="stat-label">Present Today</span>
+                                <strong class="stat-value" id="stat-present">0</strong>
                             </div>
                         </div>
-                        <div class="stat-card glass-panel">
-                            <div class="stat-icon total"><i class="ph ph-users"></i></div>
+                        <div class="stat-card glass-panel stat-late">
+                            <div class="stat-icon-wrap">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 256 256" fill="currentColor"><path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm0,192a88,88,0,1,1,88-88A88.1,88.1,0,0,1,128,216Zm64-88a8,8,0,0,1-8,8H128a8,8,0,0,1-8-8V72a8,8,0,0,1,16,0v48h48A8,8,0,0,1,192,128Z"/></svg>
+                            </div>
                             <div class="stat-info">
-                                <h3>Total Students</h3>
-                                <p class="stat-value" id="stat-total">0</p>
+                                <span class="stat-label">Late Today</span>
+                                <strong class="stat-value" id="stat-late">0</strong>
+                            </div>
+                        </div>
+                        <div class="stat-card glass-panel stat-absent">
+                            <div class="stat-icon-wrap">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 256 256" fill="currentColor"><path d="M165.66,101.66,139.31,128l26.35,26.34a8,8,0,0,1-11.32,11.32L128,139.31l-26.34,26.35a8,8,0,0,1-11.32-11.32L116.69,128,90.34,101.66A8,8,0,0,1,101.66,90.34L128,116.69l26.34-26.35a8,8,0,0,1,11.32,11.32ZM232,128A104,104,0,1,1,128,24,104.11,104.11,0,0,1,232,128Zm-16,0a88,88,0,1,0-88,88A88.1,88.1,0,0,0,216,128Z"/></svg>
+                            </div>
+                            <div class="stat-info">
+                                <span class="stat-label">Absent Today</span>
+                                <strong class="stat-value" id="stat-absent">0</strong>
+                            </div>
+                        </div>
+                        <div class="stat-card glass-panel stat-students">
+                            <div class="stat-icon-wrap">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 256 256" fill="currentColor"><path d="M244.07,93.42,136.07,29.42a16,16,0,0,0-16.14,0l-104,60a16,16,0,0,0,0,27.16L56,143.56V192a16,16,0,0,0,8.18,14l64,36.44a16,16,0,0,0,15.64,0l64-36.44A16,16,0,0,0,216,192V143.56l24-13.94a16,16,0,0,0,.07-27.2Z"/></svg>
+                            </div>
+                            <div class="stat-info">
+                                <span class="stat-label">Total Students</span>
+                                <strong class="stat-value" id="stat-total">0</strong>
+                            </div>
+                        </div>
+                        <div class="stat-card glass-panel stat-teachers">
+                            <div class="stat-icon-wrap">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 256 256" fill="currentColor"><path d="M226,112H204V88a12,12,0,0,0-12-12H160V56a12,12,0,0,0-12-12H108A12,12,0,0,0,96,56V76H64A12,12,0,0,0,52,88v24H30a6,6,0,0,0,0,12H52v24a12,12,0,0,0,12,12H96v20a12,12,0,0,0,12,12h40a12,12,0,0,0,12-12V160h32a12,12,0,0,0,12-12V124h22a6,6,0,0,0,0-12Z"/></svg>
+                            </div>
+                            <div class="stat-info">
+                                <span class="stat-label">Total Teachers</span>
+                                <strong class="stat-value" id="stat-teachers">0</strong>
                             </div>
                         </div>
                     </div>
 
+                    <!-- ── Attendance Graph ── -->
+                    <div class="glass-panel mt-4" style="padding:20px 24px;">
+                        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;">
+                            <h3 style="margin:0;font-size:1rem;font-weight:600;">Attendance This Week</h3>
+                            <span style="font-size:0.75rem;color:var(--text-muted);">Last 7 days</span>
+                        </div>
+                        <canvas id="attendance-chart" height="80"></canvas>
+                    </div>
+
+                    <!-- ── Recent Scans ── -->
                     <div class="recent-activity glass-panel mt-4">
                         <h3>Recent Scans</h3>
                         <div class="table-responsive">
@@ -117,18 +163,53 @@
                                     <tr>
                                         <th>Name</th>
                                         <th>ID</th>
+                                        <th>Department</th>
+                                        <th>Section</th>
                                         <th>Time Scanned</th>
                                         <th>Status</th>
                                     </tr>
                                 </thead>
                                 <tbody id="recent-scans-body">
-                                    <tr class="empty-row">
-                                        <td colspan="4">No recent activity</td>
-                                    </tr>
+                                    <tr class="empty-row"><td colspan="6">No recent activity</td></tr>
                                 </tbody>
                             </table>
                         </div>
                     </div>
+
+                    <!-- ── Overview Tables ── -->
+                    <div class="overview-grid mt-4">
+                        <!-- All Students -->
+                        <div class="glass-panel">
+                            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;">
+                                <h3 style="margin:0;font-size:1rem;font-weight:600;">All Students</h3>
+                                <span class="stat-badge" id="overview-students-count">0 students</span>
+                            </div>
+                            <div class="table-responsive">
+                                <table class="data-table">
+                                    <thead><tr><th>Name</th><th>ID</th><th>Department</th><th>Section</th></tr></thead>
+                                    <tbody id="overview-students-body">
+                                        <tr class="empty-row"><td colspan="4">No students yet</td></tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <!-- All Teachers -->
+                        <div class="glass-panel">
+                            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;">
+                                <h3 style="margin:0;font-size:1rem;font-weight:600;">All Teachers</h3>
+                                <span class="stat-badge" id="overview-teachers-count">0 teachers</span>
+                            </div>
+                            <div class="table-responsive">
+                                <table class="data-table">
+                                    <thead><tr><th>Name</th><th>ID</th><th>Department</th></tr></thead>
+                                    <tbody id="overview-teachers-body">
+                                        <tr class="empty-row"><td colspan="3">No teachers yet</td></tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
                 </section>
 
                 <!-- ── Scanner View ── -->
@@ -396,6 +477,7 @@
     <!-- Libraries -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
     <script src="https://unpkg.com/html5-qrcode" type="text/javascript"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
     <script src="/client/database.js"></script>
     <!-- App Logic -->
     <script src="/client/admin/app.js"></script>

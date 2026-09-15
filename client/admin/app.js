@@ -202,25 +202,114 @@ navItems.forEach(item => {
 });
 
 async function updateDashboard() {
-    const [users, logs] = await Promise.all([SchoolSyncDB.getUsers(), SchoolSyncDB.getLogs()]);
+    const [users, logs, teachers] = await Promise.all([
+        SchoolSyncDB.getUsers(),
+        SchoolSyncDB.getLogs(),
+        SchoolSyncDB.getTeachers()
+    ]);
+
     const todayStr = new Date().toLocaleDateString();
-    const uniquePresentToday = new Set(logs
-        .filter(log => new Date(log.timestamp).toLocaleDateString() === todayStr)
-        .map(log => log.userId));
-    const sortedLogs = [...logs].sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
+    const todayLogs = logs.filter(log => new Date(log.timestamp).toLocaleDateString() === todayStr);
 
+    // Unique latest log per student today
+    const latestMap = {};
+    for (const log of todayLogs) {
+        if (!latestMap[log.userId] || new Date(log.timestamp) > new Date(latestMap[log.userId].timestamp)) {
+            latestMap[log.userId] = log;
+        }
+    }
+    const presentToday = Object.values(latestMap).filter(l => l.status === 'Present').length;
+    const lateToday = Object.values(latestMap).filter(l => l.status === 'Late').length;
+    const absentToday = users.length - presentToday - lateToday;
+
+    document.getElementById('stat-present').textContent = presentToday;
+    document.getElementById('stat-late').textContent = lateToday;
+    document.getElementById('stat-absent').textContent = Math.max(0, absentToday);
     document.getElementById('stat-total').textContent = users.length;
-    document.getElementById('stat-present').textContent = uniquePresentToday.size;
+    document.getElementById('stat-teachers').textContent = teachers.length;
 
+    // Recent scans table
+    const sortedLogs = [...logs].sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
     const tbody = document.getElementById('recent-scans-body');
-    const top5 = sortedLogs.slice(0, 5);
-    tbody.innerHTML = top5.length ? top5.map(log => `
+    const top8 = sortedLogs.slice(0, 8);
+    tbody.innerHTML = top8.length ? top8.map(log => `
         <tr>
             <td>${log.userName}</td>
             <td>${log.userId}</td>
+            <td>${log.grade || '-'}</td>
+            <td>${log.section || '-'}</td>
             <td>${new Date(log.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</td>
-            <td><span class="status-badge present">Present</span></td>
-        </tr>`).join('') : '<tr class="empty-row"><td colspan="4">No recent activity</td></tr>';
+            <td><span class="status-badge ${(log.status||'present').toLowerCase()}">${log.status || 'Present'}</span></td>
+        </tr>`).join('') : '<tr class="empty-row"><td colspan="6">No recent activity</td></tr>';
+
+    // Overview: all students
+    const studBody = document.getElementById('overview-students-body');
+    document.getElementById('overview-students-count').textContent = `${users.length} student${users.length !== 1 ? 's' : ''}`;
+    studBody.innerHTML = users.length ? users.map(u => `
+        <tr><td>${u.name}</td><td>${u.id}</td><td>${u.grade || '-'}</td><td>${u.adviser || '-'}</td></tr>`
+    ).join('') : '<tr class="empty-row"><td colspan="4">No students yet</td></tr>';
+
+    // Overview: all teachers
+    const teachBody = document.getElementById('overview-teachers-body');
+    document.getElementById('overview-teachers-count').textContent = `${teachers.length} teacher${teachers.length !== 1 ? 's' : ''}`;
+    teachBody.innerHTML = teachers.length ? teachers.map(t => `
+        <tr><td>${t.name}</td><td>${t.id}</td><td>${t.department || '-'}</td></tr>`
+    ).join('') : '<tr class="empty-row"><td colspan="3">No teachers yet</td></tr>';
+
+    // Chart: last 7 days attendance
+    renderAttendanceChart(logs);
+}
+
+let attendanceChart = null;
+function renderAttendanceChart(logs) {
+    const ctx = document.getElementById('attendance-chart');
+    if (!ctx) return;
+    const days = [];
+    const presentData = [];
+    const lateData = [];
+    const absentData = [];
+
+    for (let i = 6; i >= 0; i--) {
+        const d = new Date();
+        d.setDate(d.getDate() - i);
+        const label = d.toLocaleDateString([], { weekday: 'short', month: 'short', day: 'numeric' });
+        const dateStr = d.toLocaleDateString();
+        days.push(label);
+
+        const dayLogs = logs.filter(l => new Date(l.timestamp).toLocaleDateString() === dateStr);
+        const latestMap = {};
+        for (const log of dayLogs) {
+            if (!latestMap[log.userId] || new Date(log.timestamp) > new Date(latestMap[log.userId].timestamp)) {
+                latestMap[log.userId] = log;
+            }
+        }
+        presentData.push(Object.values(latestMap).filter(l => l.status === 'Present').length);
+        lateData.push(Object.values(latestMap).filter(l => l.status === 'Late').length);
+        absentData.push(Object.values(latestMap).filter(l => l.status === 'Absent').length);
+    }
+
+    if (attendanceChart) attendanceChart.destroy();
+    attendanceChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: days,
+            datasets: [
+                { label: 'Present', data: presentData, backgroundColor: 'rgba(16,185,129,0.75)', borderRadius: 6 },
+                { label: 'Late',    data: lateData,    backgroundColor: 'rgba(245,158,11,0.75)', borderRadius: 6 },
+                { label: 'Absent',  data: absentData,  backgroundColor: 'rgba(239,68,68,0.75)',  borderRadius: 6 }
+            ]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: { labels: { color: '#94a3b8', font: { size: 11 } } }
+            },
+            scales: {
+                x: { stacked: true, ticks: { color: '#94a3b8', font: { size: 10 } }, grid: { color: 'rgba(255,255,255,0.05)' } },
+                y: { stacked: true, ticks: { color: '#94a3b8', font: { size: 10 } }, grid: { color: 'rgba(255,255,255,0.05)' }, beginAtZero: true }
+            }
+        }
+    });
 }
 
 const registerForm = document.getElementById('register-form');

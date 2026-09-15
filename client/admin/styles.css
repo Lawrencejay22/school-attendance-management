@@ -1321,3 +1321,88 @@ iframe {
     height: 20px;
     flex-shrink: 0;
 }
+
+/* ═══════════════════════════════════════════════════════════════
+   ADMIN DASHBOARD — Enhanced stat cards & layout
+   ═══════════════════════════════════════════════════════════════ */
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 14px;
+}
+
+@media (max-width: 1100px) {
+    .stats-grid { grid-template-columns: repeat(3, 1fr); }
+}
+@media (max-width: 640px) {
+    .stats-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+.stat-card {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 18px 20px;
+    border-radius: 14px;
+}
+
+.stat-icon-wrap {
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.stat-card.stat-present .stat-icon-wrap { background: rgba(16,185,129,0.15); color: #10b981; }
+.stat-card.stat-late    .stat-icon-wrap { background: rgba(245,158,11,0.15); color: #f59e0b; }
+.stat-card.stat-absent  .stat-icon-wrap { background: rgba(239,68,68,0.15);  color: #ef4444; }
+.stat-card.stat-students .stat-icon-wrap { background: rgba(59,130,246,0.15); color: #3b82f6; }
+.stat-card.stat-teachers .stat-icon-wrap { background: rgba(139,92,246,0.15); color: #8b5cf6; }
+
+.stat-info {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    min-width: 0;
+}
+
+.stat-label {
+    font-size: 0.72rem;
+    color: var(--text-muted);
+    font-weight: 500;
+    white-space: nowrap;
+}
+
+.stat-value {
+    font-size: 1.8rem;
+    font-weight: 700;
+    line-height: 1;
+}
+
+/* Status badge variants */
+.status-badge.late   { background: rgba(245,158,11,0.15); color: #f59e0b; }
+.status-badge.absent { background: rgba(239,68,68,0.15);  color: #ef4444; }
+
+/* Overview grid */
+.overview-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+}
+
+@media (max-width: 768px) {
+    .overview-grid { grid-template-columns: 1fr; }
+}
+
+.stat-badge {
+    font-size: 0.72rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    background: rgba(255,255,255,0.06);
+    padding: 4px 10px;
+    border-radius: 999px;
+}
