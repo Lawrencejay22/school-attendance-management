@@ -46,11 +46,6 @@ function setHeaderAccount(account) {
     profileTrigger.classList.toggle('hidden', !signedIn);
     headerLogout.classList.toggle('hidden', !signedIn);
     goAdminButton.classList.toggle('hidden', !signedIn || account.role !== 'admin');
-    // Hide the footer Admin access link when a non-admin is signed in
-    const adminFooterLink = document.getElementById('admin-footer-link');
-    if (adminFooterLink) {
-        adminFooterLink.classList.toggle('hidden', signedIn && account.role !== 'admin');
-    }
     if (!signedIn) return;
     document.getElementById('header-profile-initials').textContent = accountInitials(account);
     document.getElementById('header-profile-name').textContent = account.name.split(' ')[0];
