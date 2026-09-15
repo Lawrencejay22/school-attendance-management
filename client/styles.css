@@ -1983,3 +1983,283 @@ h2 {
     color: var(--muted);
     font-weight: 500;
 }
+
+/* ═══════════════════════════════════════════════════════════════
+   RESPONSIVE — comprehensive breakpoints
+   Breakpoints: 1024px · 800px (existing) · 640px · 520px (existing) · 380px
+   ═══════════════════════════════════════════════════════════════ */
+
+/* ── 1024px — large tablet / small laptop ── */
+@media (max-width: 1024px) {
+    .hero {
+        gap: 40px;
+    }
+
+    .info-band {
+        grid-template-columns: 1fr;
+        gap: 40px;
+        padding: 64px 0;
+    }
+
+    .feature-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 24px;
+    }
+
+    .dashboard-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .wide-card,
+    .student-schedule-wide {
+        grid-column: 1 / -1;
+    }
+
+    .contact {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}
+
+/* ── 800px — existing + additions ── */
+@media (max-width: 800px) {
+    /* wide-card should still span full width on single-col grid */
+    .wide-card,
+    .student-schedule-wide {
+        grid-column: 1 / -1;
+    }
+
+    .dashboard-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .class-student-grid {
+        grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    }
+
+    .class-manager-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .class-header-actions {
+        width: 100%;
+    }
+
+    .schedule-manager-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .more {
+        grid-template-columns: 1fr;
+        padding: 64px 0;
+    }
+
+    .dashboard-view {
+        padding: 32px 0 64px;
+    }
+
+    .dashboard-heading h1 {
+        font-size: clamp(2.4rem, 8vw, 4rem);
+    }
+
+    .profile-panel {
+        flex-direction: column;
+    }
+}
+
+/* ── 640px — tablet / large phone ── */
+@media (max-width: 640px) {
+    .feature-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .hero h1 {
+        font-size: clamp(2.8rem, 9vw, 4rem);
+    }
+
+    .hero-lede {
+        font-size: 1rem;
+    }
+
+    .hero-actions {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+
+    .hero-visual {
+        min-height: 300px;
+    }
+
+    .contact {
+        padding: 32px 22px;
+        border-radius: 14px;
+    }
+
+    .contact h2 {
+        font-size: clamp(1.6rem, 6vw, 2.4rem);
+    }
+
+    .class-student-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .class-stats-row {
+        gap: 6px;
+    }
+
+    .student-id-card {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .student-id-status {
+        align-self: center;
+    }
+
+    #student-schedule-card-body {
+        grid-template-columns: 1fr;
+    }
+
+    .log-row-editable {
+        flex-wrap: wrap;
+        gap: 8px;
+    }
+
+    .log-row-info {
+        flex: 1 1 60%;
+    }
+
+    .log-status-select {
+        flex: 1 1 auto;
+    }
+
+    .auth-panel {
+        padding: 24px 18px;
+    }
+
+    .profile-editor {
+        padding: 0 18px 24px;
+    }
+
+    .profile-cover {
+        margin-left: -18px;
+        margin-right: -18px;
+    }
+
+    h2 {
+        font-size: clamp(2rem, 7vw, 3rem);
+    }
+}
+
+/* ── 520px — existing + additions ── */
+@media (max-width: 520px) {
+    .class-student-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .class-student-card {
+        padding: 0.75rem;
+    }
+
+    .class-student-qr {
+        width: 88px;
+        height: 88px;
+    }
+
+    .cutoff-row {
+        font-size: 0.78rem;
+    }
+
+    .cutoff-input {
+        width: 5rem;
+    }
+
+    .btn {
+        padding: 10px 15px;
+        font-size: 0.85rem;
+    }
+
+    .btn-coral {
+        padding: 11px 16px;
+    }
+
+    .dashboard-card {
+        padding: 18px;
+        min-height: 140px;
+    }
+
+    .dashboard-card strong {
+        font-size: 2.8rem;
+    }
+
+    .schedule-form-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .profile-action-buttons {
+        flex-wrap: wrap;
+    }
+
+    .profile-action-buttons .btn {
+        flex: 1 1 auto;
+        min-width: 120px;
+    }
+}
+
+/* ── 380px — small phones ── */
+@media (max-width: 380px) {
+    .section-wrap,
+    .site-header {
+        width: calc(100% - 24px);
+    }
+
+    .hero h1 {
+        font-size: 2.4rem;
+    }
+
+    .class-student-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .class-stat {
+        font-size: 0.75rem;
+        padding: 0.35rem 0.65rem;
+    }
+
+    .site-nav {
+        gap: 6px;
+        font-size: 0.72rem;
+    }
+
+    .brand {
+        font-size: 0.95rem;
+    }
+
+    .brand-mark {
+        width: 28px;
+        height: 28px;
+        font-size: 1rem;
+    }
+
+    .auth-panel {
+        padding: 20px 14px;
+        border-radius: 14px;
+    }
+
+    .profile-summary {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .profile-summary-avatar {
+        margin-top: -36px;
+    }
+
+    h2 {
+        font-size: clamp(1.8rem, 8vw, 2.6rem);
+    }
+}

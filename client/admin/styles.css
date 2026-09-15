@@ -1005,3 +1005,95 @@ select option { background: var(--bg-secondary); }
         font-size: .78rem;
     }
 }
+
+/* ═══════════════════════════════════════════════════════════════
+   ADMIN — additional responsive breakpoints
+   ═══════════════════════════════════════════════════════════════ */
+
+/* ── 420px — very small phones: hide sidebar completely ── */
+@media (max-width: 420px) {
+    .sidebar {
+        width: 0;
+        overflow: hidden;
+        padding: 0;
+    }
+
+    .main-content {
+        margin-left: 0;
+        padding: 0.75rem;
+    }
+
+    .students-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .data-table {
+        display: block;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .data-table th,
+    .data-table td {
+        font-size: 0.72rem;
+        padding: 0.5rem 0.4rem;
+        white-space: nowrap;
+    }
+
+    .stat-card {
+        padding: 1rem;
+    }
+
+    .stat-value {
+        font-size: 2rem;
+    }
+
+    .glass-panel {
+        padding: 0.75rem;
+        border-radius: 10px;
+    }
+
+    .register-grid,
+    .teacher-management-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .barcode-preview-container {
+        display: none;
+    }
+
+    .top-header h2 {
+        font-size: 1.2rem;
+    }
+}
+
+/* ── Fluid images and media ── */
+img,
+video,
+canvas,
+iframe {
+    max-width: 100%;
+    height: auto;
+}
+
+/* ── Table overflow on all small screens ── */
+@media (max-width: 640px) {
+    .data-table {
+        display: block;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .data-table th,
+    .data-table td {
+        white-space: nowrap;
+    }
+
+    .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .register-grid {
+        grid-template-columns: 1fr;
+    }
+}
