@@ -291,15 +291,28 @@ async function handleApi(request, response, pathname) {
 
     if (request.method === 'GET' && pathname === '/api/attendance') {
         const url = new URL(request.url, `http://${request.headers.host}`);
-        const dateStr = url.searchParams.get('date'); // YYYY-MM-DD filter
+        const dateStr = url.searchParams.get('date');
         if (dateStr) {
             const [logs] = await pool.execute(
-                'SELECT id, student_id AS userId, student_name AS userName, department AS grade, attendance_time AS timestamp, status FROM attendance WHERE DATE(attendance_time) = ? ORDER BY attendance_time DESC',
+                `SELECT a.id, a.student_id AS userId, a.student_name AS userName,
+                        a.department AS grade, a.attendance_time AS timestamp, a.status,
+                        COALESCE(s.adviser, '') AS section
+                 FROM attendance a
+                 LEFT JOIN students s ON s.id = a.student_id
+                 WHERE DATE(a.attendance_time) = ?
+                 ORDER BY a.attendance_time DESC`,
                 [dateStr]
             );
             return sendJson(response, 200, { logs });
         }
-        const [logs] = await pool.execute('SELECT id, student_id AS userId, student_name AS userName, department AS grade, attendance_time AS timestamp, status FROM attendance ORDER BY attendance_time DESC');
+        const [logs] = await pool.execute(
+            `SELECT a.id, a.student_id AS userId, a.student_name AS userName,
+                    a.department AS grade, a.attendance_time AS timestamp, a.status,
+                    COALESCE(s.adviser, '') AS section
+             FROM attendance a
+             LEFT JOIN students s ON s.id = a.student_id
+             ORDER BY a.attendance_time DESC`
+        );
         return sendJson(response, 200, { logs });
     }
 
