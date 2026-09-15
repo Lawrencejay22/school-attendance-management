@@ -33,6 +33,7 @@ CREATE TABLE IF NOT EXISTS students (
     name            VARCHAR(120) NOT NULL,
     department      VARCHAR(120) NOT NULL,               -- maps to 'grade' in API responses
     adviser         VARCHAR(120) NOT NULL DEFAULT 'Not assigned',
+    year            VARCHAR(20)  NOT NULL DEFAULT '',
     registered_at   TIMESTAMP    NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE = InnoDB;
 

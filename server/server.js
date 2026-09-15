@@ -88,6 +88,7 @@ async function ensureTables() {
             name          VARCHAR(120) NOT NULL,
             department    VARCHAR(120) NOT NULL,
             adviser       VARCHAR(120) NOT NULL DEFAULT 'Not assigned',
+            year          VARCHAR(20)  NOT NULL DEFAULT '',
             registered_at TIMESTAMP    NOT NULL DEFAULT CURRENT_TIMESTAMP
         ) ENGINE = InnoDB
     `);
@@ -151,9 +152,12 @@ async function ensureProfileColumns() {
 async function ensureStudentColumns() {
     const [columns] = await pool.execute(`
         SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS
-        WHERE TABLE_SCHEMA = DATABASE() AND TABLE_NAME = 'students' AND COLUMN_NAME = 'adviser'
+        WHERE TABLE_SCHEMA = DATABASE() AND TABLE_NAME = 'students'
+        AND COLUMN_NAME IN ('adviser','year')
     `);
-    if (!columns.length) await pool.execute("ALTER TABLE students ADD COLUMN adviser VARCHAR(120) NOT NULL DEFAULT 'Not assigned'");
+    const existing = new Set(columns.map(c => c.COLUMN_NAME));
+    if (!existing.has('adviser')) await pool.execute("ALTER TABLE students ADD COLUMN adviser VARCHAR(120) NOT NULL DEFAULT 'Not assigned'");
+    if (!existing.has('year'))    await pool.execute("ALTER TABLE students ADD COLUMN year VARCHAR(20) NOT NULL DEFAULT ''");
 }
 
 async function ensureSchedulesTable() {
@@ -195,7 +199,7 @@ async function handleApi(request, response, pathname) {
             await connection.beginTransaction();
             await connection.execute('INSERT INTO accounts (id, name, email, password_hash, role, student_id) VALUES (?, ?, ?, ?, ?, ?)', [account.id, account.name, account.email, account.passwordHash, account.role, account.studentId || null]);
             if (isStudent) {
-                await connection.execute('INSERT INTO students (id, name, department, adviser) VALUES (?, ?, ?, ?)', [body.studentId.trim(), account.name, body.department.trim(), (body.adviser || 'Not assigned').trim()]);
+                await connection.execute('INSERT INTO students (id, name, department, adviser, year) VALUES (?, ?, ?, ?, ?)', [body.studentId.trim(), account.name, body.department.trim(), (body.adviser || 'Not assigned').trim(), (body.year || '').trim()]);
             }
             await connection.commit();
             return sendJson(response, 201, { account: publicAccount(account) });
@@ -246,15 +250,15 @@ async function handleApi(request, response, pathname) {
     }
 
     if (request.method === 'GET' && pathname === '/api/students') {
-        const [students] = await pool.execute('SELECT id, name, department AS grade, adviser, registered_at AS registeredAt FROM students ORDER BY registered_at DESC');
+        const [students] = await pool.execute('SELECT id, name, department AS grade, adviser, year, registered_at AS registeredAt FROM students ORDER BY registered_at DESC');
         return sendJson(response, 200, { students });
     }
 
     if (request.method === 'POST' && pathname === '/api/students') {
         const body = await readBody(request);
-        if (!body?.id || !body?.name || !body?.grade || !body?.adviser) return sendJson(response, 400, { error: 'Student name, ID, department, and adviser are required.' });
+        if (!body?.id || !body?.name || !body?.grade || !body?.adviser) return sendJson(response, 400, { error: 'Student name, ID, department, and section are required.' });
         try {
-            await pool.execute('INSERT INTO students (id, name, department, adviser) VALUES (?, ?, ?, ?)', [body.id.trim(), body.name.trim(), body.grade, body.adviser.trim()]);
+            await pool.execute('INSERT INTO students (id, name, department, adviser, year) VALUES (?, ?, ?, ?, ?)', [body.id.trim(), body.name.trim(), body.grade, body.adviser.trim(), (body.year || '').trim()]);
             return sendJson(response, 201, { student: body });
         } catch (error) {
             if (error.code === 'ER_DUP_ENTRY') return sendJson(response, 409, { error: 'A student with this ID already exists.' });

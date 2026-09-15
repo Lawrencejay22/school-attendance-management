@@ -246,8 +246,8 @@ async function updateDashboard() {
     const studBody = document.getElementById('overview-students-body');
     document.getElementById('overview-students-count').textContent = `${users.length} student${users.length !== 1 ? 's' : ''}`;
     studBody.innerHTML = users.length ? users.map(u => `
-        <tr><td>${u.name}</td><td>${u.id}</td><td>${u.grade || '-'}</td><td class="hide-mobile">${u.adviser || '-'}</td></tr>`
-    ).join('') : '<tr class="empty-row"><td colspan="4">No students yet</td></tr>';
+        <tr><td>${u.name}</td><td>${u.id}</td><td>${u.grade || '-'}</td><td class="hide-mobile">${u.adviser || '-'}</td><td class="hide-mobile">${u.year || '-'}</td></tr>`
+    ).join('') : '<tr class="empty-row"><td colspan="5">No students yet</td></tr>';
 
     // Overview: all teachers
     const teachBody = document.getElementById('overview-teachers-body');
@@ -325,13 +325,18 @@ registerForm.addEventListener('submit', async event => {
     const id = document.getElementById('user-id').value.trim();
     const grade = document.getElementById('user-grade').value;
     const adviser = document.getElementById('user-adviser').value.trim();
+    const year = document.getElementById('user-year').value;
     if (!grade) {
         alert('Please select a department.');
         return;
     }
+    if (!year) {
+        alert('Please select a year level.');
+        return;
+    }
 
     try {
-        await SchoolSyncDB.saveUser({ name, id, grade, adviser });
+        await SchoolSyncDB.saveUser({ name, id, grade, adviser, year });
     } catch (error) {
         alert(error.message);
         return;
@@ -461,7 +466,7 @@ async function updateStudentsView() {
         const card = document.createElement('div');
         card.className = 'student-card glass-panel';
         const qrId = `qr-${user.id.replace(/[^a-zA-Z0-9]/g, '_')}`;
-        card.innerHTML = `<div class="student-card-header"><div class="student-avatar">${user.name.charAt(0).toUpperCase()}</div><div class="student-meta"><h4 class="student-name">${user.name}</h4><span class="student-id-badge">${user.id}</span></div></div><div class="student-qr-wrapper"><div id="${qrId}"></div></div><div class="student-card-footer"><span class="student-grade">${user.grade}${user.adviser ? ' · ' + user.adviser : ''}</span><button class="btn danger-btn remove-btn" onclick="removeStudent('${user.id}')"><i class="ph ph-trash"></i> Remove</button></div>`;
+        card.innerHTML = `<div class="student-card-header"><div class="student-avatar">${user.name.charAt(0).toUpperCase()}</div><div class="student-meta"><h4 class="student-name">${user.name}</h4><span class="student-id-badge">${user.id}</span></div></div><div class="student-qr-wrapper"><div id="${qrId}"></div></div><div class="student-card-footer"><span class="student-grade">${user.grade}${user.adviser ? ' · ' + user.adviser : ''}${user.year ? ' · ' + user.year : ''}</span><button class="btn danger-btn remove-btn" onclick="removeStudent('${user.id}')"><i class="ph ph-trash"></i> Remove</button></div>`;
         grid.appendChild(card);
         new QRCode(document.getElementById(qrId), { text: user.id, width: 120, height: 120, colorDark: '#000000', colorLight: '#ffffff', correctLevel: QRCode.CorrectLevel.H });
     });
