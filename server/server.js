@@ -417,6 +417,7 @@ async function handleApi(request, response, pathname) {
 
 function resolveRequestedPath(pathname) {
     if (pathname === '/') return '/client/client.html';
+    if (pathname === '/about' || pathname === '/about.html') return '/client/about.html';
     if (pathname === '/admin' || pathname === '/admin/') return '/client/admin/dashboard.html';
     if (pathname === '/dashboard' || pathname === '/dashboard.html') return '/client/admin/dashboard.html';
 

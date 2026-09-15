@@ -1974,3 +1974,12 @@ h2 {
 #student-schedule-card-body .schedule-empty-state {
     grid-column: 1 / -1;
 }
+
+.badge-pill {
+    padding: 6px 16px;
+    border: 1.5px solid var(--line);
+    border-radius: 999px;
+    font-size: 0.85rem;
+    color: var(--muted);
+    font-weight: 500;
+}
