@@ -421,4 +421,4 @@ const server = createServer(async (request, response) => {
     }
 });
 
-server.listen(port, () => console.log(`SchoolSync running at http://localhost:${port}`));
+server.listen(port, '0.0.0.0', () => console.log(`SchoolSync running at http://0.0.0.0:${port}`));
