@@ -61,7 +61,8 @@ body::after {
 â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 h1, h2, h3, h4 { font-weight: 600; }
 
-.mt-4   { margin-top: 1.5rem; }
+.mt-4   { margin-top: 1rem; }
+.mt-2   { margin-top: 0.5rem; }
 .w-full { width: 100%; }
 .hidden { display: none !important; }
 

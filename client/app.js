@@ -222,6 +222,8 @@ async function renderStudentIdCard(account, allLogs) {
     // Use the ID from the DB record if available (most reliable), else fall back to account.studentId
     const scanId = studentRecord?.id || account.studentId || null;
     const dept = studentRecord?.grade || '';
+    const section = studentRecord?.adviser || '';
+    const year = studentRecord?.year || '';
 
     const today = new Date().toLocaleDateString();
     const myLogs = allLogs.filter(l => l.userId === scanId);
@@ -253,7 +255,7 @@ async function renderStudentIdCard(account, allLogs) {
             <div class="student-id-info">
                 <div class="student-id-name">${account.name}</div>
                 <div class="student-id-meta">${scanId}</div>
-                ${dept ? `<div class="student-id-dept">${dept}</div>` : ''}
+                ${dept ? `<div class="student-id-dept">${dept}${section ? ' · ' + section : ''}${year ? ' · ' + year : ''}</div>` : ''}
                 <span class="class-status-badge ${statusCls} student-id-status">
                     <i class="${statusIconCls}"></i>
                     Today: ${todayStatus}

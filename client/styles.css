@@ -1768,7 +1768,7 @@ body.theme-dark .auth-form textarea::placeholder {
 
 /* Student card */
 .class-student-card {
-    background: var(--surface, #fff);
+    background: var(--white);
     border: 1.5px solid var(--border, rgba(0, 0, 0, .1));
     border-radius: 14px;
     padding: 1rem;
@@ -1777,6 +1777,7 @@ body.theme-dark .auth-form textarea::placeholder {
     align-items: center;
     gap: .6rem;
     transition: box-shadow .15s;
+    color: var(--ink);
 }
 
 .class-student-card:hover {
@@ -1802,6 +1803,7 @@ body.theme-dark .auth-form textarea::placeholder {
     font-size: .9rem;
     text-align: center;
     line-height: 1.2;
+    color: var(--ink);
 }
 
 .class-student-id {
