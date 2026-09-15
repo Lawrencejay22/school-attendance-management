@@ -314,8 +314,18 @@
         </nav>
         <div class="header-actions">
             <button class="icon-btn" id="theme-toggle" type="button" aria-label="Switch theme"><i class="ph ph-moon"></i></button>
-            <a class="btn btn-quiet" href="client.html">Sign in</a>
-            <a class="btn btn-dark" href="client.html">Get started <i class="ph-bold ph-arrow-up-right"></i></a>
+            <!-- guest -->
+            <div id="about-guest-actions">
+                <a class="btn btn-quiet" href="client.html">Sign in</a>
+                <a class="btn btn-dark" href="client.html">Get started <i class="ph-bold ph-arrow-up-right"></i></a>
+            </div>
+            <!-- signed in -->
+            <a class="btn btn-quiet hidden" id="about-back-btn" href="client.html">
+                <i class="ph-bold ph-arrow-left"></i> Back to dashboard
+            </a>
+            <button class="btn btn-quiet hidden" id="about-signout-btn" type="button">
+                <i class="ph-bold ph-sign-out"></i> Sign out
+            </button>
         </div>
     </header>
 
@@ -517,11 +527,32 @@
 </div>
 
 <script>
+    // Theme
     document.getElementById('theme-toggle').addEventListener('click', () => {
         const isDark = document.body.classList.toggle('theme-dark');
         localStorage.setItem('schoolsync_theme', isDark ? 'dark' : 'light');
     });
     if (localStorage.getItem('schoolsync_theme') === 'dark') document.body.classList.add('theme-dark');
+
+    // Session-aware header
+    const session = (() => {
+        try { return JSON.parse(localStorage.getItem('schoolsync_session')); } catch { return null; }
+    })();
+
+    if (session) {
+        document.getElementById('about-guest-actions').classList.add('hidden');
+        document.getElementById('about-back-btn').classList.remove('hidden');
+        document.getElementById('about-signout-btn').classList.remove('hidden');
+        // Back link: admin goes to admin dashboard, others go to client.html
+        const backBtn = document.getElementById('about-back-btn');
+        backBtn.href = session.role === 'admin' ? 'admin/dashboard.html' : 'client.html';
+        backBtn.innerHTML = `<i class="ph-bold ph-arrow-left"></i> Back to dashboard`;
+    }
+
+    document.getElementById('about-signout-btn')?.addEventListener('click', () => {
+        localStorage.removeItem('schoolsync_session');
+        window.location.href = 'client.html';
+    });
 </script>
 </body>
 </html>
