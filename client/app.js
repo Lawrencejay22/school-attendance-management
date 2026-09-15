@@ -714,6 +714,11 @@ document.querySelectorAll('[data-close-auth]').forEach(button => button.addEvent
 document.querySelectorAll('[data-auth-tab]').forEach(button => button.addEventListener('click', () => setAuthMode(button.dataset.authTab)));
 document.getElementById('admin-footer-link').addEventListener('click', event => {
     event.preventDefault();
+    const currentSession = SchoolSyncDB.getSession();
+    if (currentSession && currentSession.role !== 'admin') {
+        alert("You are currently signed in. Students and teachers are not allowed to access the admin panel.");
+        return;
+    }
     window.location.hash = 'admin-login';
     openAuth('admin');
 });
@@ -853,7 +858,6 @@ function signOut() {
     scheduleFormInitialized = false;
     classViewInitialized = false;
     studentQrRendered = false;
-    // Clear QR instance cache so they re-render on next login
     Object.keys(classQrInstances).forEach(k => delete classQrInstances[k]);
     dashboardView.classList.add('hidden');
     publicView.classList.remove('hidden');
