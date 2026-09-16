@@ -2753,6 +2753,7 @@ body.theme-dark .auth-tabs {
     border-radius: 8px;
     padding: 4px 8px;
     font-size: 0.82rem;
+    cursor: pointer;
 }
 
 /* ── dark mode overrides ── */
