@@ -390,7 +390,7 @@ async function renderDashboard(account) {
                     <span class="log-icon log-icon-${st}"><i class="ph-fill ph-${st === 'present' ? 'check' : st === 'late' ? 'clock' : 'x'}"></i></span>
                     <div>
                         <strong>${new Date(log.timestamp).toLocaleDateString([], { weekday: 'short', month: 'short', day: 'numeric' })}</strong>
-                        <small>${new Date(log.timestamp).toLocaleTimeString([], { timeStyle: 'short' })}${log.grade ? ` · ${log.grade}` : ''}${log.section ? ` · ${log.section}` : ''}${log.year ? ` · ${log.year}` : ''}</small>
+                        <small>${new Date(log.timestamp).toLocaleTimeString([], { timeStyle: 'short' })}${log.grade ? ` · ${log.grade}` : ''}${log.section ? ` · ${log.section}` : ''}${log.year ? ` · ${log.year}` : ''}${log.subject ? ` · <strong>${log.subject}</strong>` : ''}</small>
                     </div>
                     <span class="log-status log-status-${st}">${log.status || 'Present'}</span>
                 </div>`;
@@ -406,7 +406,7 @@ async function renderDashboard(account) {
                     <span class="log-icon log-icon-${st}"><i class="ph-fill ph-${st === 'present' ? 'check' : st === 'late' ? 'clock' : 'x'}"></i></span>
                     <div class="log-row-info">
                         <strong>${log.userName}</strong>
-                        <small>${new Date(log.timestamp).toLocaleString([], { dateStyle: 'medium', timeStyle: 'short' })}${log.grade ? ` · ${log.grade}` : ''}${log.section ? ` · ${log.section}` : ''}${log.year ? ` · ${log.year}` : ''}</small>
+                        <small>${new Date(log.timestamp).toLocaleString([], { dateStyle: 'medium', timeStyle: 'short' })}${log.grade ? ` · ${log.grade}` : ''}${log.section ? ` · ${log.section}` : ''}${log.year ? ` · ${log.year}` : ''}${log.subject ? ` · <strong>${log.subject}</strong>` : ''}</small>
                     </div>
                     <select class="log-status-select log-status-${st}" data-log-id="${log.id}">
                         <option value="Present" ${log.status === 'Present' ? 'selected' : ''}>Present</option>
@@ -614,7 +614,10 @@ async function renderClassView(account) {
 
         grid.appendChild(card);
 
-        const scanUrl = `${window.location.origin}/scan.html?id=${student.id}`;
+        const selectedSubject = (document.getElementById('class-subject')?.value || '').trim();
+        const scanUrl = selectedSubject
+            ? `${window.location.origin}/scan.html?id=${encodeURIComponent(student.id)}&subject=${encodeURIComponent(selectedSubject)}`
+            : `${window.location.origin}/scan.html?id=${encodeURIComponent(student.id)}`;
         setTimeout(() => {
             const qrEl = document.getElementById(qrContainerId);
             if (qrEl) {
@@ -683,6 +686,11 @@ function initClassView(account) {
 
     // Refresh when date picker changes
     document.getElementById('class-date-picker').addEventListener('change', () => {
+        renderClassView(account);
+    });
+
+    // Re-render QR codes when subject changes (embeds subject into scan URL)
+    document.getElementById('class-subject').addEventListener('change', () => {
         renderClassView(account);
     });
 }

@@ -215,10 +215,15 @@ h1, h2, h3, h4 { font-weight: 600; }
     width: 34px;
     height: 34px;
     border-radius: 50%;
-    background: var(--primary);
+    background-color: var(--primary);
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
     color: white;
     font-size: 0.8rem;
     font-weight: 700;
+    overflow: hidden;
+    flex-shrink: 0;
 }
 
 .header-profile-copy strong,

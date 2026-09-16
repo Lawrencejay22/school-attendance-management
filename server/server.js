@@ -107,6 +107,7 @@ async function ensureTables() {
             student_name    VARCHAR(120) NOT NULL,
             department      VARCHAR(120) NOT NULL,
             status          VARCHAR(30)  NOT NULL DEFAULT 'Present',
+            subject         VARCHAR(120) NOT NULL DEFAULT '',
             attendance_time TIMESTAMP    NOT NULL DEFAULT CURRENT_TIMESTAMP,
             PRIMARY KEY (id),
             INDEX attendance_student_idx (student_id),
@@ -158,6 +159,17 @@ async function ensureStudentColumns() {
     const existing = new Set(columns.map(c => c.COLUMN_NAME));
     if (!existing.has('adviser')) await pool.execute("ALTER TABLE students ADD COLUMN adviser VARCHAR(120) NOT NULL DEFAULT 'Not assigned'");
     if (!existing.has('year'))    await pool.execute("ALTER TABLE students ADD COLUMN year VARCHAR(20) NOT NULL DEFAULT ''");
+}
+
+async function ensureAttendanceColumns() {
+    const [columns] = await pool.execute(`
+        SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS
+        WHERE TABLE_SCHEMA = DATABASE() AND TABLE_NAME = 'attendance'
+        AND COLUMN_NAME = 'subject'
+    `);
+    if (!columns.length) {
+        await pool.execute("ALTER TABLE attendance ADD COLUMN subject VARCHAR(120) NOT NULL DEFAULT '' AFTER status");
+    }
 }
 
 async function ensureSchedulesTable() {
@@ -304,6 +316,7 @@ async function handleApi(request, response, pathname) {
             const [logs] = await pool.execute(
                 `SELECT a.id, a.student_id AS userId, a.student_name AS userName,
                         a.department AS grade, a.attendance_time AS timestamp, a.status,
+                        COALESCE(a.subject, '') AS subject,
                         COALESCE(s.adviser, '') AS section,
                         COALESCE(s.year, '') AS year
                  FROM attendance a
@@ -317,6 +330,7 @@ async function handleApi(request, response, pathname) {
         const [logs] = await pool.execute(
             `SELECT a.id, a.student_id AS userId, a.student_name AS userName,
                     a.department AS grade, a.attendance_time AS timestamp, a.status,
+                    COALESCE(a.subject, '') AS subject,
                     COALESCE(s.adviser, '') AS section,
                     COALESCE(s.year, '') AS year
              FROM attendance a
@@ -343,11 +357,12 @@ async function handleApi(request, response, pathname) {
         const cutoffMinute = Number(body?.cutoffMinute ?? 0);
         const isLate = now.getHours() > cutoffHour || (now.getHours() === cutoffHour && now.getMinutes() > cutoffMinute);
         const status = isLate ? 'Late' : 'Present';
+        const subject = typeof body?.subject === 'string' ? body.subject.trim().slice(0, 120) : '';
         const [result] = await pool.execute(
-            'INSERT INTO attendance (student_id, student_name, department, status) VALUES (?, ?, ?, ?)',
-            [student.id, student.name, student.department, status]
+            'INSERT INTO attendance (student_id, student_name, department, status, subject) VALUES (?, ?, ?, ?, ?)',
+            [student.id, student.name, student.department, status, subject]
         );
-        return sendJson(response, 201, { ok: true, id: result.insertId, status });
+        return sendJson(response, 201, { ok: true, id: result.insertId, status, subject });
     }
 
     if (request.method === 'PUT' && pathname.startsWith('/api/attendance/')) {
@@ -458,6 +473,7 @@ await pool.query('SELECT 1');
 await ensureTables();
 await ensureProfileColumns();
 await ensureStudentColumns();
+await ensureAttendanceColumns();
 await ensureSchedulesTable();
 await seedAdmin();
 

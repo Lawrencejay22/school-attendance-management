@@ -115,6 +115,17 @@
             font-size: 14px;
             color: #666;
         }
+
+        .subject-badge {
+            display: inline-block;
+            background: var(--brand-green);
+            color: #1a4a2e;
+            font-size: 13px;
+            font-weight: 600;
+            padding: 4px 12px;
+            border-radius: 999px;
+            margin-top: 10px;
+        }
     </style>
 </head>
 
@@ -131,6 +142,7 @@
             <strong id="student-name"></strong>
             <span id="student-info"></span>
             <span id="attendance-time"></span>
+            <span id="attendance-subject"></span>
         </div>
 
         <a href="/" class="btn">Go to Dashboard</a>
@@ -140,6 +152,7 @@
         document.addEventListener('DOMContentLoaded', async () => {
             const urlParams = new URLSearchParams(window.location.search);
             const studentId = urlParams.get('id');
+            const subject   = urlParams.get('subject') || '';
             const statusIcon = document.getElementById('status-icon');
             const statusTitle = document.getElementById('status-title');
             const statusMessage = document.getElementById('status-message');
@@ -154,7 +167,7 @@
                 const response = await fetch('/api/attendance', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ userId: studentId })
+                    body: JSON.stringify({ userId: studentId, subject })
                 });
 
                 const data = await response.json();
@@ -167,13 +180,19 @@
                 statusIcon.className = 'icon-container success';
                 statusIcon.innerHTML = '<i class="ph-fill ph-check-circle"></i>';
                 statusTitle.textContent = 'Attendance Recorded!';
-
                 statusMessage.textContent = `You have been marked as ${data.status.toUpperCase()}.`;
 
                 studentDetails.style.display = 'block';
                 document.getElementById('student-name').textContent = `Student ID: ${studentId}`;
                 document.getElementById('student-info').textContent = `Status: ${data.status}`;
                 document.getElementById('attendance-time').textContent = `Time: ${new Date().toLocaleTimeString([], { timeStyle: 'short' })}`;
+
+                const subjectEl = document.getElementById('attendance-subject');
+                if (subject) {
+                    subjectEl.innerHTML = `<span class="subject-badge"><i class="ph ph-books"></i> ${subject}</span>`;
+                } else {
+                    subjectEl.textContent = '';
+                }
 
             } catch (err) {
                 showError("Scan Failed", err.message);

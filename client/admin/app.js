@@ -11,6 +11,17 @@ document.getElementById('admin-profile-initials').textContent = getProfileInitia
 document.getElementById('admin-profile-name').textContent = currentSession.name;
 document.getElementById('admin-profile-role').textContent = currentSession.role;
 
+// Show profile picture in the header immediately on load
+// (setAdminHeaderAvatar is defined below — hoisted via function declaration not needed,
+//  so we defer with a small inline helper here that mirrors the same logic)
+{
+    const _el = document.getElementById('admin-profile-initials');
+    if (currentSession.profileImage) {
+        _el.textContent = '';
+        _el.style.backgroundImage = `url(${currentSession.profileImage})`;
+    }
+}
+
 const adminProfileModal = document.getElementById('admin-profile-modal');
 const adminProfileForm = document.getElementById('admin-profile-form');
 const adminProfilePreview = document.getElementById('admin-profile-preview');
@@ -27,6 +38,18 @@ function updateAdminProfileSummary() {
     const contact = document.getElementById('admin-profile-summary-contact');
     contact.href = currentSession.showEmail ? `mailto:${currentSession.email}` : '#';
     contact.textContent = currentSession.showEmail ? currentSession.email : 'Email hidden by privacy settings';
+}
+
+function setAdminHeaderAvatar(account) {
+    const el = document.getElementById('admin-profile-initials');
+    if (!el) return;
+    if (account.profileImage) {
+        el.textContent = '';
+        el.style.backgroundImage = `url(${account.profileImage})`;
+    } else {
+        el.textContent = getProfileInitials(account);
+        el.style.backgroundImage = '';
+    }
 }
 
 function setAdminProfileImage(account) {
@@ -125,8 +148,8 @@ adminProfileForm.addEventListener('submit', async event => {
         return;
     }
     Object.assign(currentSession, result.account);
-    document.getElementById('admin-profile-initials').textContent = getProfileInitials(currentSession);
     document.getElementById('admin-profile-name').textContent = currentSession.name;
+    setAdminHeaderAvatar(currentSession);
     setAdminProfileImage(currentSession);
     updateAdminProfileSummary();
     adminProfileModal.classList.add('hidden');
@@ -156,6 +179,7 @@ adminPrivacyForm.addEventListener('submit', async event => {
     }
     Object.assign(currentSession, result.account);
     document.getElementById('admin-profile-name').textContent = currentSession.name;
+    setAdminHeaderAvatar(currentSession);
     adminPrivacyModal.classList.add('hidden');
 });
 
