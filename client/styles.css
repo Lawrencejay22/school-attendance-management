@@ -1846,6 +1846,9 @@ body.theme-dark .auth-form textarea::placeholder {
     height: 2.4rem;
     border-radius: 50%;
     background: var(--accent, #6366f1);
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
     color: #fff;
     display: flex;
     align-items: center;
@@ -1853,6 +1856,7 @@ body.theme-dark .auth-form textarea::placeholder {
     font-weight: 700;
     font-size: 1rem;
     flex-shrink: 0;
+    overflow: hidden;
 }
 
 .class-student-name {

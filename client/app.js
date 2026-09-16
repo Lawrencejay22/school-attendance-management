@@ -600,8 +600,13 @@ async function renderClassView(account) {
 
         const qrContainerId = `class-qr-${student.id.replace(/[^a-zA-Z0-9]/g, '_')}`;
 
+        const avatarStyle = student.profileImage
+            ? `style="background-image:url('${student.profileImage}');background-size:cover;background-position:center;background-repeat:no-repeat;"`
+            : '';
+        const avatarText = student.profileImage ? '' : student.name.charAt(0).toUpperCase();
+
         card.innerHTML = `
-            <div class="class-student-avatar">${student.name.charAt(0).toUpperCase()}</div>
+            <div class="class-student-avatar" ${avatarStyle}>${avatarText}</div>
             <div class="class-student-name">${student.name}</div>
             <div class="class-student-id">${student.id}</div>
             <div class="class-student-qr" id="${qrContainerId}"></div>

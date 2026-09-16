@@ -266,7 +266,13 @@ async function handleApi(request, response, pathname) {
     }
 
     if (request.method === 'GET' && pathname === '/api/students') {
-        const [students] = await pool.execute('SELECT id, name, department AS grade, adviser, year, registered_at AS registeredAt FROM students ORDER BY registered_at DESC');
+        const [students] = await pool.execute(
+            `SELECT s.id, s.name, s.department AS grade, s.adviser, s.year, s.registered_at AS registeredAt,
+                    COALESCE(a.profile_image, '') AS profileImage
+             FROM students s
+             LEFT JOIN accounts a ON a.student_id = s.id AND a.role = 'student'
+             ORDER BY s.registered_at DESC`
+        );
         return sendJson(response, 200, { students });
     }
 
