@@ -363,6 +363,19 @@ async function renderDashboard(account) {
     const attendance = totalStudents ? Math.round((presentToday.size / totalStudents) * 100) : 0;
     const roleLabel = account.role.charAt(0).toUpperCase() + account.role.slice(1);
 
+    // Build a map: studentId → { profileImage, name } for log row avatars
+    const profileMap = {};
+    users.forEach(u => { profileMap[u.id] = { profileImage: u.profileImage || '', name: u.name }; });
+
+    function logAvatar(userId, fallbackName, status) {
+        const info = profileMap[userId] || { profileImage: '', name: fallbackName || '?' };
+        const initials = info.name.split(/\s+/).filter(Boolean).slice(0, 2).map(p => p[0].toUpperCase()).join('') || '?';
+        if (info.profileImage) {
+            return `<span class="log-avatar log-avatar-${status}" style="background-image:url('${info.profileImage}');background-size:cover;background-position:center;background-repeat:no-repeat;">&ZeroWidthSpace;</span>`;
+        }
+        return `<span class="log-avatar log-avatar-${status}">${initials}</span>`;
+    }
+
     document.getElementById('dashboard-greeting').textContent = `Welcome, ${account.name.split(' ')[0]}.`;
     document.getElementById('dashboard-subtitle').textContent = `${roleLabel} view · ${account.email}`;
     document.getElementById('dashboard-role').textContent = roleLabel;
@@ -387,7 +400,7 @@ async function renderDashboard(account) {
             ? myLogs.map(log => {
                 const st = (log.status || 'Present').toLowerCase();
                 return `<div class="log-row">
-                    <span class="log-icon log-icon-${st}"><i class="ph-fill ph-${st === 'present' ? 'check' : st === 'late' ? 'clock' : 'x'}"></i></span>
+                    ${logAvatar(log.userId, account.name, st)}
                     <div>
                         <strong>${new Date(log.timestamp).toLocaleDateString([], { weekday: 'short', month: 'short', day: 'numeric' })}</strong>
                         <small>${new Date(log.timestamp).toLocaleTimeString([], { timeStyle: 'short' })}${log.grade ? ` · ${log.grade}` : ''}${log.section ? ` · ${log.section}` : ''}${log.year ? ` · ${log.year}` : ''}${log.subject ? ` · <strong>${log.subject}</strong>` : ''}</small>
@@ -403,7 +416,7 @@ async function renderDashboard(account) {
             ? top8.map(log => {
                 const st = (log.status || 'Present').toLowerCase();
                 return `<div class="log-row log-row-editable" data-log-id="${log.id}">
-                    <span class="log-icon log-icon-${st}"><i class="ph-fill ph-${st === 'present' ? 'check' : st === 'late' ? 'clock' : 'x'}"></i></span>
+                    ${logAvatar(log.userId, log.userName, st)}
                     <div class="log-row-info">
                         <strong>${log.userName}</strong>
                         <small>${new Date(log.timestamp).toLocaleString([], { dateStyle: 'medium', timeStyle: 'short' })}${log.grade ? ` · ${log.grade}` : ''}${log.section ? ` · ${log.section}` : ''}${log.year ? ` · ${log.year}` : ''}${log.subject ? ` · <strong>${log.subject}</strong>` : ''}</small>
@@ -427,12 +440,12 @@ async function renderDashboard(account) {
                 const lid = sel.dataset.logId;
                 try {
                     await SchoolSyncDB.updateAttendanceStatus(lid, newStatus);
-                    // Update the color class on the select and its sibling icon
+                    // Update the color class on the select and avatar ring
                     sel.className = `log-status-select log-status-${newStatus.toLowerCase()}`;
-                    const icon = sel.closest('.log-row').querySelector('.log-icon');
-                    const iconName = newStatus === 'Present' ? 'check' : newStatus === 'Late' ? 'clock' : 'x';
-                    icon.className = `log-icon log-icon-${newStatus.toLowerCase()}`;
-                    icon.innerHTML = `<i class="ph-fill ph-${iconName}"></i>`;
+                    const avatar = sel.closest('.log-row').querySelector('.log-avatar');
+                    if (avatar) {
+                        avatar.className = avatar.className.replace(/log-avatar-\w+/, `log-avatar-${newStatus.toLowerCase()}`);
+                    }
                     // Refresh My Class panel if visible
                     if (account.role === 'teacher') await updateClassStats();
                 } catch (err) {

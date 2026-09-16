@@ -1,13 +1,13 @@
 :root {
     --ink: #17221d;
     --muted: #6d7a73;
-    --paper: #f2f1ec;
-    --white: #f8f7f2;
+    --paper: #e8e6df;
+    --white: #f0ede6;
     --coral: #ef765f;
     --coral-dark: #d85c48;
     --mint: #cfe9d8;
     --yellow: #f2d879;
-    --line: #dfe5df;
+    --line: #d4d8cf;
     --serif: 'Space Grotesk', sans-serif;
     --sans: 'DM Sans', sans-serif;
 }
@@ -424,7 +424,7 @@ h2 {
 .preview-card {
     position: absolute;
     background: var(--white);
-    border: 1px solid #e9ece4;
+    border: 1px solid var(--line);
     box-shadow: 0 26px 60px #28362b18;
     border-radius: 16px;
 }
@@ -693,7 +693,7 @@ h2 {
     align-items: center;
     gap: 22px;
     background: var(--white);
-    border: 1px solid #e9ece4;
+    border: 1px solid var(--line);
     border-radius: 16px;
     padding: 25px;
     margin-bottom: 18px;
@@ -750,7 +750,7 @@ h2 {
 
 .dashboard-card {
     background: var(--white);
-    border: 1px solid #e9ece4;
+    border: 1px solid var(--line);
     border-radius: 16px;
     padding: 25px;
     min-height: 170px;
@@ -835,6 +835,31 @@ h2 {
     border-radius: 8px;
     color: #397a59;
 }
+
+/* Profile avatar in recent attendance rows */
+.log-avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 0.75rem;
+    background-color: var(--accent, #6366f1);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    color: #fff;
+    overflow: hidden;
+    outline: 2.5px solid transparent;
+    outline-offset: 2px;
+}
+
+.log-avatar-present { outline-color: #22c55e; }
+.log-avatar-late    { outline-color: #f59e0b; }
+.log-avatar-absent  { outline-color: #ef4444; }
 
 .log-row strong,
 .log-row small {
@@ -2682,8 +2707,8 @@ body.theme-dark .auth-tabs {
 
 /* ── My Class: student card proper colors ── */
 .class-student-card {
-    background: #eef2ef !important;
-    border: 1.5px solid #cdd8d2 !important;
+    background: var(--white) !important;
+    border: 1.5px solid var(--line) !important;
     color: var(--ink) !important;
     box-shadow: 0 1px 6px rgba(0,0,0,0.06);
 }
