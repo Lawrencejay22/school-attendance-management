@@ -1,8 +1,8 @@
 :root {
     --ink: #17221d;
     --muted: #6d7a73;
-    --paper: #f7f6f1;
-    --white: #fffefa;
+    --paper: #f2f1ec;
+    --white: #f8f7f2;
     --coral: #ef765f;
     --coral-dark: #d85c48;
     --mint: #cfe9d8;
@@ -969,6 +969,28 @@ body.theme-dark .auth-form textarea::placeholder {
 .auth-form textarea:focus {
     border-color: var(--coral);
     box-shadow: 0 0 0 3px #ef765f22;
+}
+
+/* ── Sign-up form scroll ── */
+#signup-form {
+    max-height: 60vh;
+    overflow-y: auto;
+    padding-right: 4px;
+    scrollbar-width: thin;
+    scrollbar-color: var(--coral) transparent;
+}
+
+#signup-form::-webkit-scrollbar {
+    width: 4px;
+}
+
+#signup-form::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+#signup-form::-webkit-scrollbar-thumb {
+    background: var(--coral);
+    border-radius: 4px;
 }
 
 /* ── Show/hide password toggle ── */
@@ -2656,10 +2678,10 @@ body.theme-dark .auth-tabs {
 
 /* ── My Class: student card proper colors ── */
 .class-student-card {
-    background: var(--white) !important;
-    border: 1.5px solid var(--line) !important;
+    background: #eef2ef !important;
+    border: 1.5px solid #cdd8d2 !important;
     color: var(--ink) !important;
-    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+    box-shadow: 0 1px 6px rgba(0,0,0,0.06);
 }
 
 .class-student-name {
@@ -2685,8 +2707,8 @@ body.theme-dark .auth-tabs {
 /* ── Schedule cards: proper background and border ── */
 .schedule-form-panel,
 .schedule-list-panel {
-    background: var(--white);
-    border: 1px solid var(--line);
+    background: #eef2ef;
+    border: 1px solid #cdd8d2;
     border-radius: 16px;
     padding: 24px;
 }
