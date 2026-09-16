@@ -2800,6 +2800,33 @@ body.theme-dark .cutoff-input {
     color: #f4f5ef;
 }
 
+/* Subject select: ensure dropdown options are always readable */
+#class-subject {
+    background: var(--white);
+    color: var(--ink);
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    padding: 4px 8px;
+    font-size: 0.82rem;
+    cursor: pointer;
+}
+
+#class-subject option {
+    background: var(--white);
+    color: var(--ink);
+}
+
+body.theme-dark #class-subject {
+    background: #1d2c24;
+    color: #f4f5ef;
+    border-color: #405247;
+}
+
+body.theme-dark #class-subject option {
+    background: #1d2c24;
+    color: #f4f5ef;
+}
+
 body.theme-dark #class-date-picker {
     background: #1d2c24;
     border-color: #405247;
