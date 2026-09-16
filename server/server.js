@@ -120,18 +120,8 @@ async function ensureTables() {
         ) ENGINE = InnoDB
     `);
     await pool.execute(`
-        CREATE TABLE IF NOT EXISTS contacts (
-            id         BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
-            name       VARCHAR(120)    NOT NULL,
-            email      VARCHAR(255)    NOT NULL,
-            role       VARCHAR(30)     NOT NULL DEFAULT '',
-            subject    VARCHAR(200)    NOT NULL,
-            message    TEXT            NOT NULL,
-            sent_at    TIMESTAMP       NOT NULL DEFAULT CURRENT_TIMESTAMP,
-            PRIMARY KEY (id),
-            INDEX contacts_email_idx (email)
-        ) ENGINE = InnoDB
-    `);
+        CREATE TABLE IF NOT EXISTS schedules (
+            id           VARCHAR(36)  PRIMARY KEY,
             teacher_id   VARCHAR(36)  NOT NULL,
             teacher_name VARCHAR(120) NOT NULL,
             subject      VARCHAR(120) NOT NULL,
@@ -456,26 +446,6 @@ async function handleApi(request, response, pathname) {
         }
         await pool.execute('DELETE FROM schedules WHERE id = ?', [scheduleId]);
         return sendJson(response, 200, { ok: true });
-    }
-
-    if (request.method === 'POST' && pathname === '/api/contact') {
-        const body = await readBody(request);
-        const name    = (body?.name    || '').trim().slice(0, 120);
-        const email   = (body?.email   || '').trim().slice(0, 255).toLowerCase();
-        const role    = (body?.role    || '').trim().slice(0, 30);
-        const subject = (body?.subject || '').trim().slice(0, 200);
-        const message = (body?.message || '').trim().slice(0, 5000);
-        if (!name || !email || !subject || !message) {
-            return sendJson(response, 400, { error: 'Name, email, subject, and message are required.' });
-        }
-        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-            return sendJson(response, 400, { error: 'Please enter a valid email address.' });
-        }
-        await pool.execute(
-            'INSERT INTO contacts (name, email, role, subject, message) VALUES (?, ?, ?, ?, ?)',
-            [name, email, role, subject, message]
-        );
-        return sendJson(response, 201, { ok: true });
     }
 
     return sendJson(response, 404, { error: 'API route not found.' });
