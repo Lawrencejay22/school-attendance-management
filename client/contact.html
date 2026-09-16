@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact | SchoolSync</title>
+    <meta name="description" content="Get in touch with the SchoolSync team. We're here to help students, teachers, and admins.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/regular/style.css">
+    <link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/bold/style.css">
+    <link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/fill/style.css">
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* ── Contact hero ── */
+        .contact-hero {
+            padding: 90px 0 64px;
+            text-align: center;
+        }
+        .contact-hero .eyebrow { justify-content: center; }
+        .contact-hero h1 {
+            font-size: clamp(2.6rem, 6vw, 4rem);
+            line-height: 1.1;
+            margin: 16px auto 20px;
+            max-width: 640px;
+        }
+        .contact-hero p {
+            color: var(--muted);
+            font-size: 1.1rem;
+            line-height: 1.75;
+            max-width: 520px;
+            margin: 0 auto;
+        }
+
+        /* ── Main contact grid ── */
+        .contact-page-section { padding: 16px 0 96px; }
+
+        .contact-page-grid {
+            display: grid;
+            grid-template-columns: 1fr 1.5fr;
+            gap: 56px;
+            align-items: start;
+        }
+
+        /* Left sidebar */
+        .contact-sidebar { display: flex; flex-direction: column; gap: 16px; }
+
+        .contact-sidebar-card {
+            background: var(--white);
+            border: 1px solid var(--line);
+            border-radius: 16px;
+            padding: 24px;
+            display: flex;
+            gap: 16px;
+            align-items: flex-start;
+        }
+        .contact-sidebar-icon {
+            width: 44px;
+            height: 44px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+            flex-shrink: 0;
+        }
+        .contact-sidebar-icon.coral  { background: rgba(239,118,95,0.12); color: var(--coral); }
+        .contact-sidebar-icon.green  { background: rgba(79,154,114,0.12);  color: #4f9a72; }
+        .contact-sidebar-icon.yellow { background: rgba(242,184,75,0.12);  color: #c89a1a; }
+        .contact-sidebar-icon.blue   { background: rgba(99,102,241,0.12);  color: #6366f1; }
+
+        .contact-sidebar-card strong {
+            display: block;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+        .contact-sidebar-card p {
+            font-size: 0.84rem;
+            color: var(--muted);
+            line-height: 1.55;
+            margin: 0;
+        }
+        .contact-sidebar-card a {
+            color: var(--coral);
+            font-weight: 600;
+            font-size: 0.84rem;
+        }
+
+        /* FAQ strip */
+        .faq-strip {
+            background: var(--ink);
+            color: var(--paper);
+            border-radius: 16px;
+            padding: 28px 24px;
+            margin-top: 4px;
+        }
+        .faq-strip h4 {
+            font-size: 1rem;
+            margin: 0 0 16px;
+            opacity: 0.9;
+        }
+        .faq-item { border-top: 1px solid rgba(255,255,255,0.08); padding: 12px 0; }
+        .faq-item:last-child { padding-bottom: 0; }
+        .faq-item strong { display: block; font-size: 0.84rem; margin-bottom: 4px; }
+        .faq-item p { font-size: 0.8rem; opacity: 0.6; line-height: 1.55; margin: 0; }
+
+        /* Right: form panel */
+        .contact-form-panel {
+            background: var(--white);
+            border: 1px solid var(--line);
+            border-radius: 20px;
+            padding: 44px 48px;
+        }
+        .contact-form-panel h3 {
+            font-size: 1.5rem;
+            margin: 0 0 6px;
+        }
+        .contact-form-panel > p {
+            color: var(--muted);
+            font-size: 0.92rem;
+            margin: 0 0 32px;
+            line-height: 1.6;
+        }
+
+        .cp-form { display: flex; flex-direction: column; gap: 18px; }
+        .cp-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+        .cp-group { display: flex; flex-direction: column; gap: 6px; }
+        .cp-group label {
+            font-size: 0.82rem;
+            font-weight: 600;
+            color: var(--ink);
+        }
+        .cp-group input,
+        .cp-group select,
+        .cp-group textarea {
+            background: var(--paper);
+            border: 1.5px solid var(--line);
+            border-radius: 10px;
+            padding: 11px 14px;
+            font-size: 0.92rem;
+            color: var(--ink);
+            outline: none;
+            transition: border-color 0.18s, box-shadow 0.18s;
+            resize: vertical;
+        }
+        .cp-group input:focus,
+        .cp-group select:focus,
+        .cp-group textarea:focus {
+            border-color: var(--coral);
+            box-shadow: 0 0 0 3px rgba(239,118,95,0.12);
+        }
+        .cp-group input::placeholder,
+        .cp-group textarea::placeholder { color: var(--muted); opacity: 0.7; }
+
+        .cp-status {
+            font-size: 0.88rem;
+            min-height: 1.2em;
+            margin: 0;
+            border-radius: 8px;
+            padding: 0;
+            transition: all 0.2s;
+        }
+        .cp-status.success {
+            color: #166534;
+            background: #dcfce7;
+            border: 1px solid #bbf7d0;
+            padding: 10px 14px;
+        }
+        .cp-status.error {
+            color: #991b1b;
+            background: #fee2e2;
+            border: 1px solid #fecaca;
+            padding: 10px 14px;
+        }
+
+        .cp-submit {
+            align-self: flex-start;
+            font-size: 0.95rem;
+            padding: 13px 28px;
+        }
+
+        /* Dark theme */
+        body.theme-dark .contact-sidebar-card,
+        body.theme-dark .contact-form-panel {
+            background: #1d2c24;
+            border-color: #405247;
+        }
+        body.theme-dark .contact-sidebar-icon.green { background: #253c2f; color: #5db880; }
+        body.theme-dark .faq-strip { background: #0f2118; }
+        body.theme-dark .cp-group input,
+        body.theme-dark .cp-group select,
+        body.theme-dark .cp-group textarea {
+            background: #253c2f;
+            border-color: #405247;
+            color: #f4f5ef;
+        }
+        body.theme-dark .cp-group input::placeholder,
+        body.theme-dark .cp-group textarea::placeholder { color: #a9b5ad; opacity: 1; }
+        body.theme-dark .cp-group label { color: #f4f5ef; }
+        body.theme-dark .cp-group select option { background: #1d2c24; color: #f4f5ef; }
+        body.theme-dark .cp-status.success { background: #14532d; border-color: #166534; color: #bbf7d0; }
+        body.theme-dark .cp-status.error   { background: #450a0a; border-color: #991b1b; color: #fecaca; }
+        body.theme-dark .contact-form-panel > p,
+        body.theme-dark .contact-sidebar-card p { color: #a9b5ad; }
+
+        /* Responsive */
+        @media (max-width: 860px) {
+            .contact-page-grid { grid-template-columns: 1fr; gap: 40px; }
+        }
+        @media (max-width: 520px) {
+            .contact-form-panel { padding: 28px 22px; }
+            .cp-row { grid-template-columns: 1fr; }
+        }
+
+        .site-nav a.active { color: var(--ink); font-weight: 600; }
+    </style>
+</head>
+<body>
+<div class="site-shell">
+
+    <!-- ── Header ── -->
+    <header class="site-header">
+        <a class="brand" href="client.html" aria-label="SchoolSync home">
+            <span class="brand-mark"><i class="ph-bold ph-qr-code"></i></span>
+            <span>School<span>Sync</span></span>
+        </a>
+        <nav class="site-nav" aria-label="Main navigation">
+            <a href="client.html">Home</a>
+            <a href="about.html">About</a>
+            <a href="contact.html" class="active">Contact</a>
+        </nav>
+        <div class="header-actions">
+            <button class="icon-btn" id="theme-toggle" type="button" aria-label="Switch theme"><i class="ph ph-moon"></i></button>
+            <div id="contact-guest-actions">
+                <a class="btn btn-quiet" href="client.html">Sign in</a>
+                <a class="btn btn-dark" href="client.html">Get started <i class="ph-bold ph-arrow-up-right"></i></a>
+            </div>
+            <button class="header-profile-btn hidden" id="contact-profile-btn" type="button">
+                <span class="header-profile-avatar" id="contact-profile-initials">SS</span>
+                <span class="header-profile-name" id="contact-profile-name">Profile</span>
+            </button>
+            <button class="btn btn-quiet hidden" id="contact-signout-btn" type="button">
+                <i class="ph-bold ph-sign-out"></i> Sign out
+            </button>
+        </div>
+    </header>
+
+    <main>
+
+        <!-- ── Hero ── -->
+        <section class="contact-hero section-wrap">
+            <p class="eyebrow"><span></span> Contact us</p>
+            <h1>Got a question?<br>We've got answers.</h1>
+            <p>Whether you're a student trying to set up your QR code, a teacher managing your class, or an admin onboarding your school — we're here.</p>
+        </section>
+
+        <!-- ── Main section ── -->
+        <section class="contact-page-section section-wrap">
+            <div class="contact-page-grid">
+
+                <!-- Left sidebar -->
+                <div class="contact-sidebar">
+
+                    <div class="contact-sidebar-card">
+                        <div class="contact-sidebar-icon coral"><i class="ph-fill ph-envelope-simple"></i></div>
+                        <div>
+                            <strong>Email support</strong>
+                            <p>Reach us anytime at <a href="mailto:hello@schoolsync.local">hello@schoolsync.local</a>. We reply within 24 hours.</p>
+                        </div>
+                    </div>
+
+                    <div class="contact-sidebar-card">
+                        <div class="contact-sidebar-icon green"><i class="ph-fill ph-student"></i></div>
+                        <div>
+                            <strong>For students</strong>
+                            <p>Need help with your QR ID card, attendance history, or account setup? We've got you covered.</p>
+                        </div>
+                    </div>
+
+                    <div class="contact-sidebar-card">
+                        <div class="contact-sidebar-icon yellow"><i class="ph-fill ph-chalkboard-teacher"></i></div>
+                        <div>
+                            <strong>For teachers</strong>
+                            <p>Questions about My Class, subject tracking, or schedule management? Send us a message.</p>
+                        </div>
+                    </div>
+
+                    <div class="contact-sidebar-card">
+                        <div class="contact-sidebar-icon blue"><i class="ph-fill ph-shield-check"></i></div>
+                        <div>
+                            <strong>For admins</strong>
+                            <p>Need help registering students, managing logs, or configuring the scanner? We'll walk you through it.</p>
+                        </div>
+                    </div>
+
+                    <!-- FAQ strip -->
+                    <div class="faq-strip">
+                        <h4><i class="ph ph-question"></i> Quick answers</h4>
+                        <div class="faq-item">
+                            <strong>How do I get my QR code?</strong>
+                            <p>Sign in as a student — your QR ID card is on your dashboard.</p>
+                        </div>
+                        <div class="faq-item">
+                            <strong>Can I change my attendance status?</strong>
+                            <p>Teachers can edit any student's status from the Recent Attendance panel.</p>
+                        </div>
+                        <div class="faq-item">
+                            <strong>Is SchoolSync free?</strong>
+                            <p>Yes — completely free for schools. No hidden fees.</p>
+                        </div>
+                        <div class="faq-item">
+                            <strong>Do I need to install anything?</strong>
+                            <p>No. SchoolSync runs entirely in your browser on any device.</p>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- Right: form -->
+                <div class="contact-form-panel">
+                    <h3>Send us a message</h3>
+                    <p>Fill in the form below and we'll get back to you as soon as possible.</p>
+
+                    <form id="cp-form" class="cp-form" novalidate>
+                        <div class="cp-row">
+                            <div class="cp-group">
+                                <label for="cp-name">Your name <span style="color:var(--coral)">*</span></label>
+                                <input type="text" id="cp-name" placeholder="e.g. Maria Santos" required maxlength="120">
+                            </div>
+                            <div class="cp-group">
+                                <label for="cp-email">Email address <span style="color:var(--coral)">*</span></label>
+                                <input type="email" id="cp-email" placeholder="you@school.edu" required maxlength="255">
+                            </div>
+                        </div>
+                        <div class="cp-group">
+                            <label for="cp-role">I am a…</label>
+                            <select id="cp-role">
+                                <option value="">Select your role (optional)</option>
+                                <option value="student">Student</option>
+                                <option value="teacher">Teacher</option>
+                                <option value="admin">School Admin</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                        <div class="cp-group">
+                            <label for="cp-subject">Subject <span style="color:var(--coral)">*</span></label>
+                            <input type="text" id="cp-subject" placeholder="e.g. Help with QR scanning" required maxlength="200">
+                        </div>
+                        <div class="cp-group">
+                            <label for="cp-message">Message <span style="color:var(--coral)">*</span></label>
+                            <textarea id="cp-message" rows="6" placeholder="Tell us what's on your mind — the more detail the better." required maxlength="5000"></textarea>
+                        </div>
+                        <p id="cp-status" class="cp-status" role="status"></p>
+                        <button type="submit" class="btn btn-coral cp-submit">
+                            Send message <i class="ph-bold ph-paper-plane-tilt"></i>
+                        </button>
+                    </form>
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="site-footer section-wrap">
+        <span>© 2026 SchoolSync</span>
+        <span>Clear records. Calmer days.</span>
+        <a class="admin-footer-link" href="client.html#admin-login"><i class="ph ph-shield-check"></i> Admin access</a>
+    </footer>
+
+</div>
+
+<script>
+    // Theme
+    document.getElementById('theme-toggle').addEventListener('click', () => {
+        const isDark = document.body.classList.toggle('theme-dark');
+        localStorage.setItem('schoolsync_theme', isDark ? 'dark' : 'light');
+    });
+    if (localStorage.getItem('schoolsync_theme') === 'dark') document.body.classList.add('theme-dark');
+
+    // Session-aware header
+    const session = (() => {
+        try { return JSON.parse(localStorage.getItem('schoolsync_session')); } catch { return null; }
+    })();
+
+    if (session) {
+        document.getElementById('contact-guest-actions').classList.add('hidden');
+        const initials = session.name.split(/\s+/).filter(Boolean).slice(0, 2).map(p => p[0].toUpperCase()).join('') || 'SS';
+        const avatarEl = document.getElementById('contact-profile-initials');
+        avatarEl.textContent = initials;
+        document.getElementById('contact-profile-name').textContent = session.name.split(' ')[0];
+        if (session.profileImage) {
+            avatarEl.textContent = '';
+            avatarEl.style.backgroundImage = `url(${session.profileImage})`;
+            avatarEl.style.backgroundSize = 'cover';
+            avatarEl.style.backgroundPosition = 'center';
+        }
+        // Pre-fill name + email + role if signed in
+        document.getElementById('cp-name').value  = session.name  || '';
+        document.getElementById('cp-email').value = session.email || '';
+        const roleSelect = document.getElementById('cp-role');
+        if (session.role && roleSelect.querySelector(`option[value="${session.role}"]`)) {
+            roleSelect.value = session.role;
+        }
+
+        const profileBtn = document.getElementById('contact-profile-btn');
+        profileBtn.classList.remove('hidden');
+        profileBtn.addEventListener('click', () => {
+            window.location.href = session.role === 'admin' ? 'admin/dashboard.html' : 'client.html';
+        });
+        document.getElementById('contact-signout-btn').classList.remove('hidden');
+    }
+
+    document.getElementById('contact-signout-btn')?.addEventListener('click', () => {
+        localStorage.removeItem('schoolsync_session');
+        window.location.href = 'client.html';
+    });
+
+    // Contact form submission
+    const form      = document.getElementById('cp-form');
+    const statusEl  = document.getElementById('cp-status');
+    const submitBtn = form.querySelector('.cp-submit');
+
+    form.addEventListener('submit', async e => {
+        e.preventDefault();
+        statusEl.textContent = '';
+        statusEl.className = 'cp-status';
+
+        const name    = document.getElementById('cp-name').value.trim();
+        const email   = document.getElementById('cp-email').value.trim();
+        const role    = document.getElementById('cp-role').value;
+        const subject = document.getElementById('cp-subject').value.trim();
+        const message = document.getElementById('cp-message').value.trim();
+
+        if (!name || !email || !subject || !message) {
+            statusEl.textContent = 'Please fill in all required fields.';
+            statusEl.className = 'cp-status error';
+            return;
+        }
+        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+            statusEl.textContent = 'Please enter a valid email address.';
+            statusEl.className = 'cp-status error';
+            return;
+        }
+
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = '<i class="ph ph-spinner-gap" style="animation:spin 0.8s linear infinite;display:inline-block;"></i> Sending…';
+
+        try {
+            const res = await fetch('/api/contact', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ name, email, role, subject, message })
+            });
+            const data = await res.json();
+            if (!res.ok) throw new Error(data.error || 'Something went wrong.');
+
+            form.reset();
+            statusEl.textContent = '✓ Message sent! We\'ll get back to you within 24 hours.';
+            statusEl.className = 'cp-status success';
+        } catch (err) {
+            statusEl.textContent = err.message;
+            statusEl.className = 'cp-status error';
+        }
+
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = 'Send message <i class="ph-bold ph-paper-plane-tilt"></i>';
+    });
+</script>
+</body>
+</html>
