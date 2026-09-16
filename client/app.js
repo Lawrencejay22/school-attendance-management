@@ -972,6 +972,58 @@ document.getElementById('about-nav-link')?.addEventListener('click', e => {
     // Let the default href navigation happen (goes to about.html)
 });
 
+// ── Contact form ───────────────────────────────────────────────
+(function initContactForm() {
+    const form = document.getElementById('contact-form');
+    if (!form) return;
+
+    const statusEl  = document.getElementById('contact-form-message');
+    const submitBtn = form.querySelector('.contact-submit');
+
+    form.addEventListener('submit', async e => {
+        e.preventDefault();
+        statusEl.textContent = '';
+        statusEl.className = 'contact-form-status';
+
+        const name    = document.getElementById('contact-name').value.trim();
+        const email   = document.getElementById('contact-email').value.trim();
+        const role    = document.getElementById('contact-role').value;
+        const subject = document.getElementById('contact-subject').value.trim();
+        const message = document.getElementById('contact-message').value.trim();
+
+        if (!name || !email || !subject || !message) {
+            statusEl.textContent = 'Please fill in all required fields.';
+            statusEl.classList.add('error');
+            return;
+        }
+
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = '<i class="ph ph-spinner-gap" style="animation:spin 0.8s linear infinite;display:inline-block"></i> Sending…';
+
+        try {
+            const res = await fetch('/api/contact', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ name, email, role, subject, message })
+            });
+            const data = await res.json();
+            if (!res.ok) throw new Error(data.error || 'Something went wrong.');
+
+            // Success
+            form.reset();
+            statusEl.textContent = '✓ Message sent! We\'ll get back to you soon.';
+            statusEl.classList.add('success');
+            submitBtn.innerHTML = 'Send message <i class="ph-bold ph-paper-plane-tilt"></i>';
+            submitBtn.disabled = false;
+        } catch (err) {
+            statusEl.textContent = err.message;
+            statusEl.classList.add('error');
+            submitBtn.innerHTML = 'Send message <i class="ph-bold ph-paper-plane-tilt"></i>';
+            submitBtn.disabled = false;
+        }
+    });
+})();
+
 document.getElementById('refresh-dashboard-btn')?.addEventListener('click', async () => {
     if (currentAccount) await renderDashboard(currentAccount);
 });
