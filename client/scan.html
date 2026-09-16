@@ -5,185 +5,433 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SchoolSync - Scan Attendance</title>
-    <!-- Phosphor Icons -->
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
     <style>
         :root {
-            --bg-color: #f4f0e6;
-            --text-color: #1a1a1a;
-            --brand-green: #cce3d2;
-            --brand-coral: #e45b4c;
-            --card-bg: #ffffff;
-            --radius-lg: 16px;
+            --bg-color: #0d1f17;
+            --card-bg: #132b1e;
+            --card-border: #1e4030;
+            --text: #e8f0ea;
+            --muted: #7fa98b;
+            --coral: #e45b4c;
+            --green: #3ecf6e;
+            --yellow: #f2b84b;
+            --radius: 16px;
+            --radius-sm: 10px;
         }
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-color);
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background: var(--bg-color);
+            color: var(--text);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            padding: 32px 16px 48px;
+            gap: 24px;
+        }
+
+        /* ── Brand bar ── */
+        .brand-bar {
             display: flex;
             align-items: center;
-            justify-content: center;
-            min-height: 100vh;
-            padding: 20px;
+            gap: 8px;
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: var(--text);
+            letter-spacing: -0.01em;
         }
+        .brand-bar i { color: var(--coral); font-size: 1.3rem; }
 
+        /* ── Scan result card ── */
         .scan-card {
             background: var(--card-bg);
-            border-radius: var(--radius-lg);
-            padding: 40px 30px;
+            border: 1px solid var(--card-border);
+            border-radius: var(--radius);
+            padding: 36px 28px 28px;
             width: 100%;
-            max-width: 400px;
+            max-width: 420px;
             text-align: center;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
         }
 
-        .icon-container {
-            font-size: 64px;
+        .icon-wrap {
+            font-size: 56px;
+            margin-bottom: 16px;
+            line-height: 1;
+        }
+        .icon-wrap.loading { color: var(--muted); animation: spin 1.2s linear infinite; }
+        .icon-wrap.success { color: var(--green); }
+        .icon-wrap.late    { color: var(--yellow); }
+        .icon-wrap.error   { color: var(--coral); }
+
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        .scan-card h1 {
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+        .scan-card p.subtitle {
+            color: var(--muted);
+            font-size: 0.95rem;
+            line-height: 1.5;
             margin-bottom: 20px;
         }
 
-        .icon-container.loading {
-            color: #888;
-            animation: spin 2s linear infinite;
-        }
-
-        .icon-container.success {
-            color: #2e7d32;
-        }
-
-        .icon-container.error {
-            color: var(--brand-coral);
-        }
-
-        @keyframes spin {
-            100% {
-                transform: rotate(360deg);
-            }
-        }
-
-        h1 {
-            font-size: 24px;
-            margin-bottom: 10px;
-            font-weight: 600;
-        }
-
-        p {
-            color: #555;
-            font-size: 16px;
-            line-height: 1.5;
-            margin-bottom: 30px;
-        }
-
-        .btn {
-            display: inline-block;
-            background: var(--brand-coral);
-            color: white;
-            padding: 12px 24px;
-            border-radius: 8px;
-            text-decoration: none;
-            font-weight: 500;
-            transition: opacity 0.2s;
-        }
-
-        .btn:hover {
-            opacity: 0.9;
-        }
-
-        #student-details {
-            background: var(--bg-color);
-            padding: 15px;
-            border-radius: 8px;
+        /* Student info box */
+        .student-box {
+            background: rgba(255,255,255,0.04);
+            border: 1px solid var(--card-border);
+            border-radius: var(--radius-sm);
+            padding: 14px 16px;
             text-align: left;
             margin-bottom: 20px;
             display: none;
+            gap: 6px;
+            flex-direction: column;
+        }
+        .student-box strong { font-size: 1rem; font-weight: 600; }
+        .student-box span   { font-size: 0.85rem; color: var(--muted); }
+
+        /* Status badge */
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 5px 14px;
+            border-radius: 999px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+        .status-badge.present { background: rgba(62,207,110,0.15); color: var(--green); border: 1px solid rgba(62,207,110,0.3); }
+        .status-badge.late    { background: rgba(242,184,75,0.15);  color: var(--yellow); border: 1px solid rgba(242,184,75,0.3); }
+        .status-badge.absent  { background: rgba(228,91,76,0.15);   color: var(--coral); border: 1px solid rgba(228,91,76,0.3); }
+
+        /* Subject chip */
+        .subject-chip {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            padding: 4px 12px;
+            border-radius: 999px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            background: rgba(255,255,255,0.06);
+            border: 1px solid var(--card-border);
+            color: var(--text);
+            margin-bottom: 20px;
         }
 
-        #student-details strong {
-            display: block;
-            margin-bottom: 4px;
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: var(--coral);
+            color: #fff;
+            padding: 11px 22px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: opacity 0.2s;
+            border: none;
+            cursor: pointer;
+        }
+        .btn:hover { opacity: 0.88; }
+
+        /* ── Recent attendance panel ── */
+        .history-card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: var(--radius);
+            width: 100%;
+            max-width: 420px;
+            overflow: hidden;
+            display: none;
+        }
+        .history-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 14px 18px 12px;
+            border-bottom: 1px solid var(--card-border);
+        }
+        .history-header-left {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--muted);
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+        }
+        .history-header-left i { font-size: 1rem; }
+        .history-subject-tag {
+            font-size: 0.78rem;
+            font-weight: 600;
+            padding: 2px 10px;
+            border-radius: 999px;
+            background: rgba(228,91,76,0.15);
+            color: var(--coral);
+            border: 1px solid rgba(228,91,76,0.25);
         }
 
-        #student-details span {
-            display: block;
-            font-size: 14px;
-            color: #666;
+        .history-list { display: flex; flex-direction: column; }
+
+        .history-row {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 18px;
+            border-bottom: 1px solid rgba(255,255,255,0.04);
         }
+        .history-row:last-child { border-bottom: none; }
+
+        .h-icon {
+            width: 34px;
+            height: 34px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            font-size: 1rem;
+        }
+        .h-icon.present { background: rgba(62,207,110,0.15);  color: var(--green); }
+        .h-icon.late    { background: rgba(242,184,75,0.15);   color: var(--yellow); }
+        .h-icon.absent  { background: rgba(228,91,76,0.15);    color: var(--coral); }
+
+        .h-info { flex: 1; min-width: 0; }
+        .h-info .h-date  { font-size: 0.88rem; font-weight: 600; }
+        .h-info .h-meta  { font-size: 0.78rem; color: var(--muted); margin-top: 2px; }
+
+        .h-status {
+            font-size: 0.8rem;
+            font-weight: 700;
+            padding: 3px 10px;
+            border-radius: 999px;
+        }
+        .h-status.present { background: rgba(62,207,110,0.12); color: var(--green); }
+        .h-status.late    { background: rgba(242,184,75,0.12);  color: var(--yellow); }
+        .h-status.absent  { background: rgba(228,91,76,0.12);   color: var(--coral); }
+
+        .history-empty {
+            padding: 28px 18px;
+            text-align: center;
+            color: var(--muted);
+            font-size: 0.9rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+        }
+        .history-empty i { font-size: 1.8rem; opacity: 0.5; }
     </style>
 </head>
 
 <body>
 
+    <!-- Brand -->
+    <div class="brand-bar">
+        <i class="ph-bold ph-qr-code"></i>
+        <span>School<span>Sync</span></span>
+    </div>
+
+    <!-- Scan result card -->
     <div class="scan-card">
-        <div id="status-icon" class="icon-container loading">
+        <div id="status-icon" class="icon-wrap loading">
             <i class="ph ph-spinner-gap"></i>
         </div>
-        <h1 id="status-title">Recording Attendance...</h1>
-        <p id="status-message">Please wait while we log your attendance for today.</p>
+        <h1 id="status-title">Recording Attendance…</h1>
+        <p class="subtitle" id="status-message">Please wait while we log your attendance.</p>
 
-        <div id="student-details">
+        <div id="subject-chip-wrap" style="display:none;">
+            <span class="subject-chip" id="subject-chip">
+                <i class="ph ph-book-open"></i>
+                <span id="subject-chip-label"></span>
+            </span>
+        </div>
+
+        <div id="student-box" class="student-box">
             <strong id="student-name"></strong>
             <span id="student-info"></span>
             <span id="attendance-time"></span>
         </div>
 
-        <a href="/" class="btn">Go to Dashboard</a>
+        <div id="status-badge-wrap" style="display:none;">
+            <span class="status-badge" id="status-badge"></span>
+        </div>
+
+        <a href="/" class="btn"><i class="ph ph-house"></i> Go to Dashboard</a>
+    </div>
+
+    <!-- Recent attendance history -->
+    <div class="history-card" id="history-card">
+        <div class="history-header">
+            <div class="history-header-left">
+                <i class="ph ph-clock-counter-clockwise"></i>
+                Recent attendance
+            </div>
+            <span class="history-subject-tag hidden" id="history-subject-tag"></span>
+        </div>
+        <div class="history-list" id="history-list"></div>
     </div>
 
     <script>
         document.addEventListener('DOMContentLoaded', async () => {
-            const urlParams = new URLSearchParams(window.location.search);
-            const studentId = urlParams.get('id');
-            const statusIcon = document.getElementById('status-icon');
-            const statusTitle = document.getElementById('status-title');
-            const statusMessage = document.getElementById('status-message');
-            const studentDetails = document.getElementById('student-details');
+            const params      = new URLSearchParams(window.location.search);
+            const studentId   = params.get('id');
+            const subject     = (params.get('subject') || '').trim();
+
+            const iconEl      = document.getElementById('status-icon');
+            const titleEl     = document.getElementById('status-title');
+            const messageEl   = document.getElementById('status-message');
+            const boxEl       = document.getElementById('student-box');
+            const badgeWrap   = document.getElementById('status-badge-wrap');
+            const badgeEl     = document.getElementById('status-badge');
+            const chipWrap    = document.getElementById('subject-chip-wrap');
+            const chipLabel   = document.getElementById('subject-chip-label');
+            const historyCard = document.getElementById('history-card');
+            const historyList = document.getElementById('history-list');
+            const histSubTag  = document.getElementById('history-subject-tag');
+
+            // Show subject chip if present
+            if (subject) {
+                chipLabel.textContent = subject;
+                chipWrap.style.display = 'block';
+                histSubTag.textContent = subject;
+                histSubTag.classList.remove('hidden');
+            }
 
             if (!studentId) {
-                showError("Invalid QR Code", "No student ID was found in the URL.");
+                showError('Invalid QR Code', 'No student ID was found in the URL.');
                 return;
             }
 
+            // ── 1. Record attendance ──────────────────────────────────────
             try {
-                const response = await fetch('/api/attendance', {
+                const body = { userId: studentId };
+                if (subject) body.subject = subject;
+
+                const resp = await fetch('/api/attendance', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ userId: studentId })
+                    body: JSON.stringify(body)
                 });
 
-                const data = await response.json();
+                const data = await resp.json();
 
-                if (!response.ok) {
-                    throw new Error(data.error || 'Failed to record attendance');
+                if (!resp.ok) {
+                    // Already scanned today — still show history
+                    if (data.alreadyScanned) {
+                        showAlready(subject);
+                    } else {
+                        throw new Error(data.error || 'Failed to record attendance');
+                    }
+                } else {
+                    showSuccess(data.status, studentId, subject, data);
                 }
-
-                // Success
-                statusIcon.className = 'icon-container success';
-                statusIcon.innerHTML = '<i class="ph-fill ph-check-circle"></i>';
-                statusTitle.textContent = 'Attendance Recorded!';
-
-                statusMessage.textContent = `You have been marked as ${data.status.toUpperCase()}.`;
-
-                studentDetails.style.display = 'block';
-                document.getElementById('student-name').textContent = `Student ID: ${studentId}`;
-                document.getElementById('student-info').textContent = `Status: ${data.status}`;
-                document.getElementById('attendance-time').textContent = `Time: ${new Date().toLocaleTimeString([], { timeStyle: 'short' })}`;
-
             } catch (err) {
-                showError("Scan Failed", err.message);
+                showError('Scan Failed', err.message);
+            }
+
+            // ── 2. Load recent attendance history ─────────────────────────
+            try {
+                const histUrl = subject
+                    ? `/api/attendance/student/${encodeURIComponent(studentId)}?subject=${encodeURIComponent(subject)}`
+                    : `/api/attendance/student/${encodeURIComponent(studentId)}`;
+
+                const histResp = await fetch(histUrl);
+                if (histResp.ok) {
+                    const { logs } = await histResp.json();
+                    renderHistory(logs, subject);
+                }
+            } catch (_) { /* silent — history is non-critical */ }
+
+            // ── Helpers ───────────────────────────────────────────────────
+            function showSuccess(status, id, subj, data) {
+                const isLate = status === 'Late';
+                iconEl.className = `icon-wrap ${isLate ? 'late' : 'success'}`;
+                iconEl.innerHTML = isLate
+                    ? '<i class="ph-fill ph-clock"></i>'
+                    : '<i class="ph-fill ph-check-circle"></i>';
+                titleEl.textContent = 'Attendance Recorded!';
+                messageEl.textContent = `You have been marked as ${status.toUpperCase()}.`;
+
+                boxEl.style.display = 'flex';
+                document.getElementById('student-name').textContent = `Student ID: ${id}`;
+                document.getElementById('student-info').textContent = subj ? `Subject: ${subj}` : 'No subject selected';
+                document.getElementById('attendance-time').textContent =
+                    `Time: ${new Date().toLocaleTimeString([], { timeStyle: 'short' })}`;
+
+                const cls = status.toLowerCase();
+                const icon = cls === 'present' ? 'ph-fill ph-check-circle'
+                           : cls === 'late'    ? 'ph-fill ph-clock'
+                           : 'ph-fill ph-x-circle';
+                badgeEl.className = `status-badge ${cls}`;
+                badgeEl.innerHTML = `<i class="${icon}"></i> ${status}`;
+                badgeWrap.style.display = 'block';
+            }
+
+            function showAlready(subj) {
+                iconEl.className = 'icon-wrap late';
+                iconEl.innerHTML = '<i class="ph-fill ph-warning"></i>';
+                titleEl.textContent = 'Already Scanned';
+                messageEl.textContent = subj
+                    ? `You already scanned for ${subj} today.`
+                    : 'You have already been scanned today.';
             }
 
             function showError(title, message) {
-                statusIcon.className = 'icon-container error';
-                statusIcon.innerHTML = '<i class="ph-fill ph-x-circle"></i>';
-                statusTitle.textContent = title;
-                statusMessage.textContent = message;
+                iconEl.className = 'icon-wrap error';
+                iconEl.innerHTML = '<i class="ph-fill ph-x-circle"></i>';
+                titleEl.textContent = title;
+                messageEl.textContent = message;
+            }
+
+            function renderHistory(logs, subj) {
+                historyCard.style.display = 'block';
+
+                if (!logs || !logs.length) {
+                    historyList.innerHTML = `
+                        <div class="history-empty">
+                            <i class="ph ph-calendar-blank"></i>
+                            <span>No attendance records yet${subj ? ' for ' + subj : ''}.</span>
+                        </div>`;
+                    return;
+                }
+
+                historyList.innerHTML = logs.map(log => {
+                    const st  = (log.status || 'Present').toLowerCase();
+                    const icon = st === 'present' ? 'ph-fill ph-check-circle'
+                               : st === 'late'    ? 'ph-fill ph-clock'
+                               : 'ph-fill ph-x-circle';
+                    const ts  = new Date(log.timestamp);
+                    const dateLabel = ts.toLocaleDateString([], { weekday: 'short', month: 'short', day: 'numeric', year: 'numeric' });
+                    const timeLabel = ts.toLocaleTimeString([], { timeStyle: 'short' });
+                    const meta = [
+                        log.subject || '',
+                        log.grade   || '',
+                        log.section || '',
+                        log.year    || ''
+                    ].filter(Boolean).join(' · ');
+
+                    return `
+                        <div class="history-row">
+                            <div class="h-icon ${st}"><i class="${icon}"></i></div>
+                            <div class="h-info">
+                                <div class="h-date">${dateLabel}</div>
+                                ${meta ? `<div class="h-meta">${timeLabel} · ${meta}</div>` : `<div class="h-meta">${timeLabel}</div>`}
+                            </div>
+                            <span class="h-status ${st}">${log.status || 'Present'}</span>
+                        </div>`;
+                }).join('');
             }
         });
     </script>
