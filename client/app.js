@@ -272,6 +272,7 @@ async function renderStudentIdCard(account, allLogs) {
         </div>`;
 
     const scanUrl = `${window.location.origin}/scan.html?id=${scanId}`;
+    setTimeout(() => {
         const qrEl = document.getElementById(qrWrapperId);
         if (qrEl) {
             qrEl.innerHTML = '';
@@ -543,28 +544,21 @@ async function renderClassView(account) {
     if (picker && !picker.value) picker.value = todayStr;
     const selectedDate = (picker && picker.value) ? picker.value : todayStr;
 
-    // Read selected subject
-    const subjectSelect = document.getElementById('class-subject');
-    const selectedSubject = subjectSelect ? subjectSelect.value : '';
-
     const [students, allLogs] = await Promise.all([
         SchoolSyncDB.getUsers(),
         SchoolSyncDB.getLogs()
     ]);
 
-    // Filter logs for selected date AND subject (if chosen)
+    // Filter logs for selected date
     const dateLogs = allLogs.filter(log => {
         const d = new Date(log.timestamp);
         const dStr = `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
-        const dateMatch = dStr === selectedDate;
-        const subjectMatch = !selectedSubject || (log.subject || '') === selectedSubject;
-        return dateMatch && subjectMatch;
+        return dStr === selectedDate;
     });
 
     const displayDate = new Date(selectedDate + 'T00:00:00');
-    const dateLabel = displayDate.toLocaleDateString([], { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
     document.getElementById('class-today-date').textContent =
-        selectedSubject ? `${dateLabel} · ${selectedSubject}` : dateLabel;
+        displayDate.toLocaleDateString([], { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
 
     const logMap = {};
     for (const log of dateLogs) {
@@ -620,7 +614,7 @@ async function renderClassView(account) {
 
         grid.appendChild(card);
 
-        const scanUrl = `${window.location.origin}/scan.html?id=${student.id}${selectedSubject ? '&subject=' + encodeURIComponent(selectedSubject) : ''}`;
+        const scanUrl = `${window.location.origin}/scan.html?id=${student.id}`;
         setTimeout(() => {
             const qrEl = document.getElementById(qrContainerId);
             if (qrEl) {
@@ -689,11 +683,6 @@ function initClassView(account) {
 
     // Refresh when date picker changes
     document.getElementById('class-date-picker').addEventListener('change', () => {
-        renderClassView(account);
-    });
-
-    // Refresh when subject changes
-    document.getElementById('class-subject').addEventListener('change', () => {
         renderClassView(account);
     });
 }
