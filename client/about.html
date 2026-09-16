@@ -264,31 +264,112 @@
             padding: 96px 0;
         }
         .cta-band {
-            background: var(--ink);
-            color: var(--paper);
-            border-radius: 24px;
+            background: linear-gradient(135deg, #1a3a2a 0%, #0f2118 50%, #1a2e20 100%);
+            border-radius: 28px;
+            padding: 0;
+            overflow: hidden;
+            position: relative;
+        }
+        .cta-band::before {
+            content: '';
+            position: absolute;
+            top: -60px; right: -60px;
+            width: 300px; height: 300px;
+            background: radial-gradient(circle, rgba(239,118,95,0.18) 0%, transparent 70%);
+            border-radius: 50%;
+            pointer-events: none;
+        }
+        .cta-band::after {
+            content: '';
+            position: absolute;
+            bottom: -40px; left: -40px;
+            width: 240px; height: 240px;
+            background: radial-gradient(circle, rgba(79,154,114,0.15) 0%, transparent 70%);
+            border-radius: 50%;
+            pointer-events: none;
+        }
+        .cta-inner {
+            position: relative;
+            z-index: 1;
             padding: 72px 64px;
+        }
+        .cta-top {
             display: flex;
             gap: 40px;
-            align-items: center;
+            align-items: flex-start;
             justify-content: space-between;
             flex-wrap: wrap;
+            margin-bottom: 56px;
         }
-        .cta-band h2 {
-            font-size: clamp(1.8rem, 4vw, 2.4rem);
-            margin: 0 0 12px;
+        .cta-copy { flex: 1; min-width: 280px; color: var(--paper); }
+        .cta-copy .eyebrow { color: var(--coral); justify-content: flex-start; }
+        .cta-copy h2 {
+            font-size: clamp(1.9rem, 4vw, 2.8rem);
+            line-height: 1.15;
+            margin: 12px 0 16px;
+            color: #f4f5ef;
         }
-        .cta-band p {
-            opacity: 0.7;
-            line-height: 1.65;
-            max-width: 440px;
-            margin: 0;
+        .cta-copy p {
+            opacity: 0.72;
+            line-height: 1.7;
+            max-width: 420px;
+            font-size: 1.05rem;
         }
-        .cta-band .cta-actions {
+        .cta-actions-col {
             display: flex;
-            gap: 14px;
-            flex-wrap: wrap;
+            flex-direction: column;
+            gap: 12px;
             flex-shrink: 0;
+            align-items: flex-start;
+        }
+        .cta-actions-col .btn-coral {
+            font-size: 1rem;
+            padding: 14px 28px;
+        }
+        .cta-actions-col .btn-quiet {
+            color: rgba(244,245,239,0.7);
+        }
+        .cta-actions-col .btn-quiet:hover { color: #f4f5ef; }
+        .cta-perks {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 1px;
+            background: rgba(255,255,255,0.07);
+            border-radius: 16px;
+            overflow: hidden;
+        }
+        .cta-perk {
+            background: rgba(255,255,255,0.04);
+            padding: 24px 28px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        .cta-perk-icon {
+            width: 40px; height: 40px;
+            border-radius: 10px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.2rem;
+            margin-bottom: 4px;
+        }
+        .cta-perk-icon.coral { background: rgba(239,118,95,0.15); color: #f27d67; }
+        .cta-perk-icon.green { background: rgba(79,154,114,0.15); color: #5db880; }
+        .cta-perk-icon.yellow { background: rgba(242,216,121,0.15); color: #e8c84a; }
+        .cta-perk-icon.blue  { background: rgba(99,102,241,0.15);  color: #818cf8; }
+        .cta-perk strong {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: #f4f5ef;
+            display: block;
+        }
+        .cta-perk span {
+            font-size: 0.82rem;
+            color: rgba(244,245,239,0.5);
+            line-height: 1.5;
+        }
+        @media (max-width: 640px) {
+            .cta-inner { padding: 48px 28px; }
+            .cta-perks { grid-template-columns: 1fr 1fr; }
         }
 
         /* ── Nav active ── */
@@ -506,13 +587,42 @@
         <!-- ── CTA ── -->
         <section class="cta-section section-wrap">
             <div class="cta-band">
-                <div>
-                    <h2>Start tracking attendance today.</h2>
-                    <p>Create a free account. Register your first student in under a minute. No setup, no configuration — just scan and go.</p>
-                </div>
-                <div class="cta-actions">
-                    <a class="btn btn-coral" href="client.html">Create account <i class="ph-bold ph-arrow-right"></i></a>
-                    <a class="btn btn-quiet" href="client.html" style="color:var(--paper);border-color:rgba(255,255,255,0.2);">Sign in</a>
+                <div class="cta-inner">
+                    <!-- Top: copy + buttons -->
+                    <div class="cta-top">
+                        <div class="cta-copy">
+                            <p class="eyebrow"><span></span> Ready to get started?</p>
+                            <h2>Your class. Your records.<br>Always under control.</h2>
+                            <p>No apps to install, no setup headaches. Sign up in under a minute and start taking attendance the smart way — with a QR scan that takes less than 2 seconds.</p>
+                        </div>
+                        <div class="cta-actions-col">
+                            <a class="btn btn-coral" href="client.html">Create free account <i class="ph-bold ph-arrow-right"></i></a>
+                            <a class="btn btn-quiet" href="client.html">Already have an account? Sign in</a>
+                        </div>
+                    </div>
+                    <!-- Bottom: feature perks grid -->
+                    <div class="cta-perks">
+                        <div class="cta-perk">
+                            <div class="cta-perk-icon coral"><i class="ph-fill ph-qr-code"></i></div>
+                            <strong>Scan in 2 seconds</strong>
+                            <span>One QR scan marks a student present or late automatically.</span>
+                        </div>
+                        <div class="cta-perk">
+                            <div class="cta-perk-icon green"><i class="ph-fill ph-chalkboard-teacher"></i></div>
+                            <strong>My Class view</strong>
+                            <span>Teachers see every student's status as a live card, by subject.</span>
+                        </div>
+                        <div class="cta-perk">
+                            <div class="cta-perk-icon yellow"><i class="ph-fill ph-identification-card"></i></div>
+                            <strong>Student ID card</strong>
+                            <span>Every student gets a personal QR card they can show anywhere.</span>
+                        </div>
+                        <div class="cta-perk">
+                            <div class="cta-perk-icon blue"><i class="ph-fill ph-chart-bar"></i></div>
+                            <strong>Full history</strong>
+                            <span>Filter attendance logs by date. Every record stays saved and editable.</span>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
