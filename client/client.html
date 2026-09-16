@@ -253,7 +253,6 @@
                     </div>
                 </article>
 
-                <!-- Recent attendance: read-only for students, editable for teachers -->
                 <article class="dashboard-card wide-card">
                     <div class="card-label">
                         <span>Recent attendance</span>
@@ -277,7 +276,7 @@
                             <h2>My Class</h2>
                             <div style="display:flex; align-items:center; gap:8px; flex-wrap:wrap;">
                                 <p class="class-manager-date" id="class-today-date"></p>
-                                <input type="date" id="class-date-picker" style="border:1px solid var(--border,#ddd); border-radius:8px; padding:4px 8px; font-size:0.85rem; background:var(--bg,#fff); color:inherit; cursor:pointer;">
+                                <input type="date" id="class-date-picker" style="border:1px solid var(--border,#39644d); border-radius:8px; padding:4px 8px; font-size:0.85rem; background:var(--bg,#fff); color:inherit; cursor:pointer;">
                             </div>
                         </div>
                         <div class="class-header-actions">
@@ -474,8 +473,16 @@
             <form id="signin-form" class="auth-form">
                 <label>Email<input type="email" id="signin-email" required placeholder="you@school.edu"
                         autocomplete="email"></label>
-                <label>Password<input type="password" id="signin-password" required placeholder="Your password"
-                        autocomplete="current-password"></label>
+                <label>Password
+                    <div class="password-wrapper">
+                        <input type="password" id="signin-password" required placeholder="Your password"
+                            autocomplete="current-password">
+                        <button type="button" class="show-password-btn" aria-label="Show password" tabindex="-1"
+                            onclick="togglePassword('signin-password', this)">
+                            <i class="ph ph-eye"></i>
+                        </button>
+                    </div>
+                </label>
                 <button class="btn btn-dark full-width" id="signin-submit" type="submit">Sign in <i
                         class="ph-bold ph-arrow-right"></i></button>
             </form>
@@ -484,8 +491,16 @@
                         autocomplete="name"></label>
                 <label>Email<input type="email" id="signup-email" required placeholder="you@school.edu"
                         autocomplete="email"></label>
-                <label>Password<input type="password" id="signup-password" required minlength="6"
-                        placeholder="At least 6 characters" autocomplete="new-password"></label>
+                <label>Password
+                    <div class="password-wrapper">
+                        <input type="password" id="signup-password" required minlength="6"
+                            placeholder="At least 6 characters" autocomplete="new-password">
+                        <button type="button" class="show-password-btn" aria-label="Show password" tabindex="-1"
+                            onclick="togglePassword('signup-password', this)">
+                            <i class="ph ph-eye"></i>
+                        </button>
+                    </div>
+                </label>
                 <label>Role<select id="signup-role">
                         <option value="student">Student</option>
                         <option value="teacher">Teacher</option>
@@ -539,8 +554,23 @@
         </section>
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
     <script src="database.js?v=3"></script>
     <script src="app.js?v=3"></script>
+    <script>
+        function togglePassword(inputId, btn) {
+            const input = document.getElementById(inputId);
+            const icon = btn.querySelector('i');
+            if (input.type === 'password') {
+                input.type = 'text';
+                icon.className = 'ph ph-eye-slash';
+                btn.setAttribute('aria-label', 'Hide password');
+            } else {
+                input.type = 'password';
+                icon.className = 'ph ph-eye';
+                btn.setAttribute('aria-label', 'Show password');
+            }
+        }
+    </script>
 </body>
-
 </html>
