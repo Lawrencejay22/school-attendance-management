@@ -1062,7 +1062,8 @@ body.theme-dark .contact-form-group select option {
     z-index: 20;
     display: grid;
     place-items: center;
-    padding: 24px;
+    padding: 16px;
+    overflow-y: auto;
 }
 
 .modal-backdrop {
@@ -1075,6 +1076,8 @@ body.theme-dark .contact-form-group select option {
 .auth-panel {
     position: relative;
     width: min(100%, 440px);
+    max-height: calc(100dvh - 32px);
+    overflow-y: auto;
     background: var(--white);
     border-radius: 20px;
     padding: 35px;
@@ -1166,11 +1169,9 @@ body.theme-dark .auth-form textarea::placeholder {
 
 /* ── Sign-up form scroll ── */
 #signup-form {
-    max-height: 60vh;
-    overflow-y: auto;
-    padding-right: 4px;
-    scrollbar-width: thin;
-    scrollbar-color: var(--coral) transparent;
+    max-height: none;
+    overflow-y: visible;
+    padding-right: 0;
 }
 
 #signup-form::-webkit-scrollbar {
@@ -3006,4 +3007,34 @@ body.theme-dark #class-date-picker {
     background: #1d2c24;
     border-color: #405247;
     color: #f4f5ef;
+}
+
+/* ── Auth modal: mobile full-height scroll fix ── */
+@media (max-width: 520px) {
+    .modal {
+        padding: 0;
+        align-items: flex-start;
+    }
+    .auth-panel {
+        width: 100%;
+        max-height: 100dvh;
+        border-radius: 0 0 20px 20px;
+        padding: 20px 16px 28px;
+    }
+    .auth-intro h2 {
+        font-size: 1.9rem;
+    }
+    /* Tighten form fields on small screens */
+    .auth-form label {
+        font-size: 0.82rem;
+    }
+    .auth-form input,
+    .auth-form select {
+        padding: 10px 12px;
+        font-size: 0.9rem;
+    }
+    .show-password-btn {
+        right: 8px;
+        font-size: 1rem;
+    }
 }

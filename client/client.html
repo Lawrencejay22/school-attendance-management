@@ -541,13 +541,7 @@
                 <div id="student-signup-fields">
                     <label>Student ID<input type="text" id="signup-student-id" required
                             placeholder="2024-00123"></label>
-                    <label>Department<select id="signup-department" required>
-                            <option value="" disabled selected>Select your department</option>
-                            <option value="IT">IT</option>
-                            <option value="Marine Engineering">Marine Engineering</option>
-                            <option value="Electrical Engineering">Electrical Engineering</option>
-                            <option value="CE Engineering">CE Engineering</option>
-                        </select></label>
+                    <label>Department<input type="text" id="signup-department" required placeholder="e.g. Information Technology" autocomplete="off"></label>
                     <label>Section<select id="signup-section" required>
                             <option value="" disabled selected>Select your section</option>
                             <option value="Section 1">Section 1</option>
@@ -572,13 +566,7 @@
                 </div>
                 <div id="teacher-signup-fields" class="hidden">
                     <label>Teacher ID<input type="text" id="signup-teacher-id" placeholder="e.g. T-2024-001"></label>
-                    <label>Department<select id="signup-teacher-department">
-                            <option value="" disabled selected>Select your department</option>
-                            <option value="IT">IT</option>
-                            <option value="Marine Engineering">Marine Engineering</option>
-                            <option value="Electrical Engineering">Electrical Engineering</option>
-                            <option value="CE Engineering">CE Engineering</option>
-                        </select></label>
+                    <label>Department<input type="text" id="signup-teacher-department" placeholder="e.g. Information Technology" autocomplete="off"></label>
                 </div>
                 <button class="btn btn-coral full-width" type="submit">Create account <i
                         class="ph-bold ph-arrow-right"></i></button>

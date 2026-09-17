@@ -171,6 +171,21 @@ function setAuthMode(mode) {
 function showMessage(message, isError = true) {
     authMessage.textContent = message;
     authMessage.classList.toggle('error', isError);
+    if (!isError) authMessage.style.color = '#22863a';
+    else authMessage.style.color = '';
+}
+
+// ── Show / hide password toggle ────────────────────────────────
+function togglePassword(inputId, btn) {
+    const input = document.getElementById(inputId);
+    if (!input) return;
+    const isHidden = input.type === 'password';
+    input.type = isHidden ? 'text' : 'password';
+    const icon = btn.querySelector('i');
+    if (icon) {
+        icon.className = isHidden ? 'ph ph-eye-slash' : 'ph ph-eye';
+    }
+    btn.setAttribute('aria-label', isHidden ? 'Hide password' : 'Show password');
 }
 
 function redirectForRole(account) {
@@ -796,8 +811,20 @@ document.addEventListener('keydown', event => { if (event.key === 'Escape' && !a
 
 signInForm.addEventListener('submit', async event => {
     event.preventDefault();
-    const result = await SchoolSyncDB.authenticate(document.getElementById('signin-email').value.trim(), document.getElementById('signin-password').value);
-    if (result.error) { showMessage(result.error); return; }
+    showMessage('');
+    const email = document.getElementById('signin-email').value.trim();
+    const password = document.getElementById('signin-password').value;
+
+    if (!email || !password) {
+        showMessage('Please enter your email and password.');
+        return;
+    }
+
+    const result = await SchoolSyncDB.authenticate(email, password);
+    if (result.error) {
+        showMessage(result.error);
+        return;
+    }
     if (adminLoginMode && result.account.role === 'student') {
         SchoolSyncDB.signOut();
         showMessage('Access denied. Only admin and teacher accounts can use this login.');
@@ -813,22 +840,58 @@ signInForm.addEventListener('submit', async event => {
 
 signUpForm.addEventListener('submit', async event => {
     event.preventDefault();
+    showMessage('');
+
+    const name     = document.getElementById('signup-name').value.trim();
+    const email    = document.getElementById('signup-email').value.trim();
+    const password = document.getElementById('signup-password').value;
+    const role     = signupRole.value;
+
+    // Basic client-side validation
+    if (!name) { showMessage('Please enter your full name.'); return; }
+    if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { showMessage('Please enter a valid email address.'); return; }
+    if (!password || password.length < 6) { showMessage('Password must be at least 6 characters.'); return; }
+
+    if (role === 'student') {
+        if (!signupStudentId.value.trim()) { showMessage('Please enter your Student ID.'); return; }
+        if (!signupDepartment.value.trim()) { showMessage('Please enter your department.'); return; }
+        if (!signupSection.value) { showMessage('Please select your section.'); return; }
+        if (!signupYear.value) { showMessage('Please select your year level.'); return; }
+    }
+    if (role === 'teacher') {
+        if (!signupTeacherDepartment.value.trim()) { showMessage('Please enter your department.'); return; }
+    }
+
     const result = await SchoolSyncDB.register({
-        name: document.getElementById('signup-name').value.trim(),
-        email: document.getElementById('signup-email').value.trim(),
-        password: document.getElementById('signup-password').value,
-        role: signupRole.value,
+        name,
+        email,
+        password,
+        role,
         studentId: signupStudentId.value.trim(),
-        department: signupDepartment.value,
+        department: signupDepartment.value.trim(),
         adviser: signupSection.value,
         year: signupYear.value,
         teacherId: signupTeacherId.value.trim(),
-        teacherDepartment: signupTeacherDepartment.value
+        teacherDepartment: signupTeacherDepartment.value.trim()
     });
-    if (result.error) { showMessage(result.error); return; }
-    const login = await SchoolSyncDB.authenticate(document.getElementById('signup-email').value.trim(), document.getElementById('signup-password').value);
-    if (login.error) { showMessage(login.error); return; }
-    redirectForRole(login.account);
+
+    if (result.error) {
+        // Make duplicate errors friendlier
+        if (result.error.toLowerCase().includes('email') && result.error.toLowerCase().includes('exist')) {
+            showMessage('An account with that email already exists. Please sign in instead.');
+        } else if (result.error.toLowerCase().includes('student id') || result.error.toLowerCase().includes('already exists')) {
+            showMessage('That Student ID is already registered. Check your ID or sign in to your existing account.');
+        } else {
+            showMessage(result.error);
+        }
+        return;
+    }
+
+    // Success — show message and switch to sign-in tab
+    signUpForm.reset();
+    updateStudentSignupFields();
+    showMessage('Account created! Please sign in with your new credentials.', false);
+    setTimeout(() => setAuthMode('signin'), 1200);
 });
 
 profileImageInput.addEventListener('change', () => {
