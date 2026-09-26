@@ -537,8 +537,18 @@ async function updateLogsTable() {
 
     tbody.innerHTML = filtered.length ? filtered.map(log => {
         const date = new Date(log.timestamp);
-        return `<tr><td>${date.toLocaleDateString()}</td><td>${date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</td><td>${log.userId}</td><td>${log.userName}</td><td>${log.grade || '-'}${log.section ? ' · ' + log.section : ''}${log.year ? ' · ' + log.year : ''}</td><td><span class="status-badge present">${log.status}</span></td></tr>`;
-    }).join('') : '<tr class="empty-row"><td colspan="6">No records found</td></tr>';
+        const statusClass = log.status === 'Present' ? 'present' : log.status === 'Late' ? 'late' : 'absent';
+        return `<tr>
+            <td>${date.toLocaleDateString()}</td>
+            <td>${date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</td>
+            <td>${log.userId}</td>
+            <td>${log.userName}</td>
+            <td>${log.grade || '-'}</td>
+            <td>${log.section || '-'}</td>
+            <td>${log.year || '-'}</td>
+            <td><span class="status-badge ${statusClass}">${log.status}</span></td>
+        </tr>`;
+    }).join('') : '<tr class="empty-row"><td colspan="8">No records found</td></tr>';
 }
 
 filterDateInput.addEventListener('change', updateLogsTable);
