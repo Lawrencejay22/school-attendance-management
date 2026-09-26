@@ -542,6 +542,54 @@ async function updateLogsTable() {
 }
 
 filterDateInput.addEventListener('change', updateLogsTable);
+
+// ── Export to Excel ──
+document.getElementById('export-logs-btn').addEventListener('click', async () => {
+    const logs = await SchoolSyncDB.getLogs();
+    const filterDateStr = filterDateInput.value;
+    let filtered = [...logs].sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
+
+    if (filterDateStr) {
+        const [yr, mo, dy] = filterDateStr.split('-');
+        filtered = filtered.filter(log => {
+            const d = new Date(log.timestamp);
+            return d.getFullYear() == yr
+                && String(d.getMonth() + 1).padStart(2, '0') == mo
+                && String(d.getDate()).padStart(2, '0') == dy;
+        });
+    }
+
+    if (!filtered.length) {
+        alert('No records to export.');
+        return;
+    }
+
+    const rows = filtered.map(log => {
+        const d = new Date(log.timestamp);
+        return {
+            Date: d.toLocaleDateString(),
+            Time: d.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+            'Student ID': log.userId,
+            Name: log.userName,
+            Department: log.grade || '',
+            Section: log.section || '',
+            Year: log.year || '',
+            Subject: log.subject || '',
+            Status: log.status
+        };
+    });
+
+    const ws = XLSX.utils.json_to_sheet(rows);
+    const wb = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, 'Attendance');
+
+    const filename = filterDateStr
+        ? `attendance-${filterDateStr}.xlsx`
+        : `attendance-all-${new Date().toISOString().slice(0, 10)}.xlsx`;
+
+    XLSX.writeFile(wb, filename);
+});
+
 clearLogsBtn.addEventListener('click', async () => {
     if (!confirm('Are you sure you want to clear all attendance logs? This cannot be undone.')) return;
     await SchoolSyncDB.clearLogs();
