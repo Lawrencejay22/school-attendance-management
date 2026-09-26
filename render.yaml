@@ -1,0 +1,20 @@
+services:
+  - type: web
+    name: schoolsync-attendance
+    runtime: node
+    buildCommand: npm install
+    startCommand: npm start
+    envVars:
+      - key: PORT
+        value: 3000
+      - key: MYSQL_HOST
+        value: mysql-350aaf78-school-attendance-management.j.aivencloud.com
+      - key: MYSQL_PORT
+        value: 20910
+      - key: MYSQL_USER
+        value: avnadmin
+      - key: MYSQL_PASSWORD
+        sync: false
+      - key: MYSQL_DATABASE
+        value: ADMIN_attendance
+    healthCheckPath: /

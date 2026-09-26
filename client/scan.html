@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SchoolSync - Scan Attendance</title>
+    <!-- Phosphor Icons -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <style>
+        :root {
+            --bg-color: #f4f0e6;
+            --text-color: #1a1a1a;
+            --brand-green: #cce3d2;
+            --brand-coral: #e45b4c;
+            --card-bg: #ffffff;
+            --radius-lg: 16px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .scan-card {
+            background: var(--card-bg);
+            border-radius: var(--radius-lg);
+            padding: 40px 30px;
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        }
+
+        .icon-container {
+            font-size: 64px;
+            margin-bottom: 20px;
+        }
+
+        .icon-container.loading {
+            color: #888;
+            animation: spin 2s linear infinite;
+        }
+
+        .icon-container.success {
+            color: #2e7d32;
+        }
+
+        .icon-container.error {
+            color: var(--brand-coral);
+        }
+
+        @keyframes spin {
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        h1 {
+            font-size: 24px;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        p {
+            color: #555;
+            font-size: 16px;
+            line-height: 1.5;
+            margin-bottom: 30px;
+        }
+
+        .btn {
+            display: inline-block;
+            background: var(--brand-coral);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: opacity 0.2s;
+        }
+
+        .btn:hover {
+            opacity: 0.9;
+        }
+
+        #student-details {
+            background: var(--bg-color);
+            padding: 15px;
+            border-radius: 8px;
+            text-align: left;
+            margin-bottom: 20px;
+            display: none;
+        }
+
+        #student-details strong {
+            display: block;
+            margin-bottom: 4px;
+        }
+
+        #student-details span {
+            display: block;
+            font-size: 14px;
+            color: #666;
+        }
+
+        .subject-badge {
+            display: inline-block;
+            background: var(--brand-green);
+            color: #1a4a2e;
+            font-size: 13px;
+            font-weight: 600;
+            padding: 4px 12px;
+            border-radius: 999px;
+            margin-top: 10px;
+        }
+
+        .scan-card.is-success {
+            background: #f2fbf3;
+            border: 2px solid #2e7d32;
+            box-shadow: 0 6px 18px rgba(46, 125, 50, 0.18);
+        }
+
+        #student-fullname {
+            font-size: 22px;
+            font-weight: 700;
+            color: #1a4a2e;
+            margin-bottom: 6px;
+        }
+
+        .btn.secondary {
+            background: var(--brand-green);
+            color: #1a4a2e;
+            margin-right: 8px;
+        }
+
+        #view-details-btn {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="scan-card" id="scan-card">
+        <div id="status-icon" class="icon-container loading">
+            <i class="ph ph-spinner-gap"></i>
+        </div>
+        <h1 id="status-title">Recording Attendance...</h1>
+        <p id="status-message">Please wait while we log your attendance for today.</p>
+
+        <div id="student-name-block" style="display:none;">
+            <div id="student-fullname"></div>
+        </div>
+
+        <div id="student-details">
+            <span id="student-info"></span>
+            <span id="student-department"></span>
+            <span id="student-section"></span>
+            <span id="student-year"></span>
+            <span id="attendance-time"></span>
+            <span id="attendance-subject"></span>
+        </div>
+
+        <div id="action-row">
+            <button id="view-details-btn" class="btn secondary" type="button">View details</button>
+            <a href="/" class="btn">Go to Dashboard</a>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            const studentId = urlParams.get('id');
+            const subject   = urlParams.get('subject') || '';
+            const statusIcon = document.getElementById('status-icon');
+            const statusTitle = document.getElementById('status-title');
+            const statusMessage = document.getElementById('status-message');
+            const scanCard = document.getElementById('scan-card');
+            const studentDetails = document.getElementById('student-details');
+            const viewDetailsBtn = document.getElementById('view-details-btn');
+
+            if (!studentId) {
+                showError("Invalid QR Code", "No student ID was found in the URL.");
+                return;
+            }
+
+            try {
+                const response = await fetch('/api/attendance', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ userId: studentId, subject })
+                });
+
+                const data = await response.json();
+
+                if (!response.ok) {
+                    throw new Error(data.error || 'Failed to record attendance');
+                }
+
+                const student = data.student || {};
+
+                // Success — turn the card green and show the student's name
+                scanCard.classList.add('is-success');
+                statusIcon.className = 'icon-container success';
+                statusIcon.innerHTML = '<i class="ph-fill ph-check-circle"></i>';
+                statusTitle.textContent = 'Attendance Recorded!';
+                statusMessage.textContent = `You have been marked as ${String(data.status || '').toUpperCase()}.`;
+
+                const nameBlock = document.getElementById('student-name-block');
+                nameBlock.style.display = 'block';
+                document.getElementById('student-fullname').textContent = student.name || `Student ID: ${studentId}`;
+
+                document.getElementById('student-info').textContent = `Student ID: ${studentId}`;
+                document.getElementById('student-department').textContent = `College/Department: ${student.department || '-'}`;
+                document.getElementById('student-section').textContent = `Section: ${student.section || '-'}`;
+                document.getElementById('student-year').textContent = `Year: ${student.year || '-'}`;
+                document.getElementById('attendance-time').textContent = `Time: ${new Date().toLocaleTimeString([], { timeStyle: 'short' })}`;
+
+                const subjectEl = document.getElementById('attendance-subject');
+                if (subject) {
+                    subjectEl.innerHTML = `<span class="subject-badge"><i class="ph ph-books"></i> ${subject}</span>`;
+                } else {
+                    subjectEl.textContent = '';
+                }
+
+                viewDetailsBtn.style.display = 'inline-block';
+                viewDetailsBtn.addEventListener('click', () => {
+                    const showing = studentDetails.style.display === 'block';
+                    studentDetails.style.display = showing ? 'none' : 'block';
+                    viewDetailsBtn.textContent = showing ? 'View details' : 'Hide details';
+                });
+
+            } catch (err) {
+                showError("Scan Failed", err.message);
+            }
+
+            function showError(title, message) {
+                statusIcon.className = 'icon-container error';
+                statusIcon.innerHTML = '<i class="ph-fill ph-x-circle"></i>';
+                statusTitle.textContent = title;
+                statusMessage.textContent = message;
+            }
+        });
+    </script>
+</body>
+
+</html>

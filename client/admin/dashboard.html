@@ -1,0 +1,671 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>School ID Scanner | Attendance System</title>
+    <meta name="description"
+        content="A premium web-based school attendance monitoring system using barcode technology.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/regular/style.css">
+    <link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/bold/style.css">
+    <link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/fill/style.css">
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <link rel="stylesheet" href="/client/admin/styles.css">
+</head>
+
+<body>
+    <div class="app-container">
+
+        <!-- ── Sidebar Navigation ── -->
+        <nav class="sidebar">
+            <div class="logo-container">
+                <div class="logo-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 256 256" fill="white">
+                        <path
+                            d="M200,32H56A24,24,0,0,0,32,56V200a24,24,0,0,0,24,24H200a24,24,0,0,0,24-24V56A24,24,0,0,0,200,32ZM100,172H72a12,12,0,0,1,0-24h28a12,12,0,0,1,0,24Zm0-48H72a12,12,0,0,1,0-24h28a12,12,0,0,1,0,24Zm84,48H156a12,12,0,0,1,0-24h28a12,12,0,0,1,0,24Zm0-48H156a12,12,0,0,1,0-24h28a12,12,0,0,1,0,24Zm0-48H72a12,12,0,0,1,0-24H184a12,12,0,0,1,0,24Z" />
+                    </svg>
+                </div>
+                <h1 class="logo-text">School<span>Sync</span></h1>
+            </div>
+
+            <ul class="nav-links">
+                <li>
+                    <a href="#" class="nav-item active" data-target="dashboard-view" data-title="Dashboard">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 256 256"
+                            fill="currentColor">
+                            <path
+                                d="M216,40H40A16,16,0,0,0,24,56V200a16,16,0,0,0,16,16H216a16,16,0,0,0,16-16V56A16,16,0,0,0,216,40ZM104,176H40V120h64Zm0-72H40V56h64Zm112,72H120V120h96Zm0-72H120V56h96Z" />
+                        </svg>
+                        <span>Dashboard</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="nav-item" data-target="scanner-view" data-title="Scan Barcode">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 256 256" fill="currentColor">
+                            <path d="M208,56H180.28L166.65,35.56A8,8,0,0,0,160,32H96a8,8,0,0,0-6.65,3.56L75.72,56H48A24,24,0,0,0,24,80V192a24,24,0,0,0,24,24H208a24,24,0,0,0,24-24V80A24,24,0,0,0,208,56Zm8,136a8,8,0,0,1-8,8H48a8,8,0,0,1-8-8V80a8,8,0,0,1,8-8H80a8,8,0,0,0,6.65-3.56L100.28,48h55.44l13.63,20.44A8,8,0,0,0,176,72h32a8,8,0,0,1,8,8ZM128,88a44,44,0,1,0,44,44A44.05,44.05,0,0,0,128,88Zm0,72a28,28,0,1,1,28-28A28,28,0,0,1,128,160Z"/>
+                        </svg>
+                        <span>Scan Barcode</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="nav-item" data-target="register-view" data-title="Register Student">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 256 256"
+                            fill="currentColor">
+                            <path
+                                d="M256,136a8,8,0,0,1-8,8H232v16a8,8,0,0,1-16,0V144H200a8,8,0,0,1,0-16h16V112a8,8,0,0,1,16,0v16h16A8,8,0,0,1,256,136ZM117.56,128.26A48,48,0,1,0,79,128.26a64.08,64.08,0,0,0-48,62.11,8,8,0,0,0,16,.26A48,48,0,0,1,143,190.37a8,8,0,1,0,16-.26A64.09,64.09,0,0,0,117.56,128.26ZM79,112a32,32,0,1,1,32,32A32,32,0,0,1,79,112Z" />
+                        </svg>
+                        <span>Register Student</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="nav-item" data-target="students-view" data-title="Students">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 256 256"
+                            fill="currentColor">
+                            <path
+                                d="M244.07,93.42,136.07,29.42a16,16,0,0,0-16.14,0l-104,60a16,16,0,0,0,0,27.16L56,143.56V192a16,16,0,0,0,8.18,14l64,36.44a16,16,0,0,0,15.64,0l64-36.44A16,16,0,0,0,216,192V143.56l24-13.94a16,16,0,0,0,.07-27.2ZM200,192l-64,36.44L72,192V152.53l47.93,27.79a16.09,16.09,0,0,0,16.14,0L200,152.53Zm-72-24.11L40,107.14,128,56l88,51.14Z" />
+                        </svg>
+                        <span>Students</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="nav-item" data-target="teachers-view" data-title="Teachers">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 256 256"
+                            fill="currentColor">
+                            <path
+                                d="M226,112H204V88a12,12,0,0,0-12-12H160V56a12,12,0,0,0-12-12H108A12,12,0,0,0,96,56V76H64A12,12,0,0,0,52,88v24H30a6,6,0,0,0,0,12H52v24a12,12,0,0,0,12,12H96v20a12,12,0,0,0,12,12h40a12,12,0,0,0,12-12V160h32a12,12,0,0,0,12-12V124h22a6,6,0,0,0,0-12ZM108,68h40V76H108Zm40,120H108V160h40Zm40-32H64V100H192Z" />
+                        </svg>
+                        <span>Teachers</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="nav-item" data-target="logs-view" data-title="Attendance Logs">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 256 256"
+                            fill="currentColor">
+                            <path
+                                d="M224,128a8,8,0,0,1-8,8H40a8,8,0,0,1,0-16H216A8,8,0,0,1,224,128ZM40,72H216a8,8,0,0,0,0-16H40a8,8,0,0,0,0,16ZM216,184H40a8,8,0,0,0,0,16H216a8,8,0,0,0,0-16Z" />
+                        </svg>
+                        <span>Attendance Logs</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+
+        <!-- ── Main Content Area ── -->
+        <main class="main-content">
+
+            <!-- Header -->
+            <header class="top-header">
+                <h2 id="page-title">Dashboard</h2>
+                <div class="header-actions">
+                    <button class="header-profile" id="admin-profile-trigger" type="button"
+                        aria-label="Open profile settings">
+                        <div class="header-profile-avatar" id="admin-profile-initials">A</div>
+                        <div class="header-profile-copy">
+                            <strong id="admin-profile-name">Administrator</strong>
+                            <span id="admin-profile-role">Admin</span>
+                        </div>
+                    </button>
+                    <div class="time-display" id="current-time">00:00:00 AM</div>
+                    <button id="logout-btn" class="btn outline-btn" type="button" title="Sign out">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 256 256"
+                            fill="currentColor" style="flex-shrink:0">
+                            <path
+                                d="M112,216a8,8,0,0,1-8,8H48a16,16,0,0,1-16-16V48A16,16,0,0,1,48,32h56a8,8,0,0,1,0,16H48V208h56A8,8,0,0,1,112,216Zm109.66-93.66-40-40a8,8,0,0,0-11.32,11.32L196.69,120H104a8,8,0,0,0,0,16h92.69l-26.35,26.34a8,8,0,0,0,11.32,11.32l40-40A8,8,0,0,0,221.66,122.34Z" />
+                        </svg>
+                        Sign out
+                    </button>
+                </div>
+            </header>
+
+            <!-- Views Container -->
+            <div class="views-container">
+
+                <!-- ── Dashboard View ── -->
+                <section id="dashboard-view" class="view active">
+
+                    <!-- ── Stat Cards ── -->
+                    <div class="stats-grid">
+                        <div class="stat-card glass-panel stat-present">
+                            <div class="stat-icon-wrap">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 256 256"
+                                    fill="currentColor">
+                                    <path
+                                        d="M173.66,98.34a8,8,0,0,1,0,11.32l-56,56a8,8,0,0,1-11.32,0l-24-24a8,8,0,0,1,11.32-11.32L112,148.69l50.34-50.35A8,8,0,0,1,173.66,98.34ZM232,128A104,104,0,1,1,128,24,104.11,104.11,0,0,1,232,128Zm-16,0a88,88,0,1,0-88,88A88.1,88.1,0,0,0,216,128Z" />
+                                </svg>
+                            </div>
+                            <div class="stat-info">
+                                <span class="stat-label">Present Today</span>
+                                <strong class="stat-value" id="stat-present">0</strong>
+                            </div>
+                        </div>
+                        <div class="stat-card glass-panel stat-late">
+                            <div class="stat-icon-wrap">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 256 256"
+                                    fill="currentColor">
+                                    <path
+                                        d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm0,192a88,88,0,1,1,88-88A88.1,88.1,0,0,1,128,216Zm64-88a8,8,0,0,1-8,8H128a8,8,0,0,1-8-8V72a8,8,0,0,1,16,0v48h48A8,8,0,0,1,192,128Z" />
+                                </svg>
+                            </div>
+                            <div class="stat-info">
+                                <span class="stat-label">Late Today</span>
+                                <strong class="stat-value" id="stat-late">0</strong>
+                            </div>
+                        </div>
+                        <div class="stat-card glass-panel stat-absent">
+                            <div class="stat-icon-wrap">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 256 256"
+                                    fill="currentColor">
+                                    <path
+                                        d="M165.66,101.66,139.31,128l26.35,26.34a8,8,0,0,1-11.32,11.32L128,139.31l-26.34,26.35a8,8,0,0,1-11.32-11.32L116.69,128,90.34,101.66A8,8,0,0,1,101.66,90.34L128,116.69l26.34-26.35a8,8,0,0,1,11.32,11.32ZM232,128A104,104,0,1,1,128,24,104.11,104.11,0,0,1,232,128Zm-16,0a88,88,0,1,0-88,88A88.1,88.1,0,0,0,216,128Z" />
+                                </svg>
+                            </div>
+                            <div class="stat-info">
+                                <span class="stat-label">Absent Today</span>
+                                <strong class="stat-value" id="stat-absent">0</strong>
+                            </div>
+                        </div>
+                        <div class="stat-card glass-panel stat-students">
+                            <div class="stat-icon-wrap">
+                                <!-- Male student icon -->
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 64 64" fill="currentColor">
+                                    <circle cx="32" cy="18" r="10"/>
+                                    <path d="M32,30c-11,0-20,6-20,14v2h40v-2C52,36,43,30,32,30z"/>
+                                    <rect x="28" y="44" width="8" height="12" rx="2"/>
+                                    <polygon points="26,44 38,44 36,56 28,56"/>
+                                    <rect x="24" y="24" width="4" height="8"/>
+                                    <rect x="36" y="24" width="4" height="8"/>
+                                    <path d="M26,30 Q32,35 38,30" fill="none" stroke="currentColor" stroke-width="2"/>
+                                </svg>
+                            </div>
+                            <div class="stat-info">
+                                <span class="stat-label">Total Students</span>
+                                <strong class="stat-value" id="stat-total">0</strong>
+                            </div>
+                        </div>
+                        <div class="stat-card glass-panel stat-teachers">
+                            <div class="stat-icon-wrap">
+                                <!-- Female teacher with glasses icon -->
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 64 64" fill="currentColor">
+                                    <circle cx="32" cy="17" r="10"/>
+                                    <path d="M22,14 Q32,8 42,14" fill="none" stroke="currentColor" stroke-width="2.5"/>
+                                    <rect x="22" y="20" width="7" height="5" rx="2.5" fill="none" stroke="currentColor" stroke-width="2"/>
+                                    <rect x="33" y="20" width="7" height="5" rx="2.5" fill="none" stroke="currentColor" stroke-width="2"/>
+                                    <line x1="29" y1="22" x2="33" y2="22" stroke="currentColor" stroke-width="2"/>
+                                    <path d="M32,29c-11,0-20,6-20,13v2h40v-2C52,35,43,29,32,29z"/>
+                                </svg>
+                            </div>
+                            <div class="stat-info">
+                                <span class="stat-label">Total Teachers</span>
+                                <strong class="stat-value" id="stat-teachers">0</strong>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ── Attendance Graph ── -->
+                    <div class="glass-panel mt-4" style="padding:20px 24px;">
+                        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;">
+                            <h3 style="margin:0;font-size:1rem;font-weight:600;">Attendance This Week</h3>
+                            <span style="font-size:0.75rem;color:var(--text-muted);">Last 7 days</span>
+                        </div>
+                        <canvas id="attendance-chart" height="60"></canvas>
+                    </div>
+
+                    <!-- ── Recent Scans ── -->
+                    <div class="recent-activity glass-panel mt-4">
+                        <h3>Recent Scans</h3>
+                        <div class="table-responsive">
+                            <table class="data-table">
+                                <thead>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>ID</th>
+                                        <th class="hide-mobile">Department</th>
+                                        <th class="hide-mobile">Section</th>
+                                        <th class="hide-mobile">Year</th>
+                                        <th>Time Scanned</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="recent-scans-body">
+                                    <tr class="empty-row">
+                                        <td colspan="7">No recent activity</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- ── Overview Tables ── -->
+                    <div class="overview-grid mt-4">
+                        <!-- All Students -->
+                        <div class="glass-panel">
+                            <div
+                                style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;">
+                                <h3 style="margin:0;font-size:1rem;font-weight:600;">All Students</h3>
+                                <span class="stat-badge" id="overview-students-count">0 students</span>
+                            </div>
+                            <div class="table-responsive">
+                                <table class="data-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Name</th>
+                                            <th>ID</th>
+                                            <th>Department</th>
+                                            <th class="hide-mobile">Section</th>
+                                            <th class="hide-mobile">Year</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="overview-students-body">
+                                        <tr class="empty-row">
+                                            <td colspan="5">No students yet</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <!-- All Teachers -->
+                        <div class="glass-panel">
+                            <div
+                                style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;">
+                                <h3 style="margin:0;font-size:1rem;font-weight:600;">All Teachers</h3>
+                                <span class="stat-badge" id="overview-teachers-count">0 teachers</span>
+                            </div>
+                            <div class="table-responsive">
+                                <table class="data-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Name</th>
+                                            <th>ID</th>
+                                            <th>Department</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="overview-teachers-body">
+                                        <tr class="empty-row">
+                                            <td colspan="3">No teachers yet</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                </section>
+
+                <!-- ── Scanner View ── -->
+                <section id="scanner-view" class="view">
+                    <div class="scanner-container glass-panel">
+                        <div class="scanner-header">
+                            <h3>Barcode Scanner</h3>
+                            <p>Position the barcode within the frame</p>
+                        </div>
+
+                        <div class="camera-wrapper">
+                            <div id="reader"></div>
+                        </div>
+
+                        <div class="scanner-controls">
+                            <button id="start-scan-btn" class="btn primary-btn">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 256 256" fill="currentColor"><path d="M208,112a16,16,0,1,1-16-16A16,16,0,0,1,208,112ZM80,96a16,16,0,1,0,16,16A16,16,0,0,0,80,96Zm128,80a16,16,0,1,0,16,16A16,16,0,0,0,208,176Zm-112,0a16,16,0,1,0,16,16A16,16,0,0,0,96,176ZM229.2,32H26.8A26.83,26.83,0,0,0,0,58.8V197.2A26.83,26.83,0,0,0,26.8,224H229.2A26.83,26.83,0,0,0,256,197.2V58.8A26.83,26.83,0,0,0,229.2,32Zm10.8,165.2a10.82,10.82,0,0,1-10.8,10.8H26.8A10.82,10.82,0,0,1,16,197.2V58.8A10.82,10.82,0,0,1,26.8,48H229.2A10.82,10.82,0,0,1,240,58.8Z"/></svg> Start Camera
+                            </button>
+                            <button id="stop-scan-btn" class="btn secondary-btn hidden">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 256 256" fill="currentColor"><path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm0,192a88,88,0,1,1,88-88A88.1,88.1,0,0,1,128,216Zm40-128H88a8,8,0,0,0-8,8v80a8,8,0,0,0,8,8h80a8,8,0,0,0,8-8V96A8,8,0,0,0,168,88Zm-8,80H96V104h64Z"/></svg> Stop Camera
+                            </button>
+                        </div>
+
+                        <div id="scan-result" class="scan-result hidden">
+                            <!-- Feedback populated by JS -->
+                        </div>
+                    </div>
+                </section>
+
+                <!-- ── Register Student View ── -->
+                <section id="register-view" class="view">
+                    <div class="register-grid">
+                        <div class="register-form-container glass-panel">
+                            <h3>Register New Student</h3>
+                            <form id="register-form">
+                                <div class="form-group">
+                                    <label for="user-name">Student Full Name</label>
+                                    <input type="text" id="user-name" required placeholder="e.g. John Smith">
+                                </div>
+                                <div class="form-group">
+                                    <label for="user-id">Student ID Number</label>
+                                    <input type="text" id="user-id" required placeholder="e.g. 2024-00123">
+                                </div>
+                                <div class="form-group">
+                                    <label for="user-grade">College / Department</label>
+                                    <select id="user-grade">
+                                        <option value="" disabled selected>Select your department</option>
+                                        <option value="IT">IT</option>
+                                        <option value="Marine Engineering">Marine Engineering</option>
+                                        <option value="Electrical Engineering">Electrical Engineering</option>
+                                        <option value="CE Engineering">CE Engineering</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="user-adviser">Section</label>
+                                    <select id="user-adviser" required>
+                                        <option value="" disabled selected>Select section</option>
+                                        <option value="Section 1">Section 1</option>
+                                        <option value="Section 2">Section 2</option>
+                                        <option value="Section 3">Section 3</option>
+                                        <option value="Section 4">Section 4</option>
+                                        <option value="Section 5">Section 5</option>
+                                        <option value="Section 6">Section 6</option>
+                                        <option value="Section 7">Section 7</option>
+                                        <option value="Section 8">Section 8</option>
+                                        <option value="Section 9">Section 9</option>
+                                        <option value="Section 10">Section 10</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="user-year">Year Level</label>
+                                    <select id="user-year" required>
+                                        <option value="" disabled selected>Select year level</option>
+                                        <option value="1st Year">1st Year</option>
+                                        <option value="2nd Year">2nd Year</option>
+                                        <option value="3rd Year">3rd Year</option>
+                                        <option value="4th Year">4th Year</option>
+                                        <option value="5th Year">5th Year</option>
+                                    </select>
+                                </div>
+                                <button type="submit" class="btn primary-btn w-full">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 256 256" fill="currentColor"><path d="M200,32H56A24,24,0,0,0,32,56V200a24,24,0,0,0,24,24H200a24,24,0,0,0,24-24V56A24,24,0,0,0,200,32ZM100,172H72a12,12,0,0,1,0-24h28a12,12,0,0,1,0,24Zm0-48H72a12,12,0,0,1,0-24h28a12,12,0,0,1,0,24Zm84,48H156a12,12,0,0,1,0-24h28a12,12,0,0,1,0,24Zm0-48H156a12,12,0,0,1,0-24h28a12,12,0,0,1,0,24Zm0-48H72a12,12,0,0,1,0-24H184a12,12,0,0,1,0,24Z"/></svg> Generate ID QR Code
+                                </button>
+                            </form>
+                        </div>
+
+                        <div class="barcode-preview-container glass-panel">
+                            <h3>Generated QR Code</h3>
+                            <div class="barcode-wrapper" id="barcode-output-container">
+                                <div class="empty-state" id="barcode-empty-state">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 256 256" fill="currentColor" style="opacity:0.4"><path d="M200,32H56A24,24,0,0,0,32,56V200a24,24,0,0,0,24,24H200a24,24,0,0,0,24-24V56A24,24,0,0,0,200,32ZM100,172H72a12,12,0,0,1,0-24h28a12,12,0,0,1,0,24Zm0-48H72a12,12,0,0,1,0-24h28a12,12,0,0,1,0,24Zm84,48H156a12,12,0,0,1,0-24h28a12,12,0,0,1,0,24Zm0-48H156a12,12,0,0,1,0-24h28a12,12,0,0,1,0,24Zm0-48H72a12,12,0,0,1,0-24H184a12,12,0,0,1,0,24Z"/></svg>
+                                    <p>Submit the form to generate a QR Code</p>
+                                </div>
+                                <div id="qrcode" style="display:none; text-align:center;"></div>
+                            </div>
+                            <div class="barcode-actions hidden" id="barcode-actions">
+                                <button id="print-barcode-btn" class="btn outline-btn">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 256 256" fill="currentColor"><path d="M214.67,72H200V40a8,8,0,0,0-8-8H64a8,8,0,0,0-8,8V72H41.33C27.36,72,16,82.77,16,96v80a8,8,0,0,0,8,8H56v32a8,8,0,0,0,8,8H192a8,8,0,0,0,8-8V184h32a8,8,0,0,0,8-8V96C240,82.77,228.64,72,214.67,72ZM72,48H184V72H72Zm112,160H72V168h112Zm40-40H184V160a8,8,0,0,0-8-8H80a8,8,0,0,0-8,8v8H32V96c0-4.41,4.19-8,9.33-8H214.67c5.14,0,9.33,3.59,9.33,8Z"/></svg> Print
+                                </button>
+                                <button id="download-barcode-btn" class="btn outline-btn">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 256 256" fill="currentColor"><path d="M224,144v64a8,8,0,0,1-8,8H40a8,8,0,0,1-8-8V144a8,8,0,0,1,16,0v56H208V144a8,8,0,0,1,16,0Zm-101.66,5.66a8,8,0,0,0,11.32,0l40-40a8,8,0,0,0-11.32-11.32L136,124.69V32a8,8,0,0,0-16,0v92.69L93.66,98.34A8,8,0,0,0,82.34,109.66Z"/></svg> Download
+                                </button>
+                                <button id="copy-barcode-btn" class="btn outline-btn">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 256 256" fill="currentColor"><path d="M216,32H88a8,8,0,0,0-8,8V72H40a8,8,0,0,0-8,8V216a8,8,0,0,0,8,8H168a8,8,0,0,0,8-8V176h40a8,8,0,0,0,8-8V40A8,8,0,0,0,216,32ZM160,208H48V88H160Zm40-48H176V80a8,8,0,0,0-8-8H96V48H200Z"/></svg> Copy link
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- ── Students View ── -->
+                <section id="students-view" class="view">
+                    <div class="students-container glass-panel">
+                        <div class="students-header">
+                            <h3>Registered Students</h3>
+                            <p class="students-count" id="students-count">0 students registered</p>
+                        </div>
+                        <div id="students-grid" class="students-grid">
+                            <!-- Dynamic student cards injected by JS -->
+                            <div class="empty-students" id="students-empty-state">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 256 256" fill="currentColor" style="opacity:0.4"><path d="M117.25,157.92a60,60,0,1,0-66.5,0A95.83,95.83,0,0,0,3.53,195.43a8,8,0,1,0,13.4,8.74,80,80,0,0,1,134.14,0,8,8,0,0,0,13.4-8.74A95.83,95.83,0,0,0,117.25,157.92ZM40,108a44,44,0,1,1,44,44A44.05,44.05,0,0,1,40,108Zm210.14,98.7a8,8,0,0,1-11.07-2.33A79.83,79.83,0,0,0,172,168a8,8,0,0,1,0-16,44,44,0,1,0-16.34-84.87,8,8,0,1,1-5.94-14.85,60,60,0,0,1,55.53,105.64,95.83,95.83,0,0,1,47.22,37.51A8,8,0,0,1,250.14,206.7Z"/></svg>
+                                <p>No students registered yet</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- ── Teachers View ── -->
+                <section id="teachers-view" class="view">
+                    <div class="teacher-management-grid">
+                        <div class="register-form-container glass-panel">
+                            <h3>Register New Teacher</h3>
+                            <form id="teacher-form">
+                                <div class="form-group">
+                                    <label for="teacher-name">Teacher Full Name</label>
+                                    <input type="text" id="teacher-name" required placeholder="e.g. Maria Santos">
+                                </div>
+                                <div class="form-group">
+                                    <label for="teacher-id">Teacher ID Number</label>
+                                    <input type="text" id="teacher-id" required placeholder="e.g. T-2024-001">
+                                </div>
+                                <div class="form-group">
+                                    <label for="teacher-department">Department</label>
+                                    <select id="teacher-department" required>
+                                        <option value="" disabled selected>Select a department</option>
+                                        <option value="IT">IT</option>
+                                        <option value="Marine Engineering">Marine Engineering</option>
+                                        <option value="Electrical Engineering">Electrical Engineering</option>
+                                        <option value="CE Engineering">CE Engineering</option>
+                                    </select>
+                                </div>
+                                <button type="submit" class="btn primary-btn w-full">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 256 256" fill="currentColor"><path d="M256,136a8,8,0,0,1-8,8H232v16a8,8,0,0,1-16,0V144H200a8,8,0,0,1,0-16h16V112a8,8,0,0,1,16,0v16h16A8,8,0,0,1,256,136ZM117.56,128.26A48,48,0,1,0,79,128.26a64.08,64.08,0,0,0-48,62.11,8,8,0,0,0,16,.26A48,48,0,0,1,143,190.37a8,8,0,1,0,16-.26A64.09,64.09,0,0,0,117.56,128.26ZM79,112a32,32,0,1,1,32,32A32,32,0,0,1,79,112Z"/></svg> Add Teacher
+                                </button>
+                            </form>
+                        </div>
+                        <div class="glass-panel teacher-list-panel">
+                            <div class="students-header">
+                                <h3>Registered Teachers</h3>
+                                <p class="students-count" id="teachers-count">0 teachers registered</p>
+                            </div>
+                            <div class="table-responsive">
+                                <table class="data-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Name</th>
+                                            <th>ID</th>
+                                            <th>Department</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="teachers-body">
+                                        <tr class="empty-row">
+                                            <td colspan="4">No teachers registered yet</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- ── Attendance Logs View ── -->
+                <section id="logs-view" class="view">
+                    <div class="logs-container glass-panel">
+                        <div class="logs-header">
+                            <h3>Complete Attendance Logs</h3>
+                            <div class="logs-filters">
+                                <input type="date" id="filter-date" class="date-picker">
+                                <button id="clear-logs-btn" class="btn danger-btn">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 256 256" fill="currentColor"><path d="M216,48H176V40a24,24,0,0,0-24-24H104A24,24,0,0,0,80,40v8H40a8,8,0,0,0,0,16h8V208a16,16,0,0,0,16,16H192a16,16,0,0,0,16-16V64h8a8,8,0,0,0,0-16ZM96,40a8,8,0,0,1,8-8h48a8,8,0,0,1,8,8v8H96Zm96,168H64V64H192ZM112,104v64a8,8,0,0,1-16,0V104a8,8,0,0,1,16,0Zm48,0v64a8,8,0,0,1-16,0V104a8,8,0,0,1,16,0Z"/></svg> Clear Data
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="table-responsive mt-4">
+                            <table class="data-table">
+                                <thead>
+                                    <tr>
+                                        <th>Date</th>
+                                        <th>Time</th>
+                                        <th>ID</th>
+                                        <th>Section</th>
+                                        <th>Year</th>
+                                        <th>Name</th>
+                                        <th>Department</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="full-logs-body">
+                                    <tr class="empty-row">
+                                        <td colspan="6">No records found</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </section>
+
+            </div><!-- /views-container -->
+        </main>
+    </div><!-- /app-container -->
+
+    <!-- ── Mobile Bottom Navigation ── -->
+    <nav class="mobile-bottom-nav" aria-label="Mobile navigation">
+        <a class="mobile-nav-item active" data-target="dashboard-view" data-title="Dashboard" href="#">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 256 256" fill="currentColor">
+                <path
+                    d="M216,40H40A16,16,0,0,0,24,56V200a16,16,0,0,0,16,16H216a16,16,0,0,0,16-16V56A16,16,0,0,0,216,40ZM104,176H40V120h64Zm0-72H40V56h64Zm112,72H120V120h96Zm0-72H120V56h96Z" />
+            </svg>
+            <span>Dashboard</span>
+        </a>
+        <a class="mobile-nav-item" data-target="scanner-view" data-title="Scan Barcode" href="#">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 256 256" fill="currentColor">
+                <path d="M208,56H180.28L166.65,35.56A8,8,0,0,0,160,32H96a8,8,0,0,0-6.65,3.56L75.72,56H48A24,24,0,0,0,24,80V192a24,24,0,0,0,24,24H208a24,24,0,0,0,24-24V80A24,24,0,0,0,208,56Zm8,136a8,8,0,0,1-8,8H48a8,8,0,0,1-8-8V80a8,8,0,0,1,8-8H80a8,8,0,0,0,6.65-3.56L100.28,48h55.44l13.63,20.44A8,8,0,0,0,176,72h32a8,8,0,0,1,8,8ZM128,88a44,44,0,1,0,44,44A44.05,44.05,0,0,0,128,88Zm0,72a28,28,0,1,1,28-28A28,28,0,0,1,128,160Z"/>
+            </svg>
+            <span>Scan</span>
+        </a>
+        <a class="mobile-nav-item" data-target="register-view" data-title="Register Student" href="#">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 256 256" fill="currentColor">
+                <path
+                    d="M256,136a8,8,0,0,1-8,8H232v16a8,8,0,0,1-16,0V144H200a8,8,0,0,1,0-16h16V112a8,8,0,0,1,16,0v16h16A8,8,0,0,1,256,136ZM117.56,128.26A48,48,0,1,0,79,128.26a64.08,64.08,0,0,0-48,62.11,8,8,0,0,0,16,.26A48,48,0,0,1,143,190.37a8,8,0,1,0,16-.26A64.09,64.09,0,0,0,117.56,128.26ZM79,112a32,32,0,1,1,32,32A32,32,0,0,1,79,112Z" />
+            </svg>
+            <span>Register</span>
+        </a>
+        <a class="mobile-nav-item" data-target="students-view" data-title="Students" href="#">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 256 256" fill="currentColor">
+                <path
+                    d="M244.07,93.42,136.07,29.42a16,16,0,0,0-16.14,0l-104,60a16,16,0,0,0,0,27.16L56,143.56V192a16,16,0,0,0,8.18,14l64,36.44a16,16,0,0,0,15.64,0l64-36.44A16,16,0,0,0,216,192V143.56l24-13.94a16,16,0,0,0,.07-27.2ZM200,192l-64,36.44L72,192V152.53l47.93,27.79a16.09,16.09,0,0,0,16.14,0L200,152.53Zm-72-24.11L40,107.14,128,56l88,51.14Z" />
+            </svg>
+            <span>Students</span>
+        </a>
+        <a class="mobile-nav-item" data-target="logs-view" data-title="Attendance Logs" href="#">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 256 256" fill="currentColor">
+                <path
+                    d="M224,128a8,8,0,0,1-8,8H40a8,8,0,0,1,0-16H216A8,8,0,0,1,224,128ZM40,72H216a8,8,0,0,0,0-16H40a8,8,0,0,0,0,16ZM216,184H40a8,8,0,0,0,0,16H216a8,8,0,0,0,0-16Z" />
+            </svg>
+            <span>Logs</span>
+        </a>
+    </nav>
+
+    <div id="admin-profile-modal" class="admin-profile-modal hidden" role="dialog" aria-modal="true"
+        aria-labelledby="admin-profile-title">
+        <div class="admin-profile-backdrop" data-close-admin-profile></div>
+        <section class="admin-profile-panel">
+            <button class="admin-profile-close" type="button" data-close-admin-profile aria-label="Close">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 256 256" fill="currentColor"><path d="M205.66,194.34a8,8,0,0,1-11.32,11.32L128,139.31,61.66,205.66a8,8,0,0,1-11.32-11.32L116.69,128,50.34,61.66A8,8,0,0,1,61.66,50.34L128,116.69l66.34-66.35a8,8,0,0,1,11.32,11.32L139.31,128Z"/></svg>
+            </button>
+            <div class="admin-profile-cover"></div>
+            <div class="admin-profile-summary">
+                <div class="admin-profile-preview admin-profile-summary-avatar" id="admin-profile-preview">A</div>
+                <div>
+                    <p class="modal-kicker">SchoolSync profile</p>
+                    <h2 id="admin-profile-title">Your profile</h2>
+                    <strong id="admin-profile-summary-name">Administrator</strong>
+                    <span id="admin-profile-summary-role">Admin</span>
+                    <p id="admin-profile-summary-bio">Add a short bio to tell your school community about you.</p>
+                    <a id="admin-profile-summary-contact" href="mailto:">Contact by email</a>
+                </div>
+            </div>
+            <div class="admin-profile-actions">
+                <button class="btn outline-btn" id="admin-welcome" type="button">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 256 256" fill="currentColor"><path d="M219.31,108.68l-80-80a16,16,0,0,0-22.62,0l-80,80A15.87,15.87,0,0,0,32,120v96a8,8,0,0,0,8,8H96a8,8,0,0,0,8-8V160h48v56a8,8,0,0,0,8,8h56a8,8,0,0,0,8-8V120A15.87,15.87,0,0,0,219.31,108.68Z"/></svg> Welcome page
+                </button>
+                <button class="btn outline-btn admin-open-privacy" id="admin-open-privacy" type="button">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 256 256" fill="currentColor"><path d="M208,80H176V56a48,48,0,0,0-96,0V80H48A16,16,0,0,0,32,96V208a16,16,0,0,0,16,16H208a16,16,0,0,0,16-16V96A16,16,0,0,0,208,80ZM96,56a32,32,0,0,1,64,0V80H96ZM208,208H48V96H208V208Zm-80-48a24,24,0,1,0-24-24A24,24,0,0,0,128,160Z"/></svg> Privacy
+                </button>
+                <button class="btn primary-btn" id="admin-edit-profile" type="button">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 256 256" fill="currentColor"><path d="M227.31,73.37,182.63,28.68a16,16,0,0,0-22.63,0L36.69,152A15.86,15.86,0,0,0,32,163.31V208a16,16,0,0,0,16,16H92.69A15.86,15.86,0,0,0,104,219.31L227.31,96a16,16,0,0,0,0-22.63ZM92.69,208H48V163.31l88-88L180.69,120ZM192,108.68,147.31,64l24-24L216,84.68Z"/></svg> Edit profile
+                </button>
+            </div>
+            <form id="admin-profile-form" class="hidden">
+                <div class="admin-profile-image-row">
+                    <label class="admin-image-upload">Add image<input type="file" id="admin-profile-image"
+                            accept="image/png,image/jpeg,image/webp"></label>
+                </div>
+                <label>Name<input type="text" id="admin-profile-edit-name" required maxlength="120"></label>
+                <label>Bio<textarea id="admin-profile-edit-bio" maxlength="500" rows="4"
+                        placeholder="Tell your school community a little about you."></textarea></label>
+                <div class="admin-profile-form-actions"><button class="btn outline-btn" id="admin-cancel-profile"
+                        type="button">Cancel</button><button class="btn primary-btn" type="submit">Save profile</button>
+                </div>
+            </form>
+            <p id="admin-profile-message" class="admin-profile-message"></p>
+        </section>
+    </div>
+
+    <div id="admin-privacy-modal" class="admin-profile-modal hidden" role="dialog" aria-modal="true"
+        aria-labelledby="admin-privacy-title">
+        <div class="admin-profile-backdrop" data-close-admin-privacy></div>
+        <section class="admin-profile-panel">
+            <button class="admin-profile-close" type="button" data-close-admin-privacy aria-label="Close">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 256 256" fill="currentColor"><path d="M205.66,194.34a8,8,0,0,1-11.32,11.32L128,139.31,61.66,205.66a8,8,0,0,1-11.32-11.32L116.69,128,50.34,61.66A8,8,0,0,1,61.66,50.34L128,116.69l66.34-66.35a8,8,0,0,1,11.32,11.32L139.31,128Z"/></svg>
+            </button>
+            <p class="modal-kicker">Account privacy</p>
+            <h2 id="admin-privacy-title">Privacy settings</h2>
+            <form id="admin-privacy-form">
+                <label>Profile visibility<select id="admin-profile-visibility">
+                        <option value="public">Public profile</option>
+                        <option value="private">Private profile</option>
+                    </select></label>
+                <label class="admin-checkbox-label"><input type="checkbox" id="admin-show-email"> Show my email address
+                    on my profile</label>
+                <label>Email<input type="email" id="admin-privacy-email" required maxlength="255"></label>
+                <p class="admin-profile-note">Leave password fields empty to keep the current password.</p>
+                <label>Current password<input type="password" id="admin-current-password"></label>
+                <label>New password<input type="password" id="admin-new-password" minlength="6"></label>
+                <label>Confirm new password<input type="password" id="admin-confirm-password" minlength="6"></label>
+                <button class="btn primary-btn w-full" type="submit">Save privacy</button>
+            </form>
+            <p id="admin-privacy-message" class="admin-profile-message"></p>
+        </section>
+    </div>
+
+    <div id="student-details-modal" class="admin-profile-modal hidden" role="dialog" aria-modal="true"
+        aria-labelledby="student-details-title">
+        <div class="admin-profile-backdrop" data-close-student-details></div>
+        <section class="admin-profile-panel">
+            <button class="admin-profile-close" type="button" data-close-student-details aria-label="Close">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 256 256" fill="currentColor"><path d="M205.66,194.34a8,8,0,0,1-11.32,11.32L128,139.31,61.66,205.66a8,8,0,0,1-11.32-11.32L116.69,128,50.34,61.66A8,8,0,0,1,61.66,50.34L128,116.69l66.34-66.35a8,8,0,0,1,11.32,11.32L139.31,128Z"/></svg>
+            </button>
+            <div class="admin-profile-cover"></div>
+            <div class="student-details-head">
+                <div class="student-details-avatar" id="student-details-avatar">S</div>
+                <div>
+                    <p class="modal-kicker">Student details</p>
+                    <h2 id="student-details-title">Student</h2>
+                    <strong id="student-details-name">Student</strong>
+                    <span id="student-details-id">-</span>
+                </div>
+            </div>
+            <div class="student-details-rows" id="student-details-rows"></div>
+            <div class="admin-profile-actions">
+                <button class="btn outline-btn" type="button" id="student-details-download">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 256 256" fill="currentColor"><path d="M224,144v64a8,8,0,0,1-8,8H40a8,8,0,0,1-8-8V144a8,8,0,0,1,16,0v56H208V144a8,8,0,0,1,16,0Zm-101.66,5.66a8,8,0,0,0,11.32,0l40-40a8,8,0,0,0-11.32-11.32L136,124.69V32a8,8,0,0,0-16,0v92.69L93.66,98.34A8,8,0,0,0,82.34,109.66Z"/></svg> Download QR
+                </button>
+                <button class="btn outline-btn" type="button" id="student-details-copy">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 256 256" fill="currentColor"><path d="M216,32H88a8,8,0,0,0-8,8V72H40a8,8,0,0,0-8,8V216a8,8,0,0,0,8,8H168a8,8,0,0,0,8-8V176h40a8,8,0,0,0,8-8V40A8,8,0,0,0,216,32ZM160,208H48V88H160Zm40-48H176V80a8,8,0,0,0-8-8H96V48H200Z"/></svg> Copy link
+                </button>
+                <button class="btn primary-btn" type="button" data-close-student-details>Close</button>
+            </div>
+            <div id="student-details-qr" class="student-details-qr"></div>
+            <p id="student-details-message" class="admin-profile-message"></p>
+        </section>
+    </div>
+
+    <!-- Libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <script src="https://unpkg.com/html5-qrcode" type="text/javascript"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <script src="/client/database.js"></script>
+    <!-- App Logic -->
+    <script src="/client/admin/app.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SchoolSync | Attendance, without the guesswork</title>
+    <meta name="description"
+        content="SchoolSync makes barcode attendance clear for administrators, teachers, and students.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/regular/style.css">
+    <link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/bold/style.css">
+    <link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/fill/style.css">
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <div class="site-shell">
+        <header class="site-header">
+            <a class="brand" href="#home" aria-label="SchoolSync home">
+                <span class="brand-mark"><i class="ph-bold ph-qr-code"></i></span>
+                <span>School<span>Sync</span></span>
+            </a>
+
+            <div class="header-actions">
+                <button class="icon-btn" id="theme-toggle" type="button" aria-label="Switch theme" title="Switch theme"><i class="ph ph-moon"></i></button>
+                <button class="header-profile-btn hidden" id="profile-trigger" type="button" aria-label="Open profile">
+                    <span class="header-profile-avatar" id="header-profile-initials">SS</span>
+                    <span class="header-profile-name" id="header-profile-name">Profile</span>
+                </button>
+                <div id="guest-actions">
+                    <button class="btn btn-quiet" data-open-auth="signin">Sign in</button>
+                    <button class="btn btn-dark" data-open-auth="signup">Create account <i class="ph-bold ph-arrow-up-right"></i></button>
+                </div>
+                <button class="btn btn-quiet hidden" id="header-logout" type="button"><i class="ph-bold ph-sign-out"></i> <span class="logout-label">Sign out</span></button>
+                <!-- Hamburger — mobile only -->
+                <button class="icon-btn hamburger-btn" id="hamburger-btn" type="button" aria-label="Open menu" aria-expanded="false">
+                    <i class="ph ph-list"></i>
+                </button>
+            </div>
+
+            <!-- Mobile drawer -->
+            <div class="mobile-nav-drawer hidden" id="mobile-nav-drawer">
+                <button class="mobile-nav-link mobile-signout hidden" id="mobile-logout" type="button"><i class="ph-bold ph-sign-out"></i> Sign out</button>
+                <div id="mobile-guest-actions" class="mobile-guest-btns">
+                    <button class="btn btn-quiet full-width" data-open-auth="signin">Sign in</button>
+                    <button class="btn btn-coral full-width" data-open-auth="signup">Create account</button>
+                </div>
+            </div>
+        </header>
+
+        <main id="public-view">
+            <section id="home" class="hero section-wrap">
+                <div class="hero-copy">
+                    <p class="eyebrow"><span></span> Attendance, made visible</p>
+                    <h1>Every arrival tells a clearer story.</h1>
+                    <p class="hero-lede">SchoolSync turns barcode scans into a calm, shared view of attendance for the
+                        people who keep a school moving.</p>
+                    <div class="hero-actions">
+                        <button class="btn btn-coral" data-open-auth="signup">Start for free <i
+                                class="ph-bold ph-arrow-right"></i></button>
+                        <a class="text-link" href="#about">See how it works <i class="ph-bold ph-arrow-down"></i></a>
+                    </div>
+                    <div class="hero-proof"><i class="ph-fill ph-check-circle"></i><span>Designed for admins, teachers,
+                            and students</span></div>
+                </div>
+                <div class="hero-visual" aria-label="Attendance dashboard preview">
+                    <div class="orbit orbit-one"></div>
+                    <div class="orbit orbit-two"></div>
+                    <div class="preview-card preview-main">
+                        <div class="preview-top"><span class="preview-dot"></span><span>Today, 08:42 AM</span><i
+                                class="ph ph-dots-three"></i></div>
+                        <div class="preview-number">94.8<span>%</span></div>
+                        <p>Attendance rate</p>
+                        <div class="mini-chart"><span style="height: 42%"></span><span style="height: 58%"></span><span
+                                style="height: 48%"></span><span style="height: 76%"></span><span
+                                style="height: 66%"></span><span style="height: 88%"></span><span
+                                style="height: 95%"></span></div>
+                        <div class="preview-footer"><span><b class="green-dot"></b> 1,284 present</span><span
+                                class="up">+8.2%</span></div>
+                    </div>
+                    <div class="preview-card preview-scan"><i class="ph-fill ph-check-circle"></i>
+                        <div><strong>Scan confirmed</strong><small>Maria Santos · IT-2041</small></div>
+                    </div>
+                    <div class="preview-card preview-pill"><i class="ph-fill ph-lightning"></i> Live updates</div>
+                </div>
+            </section>
+
+            <section id="about" class="info-band section-wrap">
+                <div class="section-heading">
+                    <p class="eyebrow">About SchoolSync</p>
+                    <h2>Built for schools that care about clarity.</h2>
+                    <p style="color:var(--muted);max-width:560px;margin-top:12px;font-size:1.05rem;line-height:1.6;">SchoolSync is a barcode-based attendance monitoring system designed to make daily check-ins fast, accurate, and visible to everyone who needs it.</p>
+                </div>
+
+                <!-- Feature cards -->
+                <div class="feature-grid">
+                    <article class="feature"><span class="feature-icon coral"><i class="ph ph-qr-code"></i></span>
+                        <h3>Scan in seconds</h3>
+                        <p>Students scan their unique QR code at the door. No paper, no delays — every check-in is recorded instantly.</p>
+                    </article>
+                    <article class="feature"><span class="feature-icon mint"><i class="ph ph-chart-line-up"></i></span>
+                        <h3>See the pattern</h3>
+                        <p>Teachers see their classes. Students see their own record. Admins see the whole picture in one dashboard.</p>
+                    </article>
+                    <article class="feature"><span class="feature-icon yellow"><i class="ph ph-shield-check"></i></span>
+                        <h3>Keep it accountable</h3>
+                        <p>Role-based access keeps private attendance details in the right hands — nothing more, nothing less.</p>
+                    </article>
+                </div>
+
+                <!-- How it works -->
+                <div style="margin-top:64px;">
+                    <div class="section-heading">
+                        <p class="eyebrow">How it works</p>
+                        <h2>Three steps. Zero confusion.</h2>
+                    </div>
+                    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:24px;margin-top:32px;">
+                        <div style="display:flex;flex-direction:column;gap:12px;padding:28px;background:var(--white);border:1px solid var(--line);border-radius:16px;">
+                            <span style="width:40px;height:40px;background:var(--coral);color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:1.1rem;">1</span>
+                            <h4 style="margin:0;font-size:1.05rem;">Register</h4>
+                            <p style="margin:0;color:var(--muted);font-size:0.92rem;line-height:1.5;">Admin registers each student with their ID and department. A unique QR code is generated automatically.</p>
+                        </div>
+                        <div style="display:flex;flex-direction:column;gap:12px;padding:28px;background:var(--white);border:1px solid var(--line);border-radius:16px;">
+                            <span style="width:40px;height:40px;background:var(--coral);color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:1.1rem;">2</span>
+                            <h4 style="margin:0;font-size:1.05rem;">Scan</h4>
+                            <p style="margin:0;color:var(--muted);font-size:0.92rem;line-height:1.5;">Students scan their QR code using any camera. The system records the time and marks them Present or Late automatically.</p>
+                        </div>
+                        <div style="display:flex;flex-direction:column;gap:12px;padding:28px;background:var(--white);border:1px solid var(--line);border-radius:16px;">
+                            <span style="width:40px;height:40px;background:var(--coral);color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:1.1rem;">3</span>
+                            <h4 style="margin:0;font-size:1.05rem;">Monitor</h4>
+                            <p style="margin:0;color:var(--muted);font-size:0.92rem;line-height:1.5;">Teachers and admins review attendance in real time. Records are stored securely and can be filtered by date.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Roles -->
+                <div style="margin-top:64px;">
+                    <div class="section-heading">
+                        <p class="eyebrow">Who uses SchoolSync</p>
+                        <h2>A role for everyone in the school.</h2>
+                    </div>
+                    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:20px;margin-top:32px;">
+                        <div style="padding:24px;background:var(--white);border:1px solid var(--line);border-radius:16px;display:flex;flex-direction:column;gap:8px;">
+                            <span style="font-size:1.8rem;"><i class="ph-fill ph-shield-check" style="color:var(--coral)"></i></span>
+                            <h4 style="margin:0;">Admin</h4>
+                            <p style="margin:0;color:var(--muted);font-size:0.9rem;line-height:1.5;">Manages students, teachers, and the full attendance log. Full access to all records and system settings.</p>
+                        </div>
+                        <div style="padding:24px;background:var(--white);border:1px solid var(--line);border-radius:16px;display:flex;flex-direction:column;gap:8px;">
+                            <span style="font-size:1.8rem;"><i class="ph-fill ph-chalkboard-teacher" style="color:#4f9a72"></i></span>
+                            <h4 style="margin:0;">Teacher</h4>
+                            <p style="margin:0;color:var(--muted);font-size:0.9rem;line-height:1.5;">Views their class attendance, manages their schedule, and monitors student presence day by day.</p>
+                        </div>
+                        <div style="padding:24px;background:var(--white);border:1px solid var(--line);border-radius:16px;display:flex;flex-direction:column;gap:8px;">
+                            <span style="font-size:1.8rem;"><i class="ph-fill ph-student" style="color:#f2b84b"></i></span>
+                            <h4 style="margin:0;">Student</h4>
+                            <p style="margin:0;color:var(--muted);font-size:0.9rem;line-height:1.5;">Scans their QR code to check in and views their personal attendance history and class schedule.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- System info -->
+                <div style="margin-top:64px;padding:36px;background:var(--white);border:1px solid var(--line);border-radius:20px;display:flex;flex-wrap:wrap;gap:40px;align-items:center;">
+                    <div style="flex:1;min-width:220px;">
+                        <p class="eyebrow">The system</p>
+                        <h3 style="margin:8px 0 12px;">Built on the web. Works everywhere.</h3>
+                        <p style="color:var(--muted);line-height:1.6;font-size:0.95rem;">SchoolSync runs entirely in the browser — no app install needed. It works on phones, tablets, and desktops. Powered by Node.js and MySQL, deployed on Railway.</p>
+                    </div>
+                    <div style="display:flex;flex-wrap:wrap;gap:12px;">
+                        <span style="padding:8px 16px;border:1px solid var(--line);border-radius:999px;font-size:0.85rem;color:var(--muted);">Node.js</span>
+                        <span style="padding:8px 16px;border:1px solid var(--line);border-radius:999px;font-size:0.85rem;color:var(--muted);">MySQL</span>
+                        <span style="padding:8px 16px;border:1px solid var(--line);border-radius:999px;font-size:0.85rem;color:var(--muted);">QR Code</span>
+                        <span style="padding:8px 16px;border:1px solid var(--line);border-radius:999px;font-size:0.85rem;color:var(--muted);">Railway</span>
+                        <span style="padding:8px 16px;border:1px solid var(--line);border-radius:999px;font-size:0.85rem;color:var(--muted);">Role-based Access</span>
+                        <span style="padding:8px 16px;border:1px solid var(--line);border-radius:999px;font-size:0.85rem;color:var(--muted);">Real-time Logs</span>
+                    </div>
+                </div>
+            </section>
+
+            <section id="contact" class="contact section-wrap">
+                <div>
+                    <p class="eyebrow">Need a hand?</p>
+                    <h2>Let’s make attendance less mysterious.</h2>
+                </div><a class="contact-link" href="mailto:hello@schoolsync.local">hello@schoolsync.local <i
+                        class="ph-bold ph-arrow-up-right"></i></a>
+            </section>
+            <section id="faq" class="more section-wrap">
+                <div>
+                    <p class="eyebrow">Quick answers</p>
+                    <h2>Frequently asked questions.</h2>
+                </div>
+                <div style="display:flex;flex-direction:column;gap:0;">
+                    <div style="border-top:1px solid var(--line);padding:20px 0;">
+                        <strong style="display:block;margin-bottom:6px;">How do I get my QR code?</strong>
+                        <p style="color:var(--muted);margin:0;line-height:1.65;font-size:0.95rem;">Sign in as a student — your personal QR ID card is on your dashboard, ready to scan at any time.</p>
+                    </div>
+                    <div style="border-top:1px solid var(--line);padding:20px 0;">
+                        <strong style="display:block;margin-bottom:6px;">Can a teacher edit attendance status?</strong>
+                        <p style="color:var(--muted);margin:0;line-height:1.65;font-size:0.95rem;">Yes. Teachers can change any student's status (Present, Late, Absent) directly from the Recent Attendance panel.</p>
+                    </div>
+                    <div style="border-top:1px solid var(--line);padding:20px 0;">
+                        <strong style="display:block;margin-bottom:6px;">Is SchoolSync free to use?</strong>
+                        <p style="color:var(--muted);margin:0;line-height:1.65;font-size:0.95rem;">Yes — completely free for schools. No hidden fees, no plan tiers.</p>
+                    </div>
+                    <div style="border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:20px 0;">
+                        <strong style="display:block;margin-bottom:6px;">Do I need to install an app?</strong>
+                        <p style="color:var(--muted);margin:0;line-height:1.65;font-size:0.95rem;">No. SchoolSync runs entirely in your browser on any device — phone, tablet, or desktop.</p>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <main id="dashboard-view" class="dashboard-view hidden">
+            <section class="dashboard-heading section-wrap">
+                <div>
+                    <p class="eyebrow">Your SchoolSync space</p>
+                    <h1 id="dashboard-greeting">Welcome back.</h1>
+                    <p id="dashboard-subtitle"></p>
+                </div>
+            </section>
+            <section class="dashboard-grid section-wrap">
+                <article class="dashboard-card attendance-card">
+                    <div class="card-label"><span>Attendance today</span><i class="ph ph-chart-line-up"></i></div>
+                    <strong id="dashboard-attendance">0%</strong>
+                    <p id="dashboard-attendance-note">No scans recorded yet.</p>
+                    <div class="progress"><span id="dashboard-progress"></span></div>
+                </article>
+                <article class="dashboard-card">
+                    <div class="card-label"><span>Account role</span><i class="ph ph-identification-card"></i></div>
+                    <strong id="dashboard-role">Student</strong>
+                    <p>Access is tailored to your role.</p>
+                </article>
+
+                <article class="dashboard-card schedule-card" id="schedule-card">
+                    <div class="card-label"><span>Schedule</span><i class="ph ph-calendar"></i></div>
+                    <div id="schedule-card-body">
+                        <div class="schedule-empty-state">
+                            <i class="ph ph-calendar-blank"></i>
+                            <p>No schedule entries yet.</p>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="dashboard-card schedule-card student-schedule-wide hidden" id="student-schedule-card">
+                    <div class="card-label"><span>Class Schedule</span><i class="ph ph-calendar"></i></div>
+                    <div id="student-schedule-card-body">
+                        <div class="schedule-empty-state">
+                            <i class="ph ph-calendar-blank"></i>
+                            <p>No schedule posted yet.</p>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="dashboard-card wide-card">
+                    <div class="card-label">
+                        <span>Recent attendance</span>
+                        <div style="display: flex; gap: 8px; align-items: center;">
+                            <button id="refresh-dashboard-btn" aria-label="Refresh attendance" style="background: none; border: none; cursor: pointer; color: inherit; padding: 0; font-size: inherit; outline: none; transition: transform 0.2s;" title="Refresh">
+                                <i class="ph ph-arrows-clockwise"></i>
+                            </button>
+                            <i class="ph ph-clock-counter-clockwise"></i>
+                        </div>
+                    </div>
+                    <div id="dashboard-logs" class="log-list"></div>
+                </article>
+            </section>
+
+            <!-- ── Teacher-only: My Class ── -->
+            <section id="teacher-class-section" class="section-wrap hidden">
+                <div class="class-manager">
+                    <div class="class-manager-header">
+                        <div>
+                            <p class="eyebrow">Teacher tools</p>
+                            <h2>My Class</h2>
+                            <div style="display:flex; align-items:center; gap:8px; flex-wrap:wrap;">
+                                <p class="class-manager-date" id="class-today-date"></p>
+                                <input type="date" id="class-date-picker">
+                            </div>
+                        </div>
+                        <div class="class-header-actions">
+                            <div class="cutoff-row">
+                                <label for="class-subject" class="cutoff-label">
+                                    <i class="ph ph-books"></i> Subject
+                                </label>
+                                <select id="class-subject">
+                                    <option value="">Select Subject</option>
+                                </select>
+                            </div>
+                            <div class="cutoff-row">
+                                <label for="cutoff-time" class="cutoff-label">
+                                    <i class="ph ph-clock"></i> Late after
+                                </label>
+                                <input type="time" id="cutoff-time" value="08:00" class="cutoff-input">
+                            </div>
+                            <div class="schedule-sync-pill" id="schedule-sync-pill" role="status" aria-live="polite">
+                                <i class="ph-fill ph-check-circle" id="schedule-sync-icon"></i>
+                                <span id="schedule-sync-text">Schedule up to date</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="class-stats-row" id="class-stats-row">
+                        <span class="class-stat present-stat"><i class="ph-fill ph-check-circle"></i> <strong
+                                id="stat-class-present">0</strong> Present</span>
+                        <span class="class-stat late-stat"><i class="ph-fill ph-clock"></i> <strong
+                                id="stat-class-late">0</strong> Late</span>
+                        <span class="class-stat absent-stat"><i class="ph-fill ph-x-circle"></i> <strong
+                                id="stat-class-absent">0</strong> Absent</span>
+                        <span class="class-stat total-stat"><i class="ph-fill ph-users"></i> <strong
+                                id="stat-class-total">0</strong> Total</span>
+                    </div>
+                    <div id="class-student-grid" class="class-student-grid">
+                        <div class="class-empty-state" id="class-empty-state">
+                            <i class="ph ph-users"></i>
+                            <p>No students registered yet.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ── Teacher-only: Schedule Management ── -->
+            <section id="teacher-schedule-section" class="section-wrap hidden">
+                <div class="schedule-manager">
+                    <div class="schedule-manager-header">
+                        <div>
+                            <p class="eyebrow">Teacher tools</p>
+                            <h2>Manage your schedule</h2>
+                        </div>
+                    </div>
+                    <div class="schedule-manager-body">
+                        <!-- Add schedule form -->
+                        <div class="schedule-form-panel dashboard-card">
+                            <div class="card-label"><span>Add entry</span><i class="ph ph-plus-circle"></i></div>
+                            <form id="schedule-form">
+                                <div class="schedule-form-grid">
+                                    <div class="form-group">
+                                        <label for="sched-subject">Subject / Class</label>
+                                        <input type="text" id="sched-subject" required
+                                            placeholder="e.g. Computer Programming">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="sched-day">Day of Week</label>
+                                        <select id="sched-day" required>
+                                            <option value="" disabled selected>Select day</option>
+                                            <option value="Monday">Monday</option>
+                                            <option value="Tuesday">Tuesday</option>
+                                            <option value="Wednesday">Wednesday</option>
+                                            <option value="Thursday">Thursday</option>
+                                            <option value="Friday">Friday</option>
+                                            <option value="Saturday">Saturday</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="sched-start">Start Time</label>
+                                        <input type="time" id="sched-start" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="sched-end">End Time</label>
+                                        <input type="time" id="sched-end" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="sched-year">Year Level</label>
+                                        <select id="sched-year">
+                                            <option value="" selected>Any year</option>
+                                            <option value="1st Year">1st Year</option>
+                                            <option value="2nd Year">2nd Year</option>
+                                            <option value="3rd Year">3rd Year</option>
+                                            <option value="4th Year">4th Year</option>
+                                            <option value="5th Year">5th Year</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="sched-section">Section</label>
+                                        <select id="sched-section">
+                                            <option value="" selected>Any section</option>
+                                            <option value="Section 1">Section 1</option>
+                                            <option value="Section 2">Section 2</option>
+                                            <option value="Section 3">Section 3</option>
+                                            <option value="Section 4">Section 4</option>
+                                            <option value="Section 5">Section 5</option>
+                                            <option value="Section 6">Section 6</option>
+                                            <option value="Section 7">Section 7</option>
+                                            <option value="Section 8">Section 8</option>
+                                            <option value="Section 9">Section 9</option>
+                                            <option value="Section 10">Section 10</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="sched-room">Room <span
+                                                class="optional-label">(optional)</span></label>
+                                        <input type="text" id="sched-room" placeholder="e.g. Room 301">
+                                    </div>
+                                </div>
+                                <p id="schedule-form-message" class="auth-message" role="status"></p>
+                                <button type="submit" class="btn btn-coral">
+                                    <i class="ph ph-plus"></i> Add to schedule
+                                </button>
+                            </form>
+                        </div>
+                        <!-- Existing schedule list -->
+                        <div class="schedule-list-panel dashboard-card">
+                            <div class="card-label"><span>Your entries</span><i class="ph ph-list-bullets"></i></div>
+                            <div id="schedule-list">
+                                <div class="schedule-empty-state">
+                                    <i class="ph ph-calendar-blank"></i>
+                                    <p>No schedule entries yet. Add one above.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer class="site-footer section-wrap"><span>© 2026 SchoolSync</span><span>Clear records. Calmer
+                days.</span><a class="admin-footer-link" id="admin-footer-link" href="#admin-login"><i
+                    class="ph ph-shield-check"></i> Admin access</a></footer>
+    </div>
+
+    <div id="profile-modal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="profile-modal-title">
+        <div class="modal-backdrop" data-close-profile></div>
+        <section class="auth-panel profile-editor">
+            <button class="modal-close" data-close-profile aria-label="Close"><i class="ph ph-x"></i></button>
+            <div class="profile-cover"></div>
+            <div class="profile-summary">
+                <div class="profile-image-preview profile-summary-avatar" id="profile-summary-avatar">SS</div>
+                <div class="profile-summary-details">
+                    <p class="eyebrow">SchoolSync profile</p>
+                    <h2 id="profile-modal-title">Your profile</h2>
+                    <strong id="profile-summary-name">SchoolSync user</strong>
+                    <span id="profile-summary-role">Student</span>
+                    <span id="profile-summary-student-id" class="profile-student-id"></span>
+                    <p id="profile-summary-bio">Add a short bio to tell your school community about you.</p>
+                    <a id="profile-summary-contact" href="mailto:">Contact by email</a>
+                </div>
+            </div>
+            <div class="profile-editor-divider">
+                <div class="profile-action-buttons"><button class="btn btn-dark hidden" id="go-admin" type="button"><i
+                            class="ph-bold ph-gauge"></i> Admin dashboard</button><button
+                        class="btn btn-quiet profile-privacy-button" id="open-privacy" type="button"><i
+                            class="ph-bold ph-lock-simple"></i> Privacy</button><button
+                        class="btn btn-coral profile-edit-button" id="edit-profile" type="button"><i
+                            class="ph-bold ph-pencil-simple"></i> Edit profile</button></div>
+            </div>
+            <form id="profile-form" class="auth-form hidden">
+                <div class="profile-image-editor">
+                    <div class="profile-image-preview" id="profile-image-preview">SS</div>
+                    <label class="image-upload">Add image<input type="file" id="profile-image"
+                            accept="image/png,image/jpeg,image/webp"></label>
+                </div>
+                <label>Name<input type="text" id="profile-edit-name" required maxlength="120"></label>
+                <label>Bio<textarea id="profile-edit-bio" maxlength="500" rows="4"
+                        placeholder="Tell your school community a little about you."></textarea></label>
+                <div class="profile-form-actions"><button class="btn btn-quiet" id="cancel-profile-edit"
+                        type="button">Cancel</button><button class="btn btn-coral" type="submit">Save profile <i
+                            class="ph-bold ph-check"></i></button></div>
+            </form>
+            <p id="profile-message" class="auth-message" role="status"></p>
+        </section>
+    </div>
+
+    <div id="privacy-modal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="privacy-title">
+        <div class="modal-backdrop" data-close-privacy></div>
+        <section class="auth-panel privacy-editor">
+            <button class="modal-close" data-close-privacy aria-label="Close"><i class="ph ph-x"></i></button>
+            <div class="auth-intro">
+                <p class="eyebrow">Account privacy</p>
+                <h2 id="privacy-title">Your visibility.</h2>
+                <p>Choose what other people can see on your profile.</p>
+            </div>
+            <form id="privacy-form" class="auth-form">
+                <label>Profile visibility<select id="profile-visibility">
+                        <option value="public">Public profile</option>
+                        <option value="private">Private profile</option>
+                    </select></label>
+                <label class="checkbox-label"><input type="checkbox" id="show-email"> Show my email address on my
+                    profile</label>
+                <div class="profile-password-fields">
+                    <p class="profile-field-note">Update your email or password here. Leave password fields empty to
+                        keep your current password.</p>
+                    <label>Email<input type="email" id="privacy-email" required maxlength="255"
+                            autocomplete="email"></label>
+                    <label>Current password<input type="password" id="privacy-current-password"
+                            autocomplete="current-password"></label>
+                    <label>New password<input type="password" id="privacy-new-password" minlength="6"
+                            autocomplete="new-password"></label>
+                    <label>Confirm new password<input type="password" id="privacy-confirm-password" minlength="6"
+                            autocomplete="new-password"></label>
+                </div>
+                <button class="btn btn-coral full-width" type="submit">Save privacy <i
+                        class="ph-bold ph-check"></i></button>
+            </form>
+            <p id="privacy-message" class="auth-message" role="status"></p>
+        </section>
+    </div>
+
+    <div id="auth-modal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="auth-title">
+        <div class="modal-backdrop" data-close-auth></div>
+        <section class="auth-panel">
+            <button class="modal-close" data-close-auth aria-label="Close"><i class="ph ph-x"></i></button>
+            <div class="auth-intro">
+                <p class="eyebrow">SchoolSync access</p>
+                <h2 id="auth-title">Welcome back.</h2>
+                <p id="auth-description">Sign in to continue to your attendance space.</p>
+            </div>
+            <div class="auth-tabs" id="auth-tabs"><button class="auth-tab active" data-auth-tab="signin">Sign
+                    in</button><button class="auth-tab" data-auth-tab="signup">Create account</button></div>
+            <form id="signin-form" class="auth-form">
+                <label>Email<input type="email" id="signin-email" required placeholder="you@school.edu"
+                        autocomplete="email"></label>
+                <label>Password
+                    <div class="password-wrapper">
+                        <input type="password" id="signin-password" required placeholder="Your password"
+                            autocomplete="current-password">
+                        <button type="button" class="show-password-btn" aria-label="Show password" tabindex="-1"
+                            onclick="togglePassword('signin-password', this)">
+                            <i class="ph ph-eye"></i>
+                        </button>
+                    </div>
+                </label>
+                <button class="btn btn-dark full-width" id="signin-submit" type="submit">Sign in <i
+                        class="ph-bold ph-arrow-right"></i></button>
+            </form>
+            <form id="signup-form" class="auth-form hidden">
+                <label>Full name<input type="text" id="signup-name" required placeholder="Alex Morgan"
+                        autocomplete="name"></label>
+                <label>Email<input type="email" id="signup-email" required placeholder="you@school.edu"
+                        autocomplete="email"></label>
+                <label>Password
+                    <div class="password-wrapper">
+                        <input type="password" id="signup-password" required minlength="6"
+                            placeholder="At least 6 characters" autocomplete="new-password">
+                        <button type="button" class="show-password-btn" aria-label="Show password" tabindex="-1"
+                            onclick="togglePassword('signup-password', this)">
+                            <i class="ph ph-eye"></i>
+                        </button>
+                    </div>
+                </label>
+                <label>Role<select id="signup-role">
+                        <option value="student">Student</option>
+                        <option value="teacher">Teacher</option>
+                    </select></label>
+                <div id="student-signup-fields">
+                    <label>Student ID<input type="text" id="signup-student-id" required
+                            placeholder="2024-00123"></label>
+                    <label>Department<input type="text" id="signup-department" required placeholder="e.g. Information Technology" autocomplete="off"></label>
+                    <label>Section<select id="signup-section" required>
+                            <option value="" disabled selected>Select your section</option>
+                            <option value="Section 1">Section 1</option>
+                            <option value="Section 2">Section 2</option>
+                            <option value="Section 3">Section 3</option>
+                            <option value="Section 4">Section 4</option>
+                            <option value="Section 5">Section 5</option>
+                            <option value="Section 6">Section 6</option>
+                            <option value="Section 7">Section 7</option>
+                            <option value="Section 8">Section 8</option>
+                            <option value="Section 9">Section 9</option>
+                            <option value="Section 10">Section 10</option>
+                        </select></label>
+                    <label>Year Level<select id="signup-year" required>
+                            <option value="" disabled selected>Select year level</option>
+                            <option value="1st Year">1st Year</option>
+                            <option value="2nd Year">2nd Year</option>
+                            <option value="3rd Year">3rd Year</option>
+                            <option value="4th Year">4th Year</option>
+                            <option value="5th Year">5th Year</option>
+                        </select></label>
+                </div>
+                <div id="teacher-signup-fields" class="hidden">
+                    <label>Teacher ID<input type="text" id="signup-teacher-id" placeholder="e.g. T-2024-001"></label>
+                    <label>Department<input type="text" id="signup-teacher-department" placeholder="e.g. Information Technology" autocomplete="off"></label>
+                </div>
+                <button class="btn btn-coral full-width" type="submit">Create account <i
+                        class="ph-bold ph-arrow-right"></i></button>
+            </form>
+            <p id="auth-message" class="auth-message" role="status"></p>
+        </section>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <script src="database.js?v=3"></script>
+    <script src="app.js?v=4"></script>
+</body>
+
+</html>
